@@ -277,190 +277,23 @@
                     <div class="form-wrap">
                         <div class="tab">
                             <ul class="tab-menu ">
-                                <li class="gtco-first active "><a href="#" data-tab="signup">Sign up</a></li>
-                                <li class="gtco-second"><a href="#" data-tab="login">Login</a></li>
+                                <li class="gtco-first {{session('active')?"":"active"}} "><a href="#" data-tab="signup">Sign up</a></li>
+                                <li class="gtco-second {{session('active')?"active":""}}" ><a href="#" data-tab="login">Login</a></li>
                             </ul>
+
                             <div class="tab-content">
-                                <div class="tab-content-inner active" data-content="signup">
-                                    <form action="#">
-                                        {{--<div class="row form-group">--}}
-                                        {{--<div class="col-md-12">--}}
-                                        {{--<label for="username">Username or Email</label>--}}
-                                        {{--<input type="text" class="form-control" id="username">--}}
-                                        {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="row form-group">--}}
-                                        {{--<div class="col-md-12">--}}
-                                        {{--<label for="password">Password</label>--}}
-                                        {{--<input type="password" class="form-control" id="password">--}}
-                                        {{--</div>--}}
-                                        {{--</div>--}}
-                                        {{--<div class="row form-group">--}}
-                                        {{--<div class="col-md-12">--}}
-                                        {{--<label for="password2">Repeat Password</label>--}}
-                                        {{--<input type="password" class="form-control" id="password2">--}}
-                                        {{--</div>--}}
-                                        {{--</div>--}}
+                                <div class="tab-content-inner {{session('active')?"":"active"}}" data-content="signup">
+                                    @include('auth.register')
 
-                                        <p class="hint"> Enter your personal details below: </p>
-
-                                        <div class="row form-group ">
-                                            <div class="col-md-12">
-                                                <input type="text" class="form-control" name="name"
-                                                       value="{!! old('name') !!}" placeholder="Full Name">
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group ">
-                                            <div class="col-md-12">
-                                                <input type="email" class="form-control" name="email"
-                                                       value="{!! old('email') !!}" placeholder="Email">
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group ">
-                                            <div class="col-md-12">
-                                                <input type="password" class="form-control" name="password"
-                                                       placeholder="Password">
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group ">
-                                            <div class="col-md-12">
-                                                <input type="password" name="password_confirmation" class="form-control"
-                                                       placeholder="Confirm password">
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group margin-top-20 margin-bottom-20">
-                                            <div class="col-md-12">
-                                                <label class="check">
-                                                    <input type="checkbox"> I agree to the <a href="#">terms</a>
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group">
-                                            <div class="col-md-12">
-                                                <input type="submit" class="btn btn-primary" value="Sign up">
-                                                <ul class="social-network  social-circle pull-right"
-                                                    style="display:inline-block">
-                                                    <li><a href="#" class="icoFacebook" title="Facebook"><i
-                                                                    class="fa fa-facebook"></i></a></li>
-                                                    <li><a href="#" class="icoGoogle" title="Google +"><i
-                                                                    class="fa fa-google-plus"></i></a></li>
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </form>
                                 </div>
 
-                                <div class="tab-content-inner" data-content="login">
-                                    {{--<form action="#">--}}
-                                    {{--<div class="row form-group">--}}
-                                    {{--<div class="col-md-12">--}}
-                                    {{--<label for="username">Username or Email</label>--}}
-                                    {{--<input type="text" class="form-control" id="username">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
-                                    {{--<div class="row form-group">--}}
-                                    {{--<div class="col-md-12">--}}
-                                    {{--<label for="password">Password</label>--}}
-                                    {{--<input type="password" class="form-control" id="password">--}}
-                                    {{--</div>--}}
-                                    {{--</div>--}}
+                                <div class="tab-content-inner {{session('active')?"active":""}}" data-content="login">
+                                    @include('auth.login')
 
-                                    {{--<div class="row form-group">--}}
-                                    {{--<div class="col-md-12 ">--}}
-                                    {{--<input type="submit" class="btn btn-primary btn-lg " value="Login">--}}
-                                    {{--<ul class="social-network  social-circle pull-right" style="display:inline-block">--}}
-                                    {{--<li><a href="#" class="icoFacebook" title="Facebook"><i class="fa fa-facebook"></i></a></li>--}}
-                                    {{--<li><a href="#" class="icoGoogle" title="Google +"><i class="fa fa-google-plus"></i></a></li>--}}
-                                    {{--</ul>--}}
-                                    {{--</div>--}}
-
-                                    {{--</div>--}}
-                                    {{--</form>--}}
-                                    <form class="form-horizontal" role="form" method="POST"
-                                          action="{{ url('/login') }}">
-                                        {{ csrf_field() }}
-                                        {{--<div class="row form-group">--}}
-                                        {{--<div class="col-md-12">--}}
-                                        {{--<label for="username">Username or Email</label>--}}
-                                        {{--<input type="text" class="form-control" id="username">--}}
-                                        {{--</div>--}}
-                                        {{--</div>--}}
-                                        <div class="row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-
-                                            <div class="col-md-12">
-                                                <input id="email" type="email" class="form-control" name="email"
-                                                       value="{{ old('email') }}" placeholder="Email" required autofocus>
-
-                                                @if ($errors->has('email'))
-                                                    <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                                            <div class="col-md-12">
-                                                <input id="password" type="password" class="form-control"
-                                                       name="password" placeholder="Password" required>
-
-                                                @if ($errors->has('password'))
-                                                    <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                                @endif
-                                            </div>
-                                        </div>
-
-                                        <div class="row form-group margin-top-20 margin-bottom-20">
-                                            <div class="col-md-12">
-                                                <label class="check">
-                                                    <input type="checkbox" name="remember"> Remember Me
-                                                </label>
-                                            </div>
-                                        </div>
-
-                                        <div class=" row form-group">
-                                            <div class="col-md-12 ">
-                                                <input type="submit" class="btn btn-primary btn-lg " value="Login">
-                                                <ul class="social-network  social-circle pull-right"
-                                                    style="display:inline-block">
-                                                    <li><a href="#" class="icoFacebook" title="Facebook"><i
-                                                                    class="fa fa-facebook"></i></a></li>
-                                                    <li><a href="#" class="icoGoogle" title="Google +"><i
-                                                                    class="fa fa-google-plus"></i></a></li>
-                                                </ul>
-
-                                                <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                                    Forgot Your Password?
-                                                </a>
-                                            </div>
-                                        </div>
-                                        {{--<div class="row form-group">--}}
-                                        {{--<div class="col-md-12 ">--}}
-                                        {{--<input type="submit" class="btn btn-primary btn-lg " value="Login">--}}
-                                        {{--<ul class="social-network  social-circle pull-right"--}}
-                                        {{--style="display:inline-block">--}}
-                                        {{--<li><a href="#" class="icoFacebook" title="Facebook"><i--}}
-                                        {{--class="fa fa-facebook"></i></a></li>--}}
-                                        {{--<li><a href="#" class="icoGoogle" title="Google +"><i--}}
-                                        {{--class="fa fa-google-plus"></i></a></li>--}}
-                                        {{--</ul>--}}
-                                        {{--</div>--}}
-
-                                        {{--</div>--}}
-                                    </form>
                                 </div>
 
                             </div>
                         </div>
-
 
                     </div>
 
