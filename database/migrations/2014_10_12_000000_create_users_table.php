@@ -1,6 +1,5 @@
 <?php
 
-use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
@@ -18,8 +17,21 @@ class CreateUsersTable extends Migration
             $table->string('name');
             $table->string('email')->unique();
             $table->string('password');
+            $table->string('avatar')->nullable(); //user image
+            $table->timestamp('dob');
+            $table->string('phone_number')->nullable();
+            $table->boolean('verified')->default(false);
+            $table->boolean('is_ready')->default(false);
+            $table->boolean('is_admin')->default(false);
+            $table->string('token')->nullable();
             $table->rememberToken();
+            $table->char('api_token', 60)->nullable();
+            $table->string('facebook_id');
+            $table->string('facebook_token');
+            $table->string('google_token');
+            $table->string('google_id');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 

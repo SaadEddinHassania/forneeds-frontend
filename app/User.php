@@ -16,9 +16,11 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable =[
-        'name','email', 'password','facebook_token','facebook_id','google_token','google_id'
+    protected $fillable = [
+        'name', 'email', 'password', 'facebook_token', 'facebook_id', 'google_token', 'google_id'
     ];
+
+    protected $appends = ['user_type'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -54,7 +56,7 @@ class User extends Authenticatable
         'id' => 'integer',
         'name' => 'string',
         'email' => 'email',
-        'is_admin' =>'boolean',
+        'is_admin' => 'boolean',
     ];
 
     /**
@@ -74,6 +76,19 @@ class User extends Authenticatable
     public function citizen()
     {
         return $this->hasOne(Citizen::class);
+    }
+
+    public function getUserTypeAttribute()
+    {
+        if ($this->isServiceProvider()) {
+            return 'Service Provider';
+        } else if ($this->isCitizen()) {
+            return 'Citizen';
+        } else if ($this->is_admin) {
+            return 'Admin';
+        } else {
+            return 'Not completed';
+        }
     }
 
 }

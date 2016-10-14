@@ -5,3 +5,7 @@
 Homestead.json
 Homestead.yaml
 .env
+/public/assets/apps
+/public/assets/global
+/public/assets/layouts
+/public/assets/pages
