@@ -14,6 +14,9 @@
 Route::get('/', function () {
     return view('home');
 });
+Route::get('/home', function () {
+    return view('home');
+});
 
 Auth::routes();
 
@@ -31,5 +34,14 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/surveys', 'ProfileController@surveys');
 
         Route::get('/settings', 'ProfileController@settings');
+    });
+
+    Route::group(['prefix'=>'admin','namespace' => 'Admin','as'=>'admin.','middleware','checkUserType:admin'], function () {
+
+        Route::get('users/{id}/image', 'UserController@getUserImage')->name('users.image');
+        Route::resource('users', 'UserController');
+
+        Route::resource('serviceProviders', 'ServiceProviderController');
+
     });
 });
