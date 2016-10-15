@@ -19,6 +19,8 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
+        return $this->serviceProviderProfile();
+
         if ($user->isServiceProvider()) {
             return $this->serviceProviderProfile();
         } else if ($user->isCitizen()) {
@@ -28,12 +30,12 @@ class ProfileController extends Controller
 
     private function serviceProviderProfile()
     {
-        return 'service provider Profile page';
+        return view('profiles.sp.index');
     }
 
     private function citizenProfile()
     {
-        return 'citizen Profile page';
+       return view('profiles.citizen.index');
     }
 
     public function dashboard(){
@@ -47,6 +49,7 @@ class ProfileController extends Controller
     public function settings()
     {
         $user = Auth::user();
+        return $this->serviceProviderSettings();
         if ($user->isServiceProvider()) {
             return $this->serviceProviderSettings();
         } else if ($user->isCitizen()) {
@@ -66,12 +69,13 @@ class ProfileController extends Controller
 
     private function serviceProviderSettings()
     {
-        return 'service provider settings';
+        return view('profiles.sp.settings');
+
     }
 
     private function citizenSettings()
     {
-        return 'citizen settings';
+        return view('profiles.citizen.settings');
     }
 
     private function serviceProviderSurveys()
