@@ -63,6 +63,7 @@
     <!-- Style -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
+    <link rel="stylesheet" href="css/style.css">
 
     <!-- Modernizr JS -->
     <script src="js/modernizr-2.6.2.min.js"></script>
@@ -76,24 +77,12 @@
         /*
     Note: It is best to use a less version of this file ( see http://css2less.cc
     For the media queries use
-
-
-
         @screen-sm-min
-
-
-
         instead of 768px.
-                                    For .omb_spanOr use
-
-
-
+            For .omb_spanOr use
         @body-bg
-
-
-
         instead of white.
-                                */
+        */
 
         @media (min-width: 768px) {
             .omb_row-sm-offset-3 div:first-child[class*="col-"] {
@@ -108,7 +97,7 @@
 
         .omb_login .omb_socialButtons a {
             color: white;
-        / / In yourUse @body-bg     opacity: 0.9;
+        / / In yourUse @body-bg  opacity: 0.9;
         }
 
         .omb_login .omb_socialButtons a:hover {
@@ -284,7 +273,6 @@
     <div class="col-lg-4  uk-align-right" style="position: absolute;right: 28px;">
         <div class="uk-block ">
             <div class="row uk-margin-large-top">
-<<<<<<< HEAD
                 <div class=" col-md-push-1 animate-box fadeInRight animated-fast" data-animate-effect="fadeInRight">
                     <div class="form-wrap">
                         <div class="tab">
@@ -303,153 +291,14 @@
                                     @include('auth.login')
 
                                 </div>
-=======
-                @if(Auth::check())
-                    <div class=" col-md-push-1 animate-box fadeInRight animated-fast" data-animate-effect="fadeInRight">
-                        <div class="form-wrap">
-                            <div class="tab">
-                                <ul class="tab-menu ">
-                                    <li class="gtco-first active "><a href="#" data-tab="signup">Sign up</a></li>
-                                    <li class="gtco-second"><a href="#" data-tab="login">Login</a></li>
-                                </ul>
-                                <div class="tab-content">
-                                    <div class="tab-content-inner active" data-content="signup">
-                                        <form class="form-horizontal" role="form" method="POST"
-                                              action="{{ url('/register') }}">
-                                            {{ csrf_field() }}
-                                            <p class="hint"> Enter your personal details below: </p>
 
-                                            <div class="row form-group ">
-                                                <div class="col-md-12">
-                                                    <input type="text" class="form-control" name="name"
-                                                           value="{!! old('name') !!}" placeholder="Full Name">
-                                                </div>
-                                            </div>
-
-                                            <div class="row form-group ">
-                                                <div class="col-md-12">
-                                                    <input type="email" class="form-control" name="email"
-                                                           value="{!! old('email') !!}" placeholder="Email">
-                                                </div>
-                                            </div>
-
-                                            <div class="row form-group ">
-                                                <div class="col-md-12">
-                                                    <input type="password" class="form-control" name="password"
-                                                           placeholder="Password">
-                                                </div>
-                                            </div>
-
-                                            <div class="row form-group ">
-                                                <div class="col-md-12">
-                                                    <input type="password" name="password_confirmation"
-                                                           class="form-control"
-                                                           placeholder="Confirm password">
-                                                </div>
-                                            </div>
-
-                                            <div class="row form-group margin-top-20 margin-bottom-20">
-                                                <div class="col-md-12">
-                                                    <label class="check">
-                                                        <input type="checkbox"> I agree to the <a href="#">terms</a>
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class="row form-group">
-                                                <div class="col-md-12">
-                                                    <input type="submit" class="btn btn-primary" value="Sign up">
-                                                    <ul class="social-network  social-circle pull-right"
-                                                        style="display:inline-block">
-                                                        <li><a href="#" class="icoFacebook" title="Facebook"><i
-                                                                        class="fa fa-facebook"></i></a></li>
-                                                        <li><a href="#" class="icoGoogle" title="Google +"><i
-                                                                        class="fa fa-google-plus"></i></a></li>
-                                                    </ul>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
-
-                                    <div class="tab-content-inner" data-content="login">
-                                        <form class="form-horizontal" role="form" method="POST"
-                                              action="{{ url('/login') }}">
-                                            {{ csrf_field() }}
-                                            <div class="row form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-
-                                                <div class="col-md-12">
-                                                    <input id="email" type="email" class="form-control" name="email"
-                                                           value="{{ old('email') }}" placeholder="Email" required
-                                                           autofocus>
-
-                                                    @if ($errors->has('email'))
-                                                        <span class="help-block">
-                                        <strong>{{ $errors->first('email') }}</strong>
-                                    </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="row form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-
-                                                <div class="col-md-12">
-                                                    <input id="password" type="password" class="form-control"
-                                                           name="password" placeholder="Password" required>
-
-                                                    @if ($errors->has('password'))
-                                                        <span class="help-block">
-                                        <strong>{{ $errors->first('password') }}</strong>
-                                    </span>
-                                                    @endif
-                                                </div>
-                                            </div>
-
-                                            <div class="row form-group margin-top-20 margin-bottom-20">
-                                                <div class="col-md-12">
-                                                    <label class="check">
-                                                        <input type="checkbox" name="remember"> Remember Me
-                                                    </label>
-                                                </div>
-                                            </div>
-
-                                            <div class=" row form-group">
-                                                <div class="col-md-12 ">
-                                                    <input type="submit" class="btn btn-primary btn-lg " value="Login">
-                                                    <ul class="social-network  social-circle pull-right"
-                                                        style="display:inline-block">
-                                                        <li><a href="#" class="icoFacebook" title="Facebook"><i
-                                                                        class="fa fa-facebook"></i></a></li>
-                                                        <li><a href="#" class="icoGoogle" title="Google +"><i
-                                                                        class="fa fa-google-plus"></i></a></li>
-                                                    </ul>
-
-                                                    <a class="btn btn-link" href="{{ url('/password/reset') }}">
-                                                        Forgot Your Password?
-                                                    </a>
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </div>
->>>>>>> 38ade849abd926b42e3621fffaa10efa959c1006
-
-                                </div>
                             </div>
+                        </div>
 
-<<<<<<< HEAD
                     </div>
 
                 </div>
-=======
 
-                        </div>
->>>>>>> 38ade849abd926b42e3621fffaa10efa959c1006
-
-                    </div>
-                @else
-                    <div class=" col-md-push-1 animate-box fadeInRight animated-fast" data-animate-effect="fadeInRight">
-                                <input type="submit" class="btn btn-primary" value="Go to your page">
-                        </div>
-                @endif
             </div>
         </div>
     </div>
@@ -917,4 +766,5 @@
 
 </body>
 </html>
+
 
