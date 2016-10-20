@@ -23,8 +23,12 @@ Auth::routes();
 
 Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
+    Route::get('/checkpoint', 'Auth\ProfileCompletionController@index');
+    Route::get('/checkpoint/{type}', 'Auth\ProfileCompletionController@choosePath');
+
     Route::group(['namespace' => 'FrontEnd'], function () {
         //citizen routes
+
         Route::get('/service-requests', 'ProfileController@serviceRequests');
 
         Route::get('/dashboard', 'ProfileController@dashboard');

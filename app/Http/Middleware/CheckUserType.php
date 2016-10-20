@@ -24,8 +24,9 @@ class CheckUserType
         } else if($user->is_admin && in_array('admin',$userType)){
             return $next($request);
         }
-        return $next($request);
+        return redirect('/checkpoint');
 
+       // return $next($request);
 
 //        return response('Unauthorized.', 401);
     }

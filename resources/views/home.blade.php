@@ -254,11 +254,11 @@
             </div>
             <div id="navbar" class="navbar-collapse collapse">
                 <ul class="nav navbar-nav navbar-right">
-                    <li class="active"><a href="#" data-nav-section="home"><span>Home</span></a></li>
-                    <li><a href="#" data-nav-section="services"><span>Services</span></a></li>
-                    <li><a href="#" data-nav-section="testimony"><span>Testimony</span></a></li>
-                    <li><a href="#" data-nav-section="contact"><span>contact</span></a></li>
-                    <li><a href="#" data-nav-section="faq"><span>FAQ</span></a></li>
+                    <li class="active"><a href="#home" data-nav-section="home"><span>Home</span></a></li>
+                    <li><a href="#services" data-nav-section="services"><span>Services</span></a></li>
+                    <li><a href="#testimony" data-nav-section="testimony"><span>Testimony</span></a></li>
+                    <li><a href="#contact" data-nav-section="contact"><span>contact</span></a></li>
+                    <li><a href="#faq" data-nav-section="faq"><span>FAQ</span></a></li>
 
                 </ul>
             </div>
@@ -266,7 +266,7 @@
     </div>
 </header>
 
-<section id="fh5co-home" data-section="home" style="position:relative;padding:0px;">
+<section id="fh5co-home"  class="row " data-section="home" >
 
     <div id="map" class="col-lg-8 fh5co-map .gradient" style="padding:0px"></div>
 
@@ -325,7 +325,7 @@
     </div>
 </section>
 
-<section id="fh5co-services" data-section="services">
+<section id="fh5co-services" data-section="services" class="row ">
     <div class="fh5co-services">
         <div class="container">
             <div class="row">
@@ -355,7 +355,7 @@
 
                     <div class="box-services">
                         <div class="icon to-animate">
-                            <span><i class="icon-energy"></i></i></span>
+                            <span><i class="icon-energy"></i></span>
                         </div>
                         <div class="fh5co-post to-animate">
                             <h3>Light and Fast</h3>
@@ -502,8 +502,8 @@
 </section>
 
 
-<section id="fh5co-testimony" class="fh5co-bg-color">
-    <div class="container" data-section="testimony">
+<section id="fh5co-testimony" data-section="testimony" class="row " class="fh5co-bg-color">
+    <div class="container" >
 
         <div id="fh5co-counter-section" class="fh5co-counters">
             <div class="container">
@@ -547,7 +547,7 @@
     </div>
 </section>
 
-<div class="getting-started getting-started-1">
+<div class="getting-started row getting-started-1">
     <div class="getting-grid" style="background-image:  url(images/full_image_3.jpg);">
         <div class="desc">
             <h2>Getting <span>Started</span></h2>
@@ -564,8 +564,8 @@
 </div>
 
 
-<section id="fh5co-faq" class="fh5co-bg-color">
-    <div class="fh5co-faq" data-section="faq">
+<section id="fh5co-faq" class="row " data-section="faq" class="fh5co-bg-color">
+    <div class="fh5co-faq" >
         <div class="container">
             <div class="row">
                 <div class="col-md-12 section-heading text-center">
@@ -642,7 +642,7 @@
     </div>
 </section>
 
-<section id="fh5co-trusted" data-section="trusted">
+<section id="fh5co-trusted" class="row " data-section="trusted">
     <div class="fh5co-trusted">
         <div class="container">
             <div class="row">
@@ -686,8 +686,8 @@
     </div>
 </section>
 
-<div id="fh5co-footer" role="contentinfo">
-    <div class="container" data-section="contact">
+<div id="fh5co-footer" class="row " data-section="contact" role="contentinfo">
+    <div class="container" >
         <div class="row">
             <div class="col-md-4 to-animate">
                 <h3 class="section-title">About Us</h3>

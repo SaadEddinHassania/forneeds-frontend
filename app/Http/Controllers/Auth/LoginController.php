@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Lang;
+
 class LoginController extends Controller
 {
     /*
@@ -38,14 +39,24 @@ class LoginController extends Controller
         $this->middleware('guest', ['except' => 'logout']);
     }
 
+    /**
+     * Show the application's login form.
+     *
+     * @return \Illuminate\Http\Response
+     */
+    public function showLoginForm()
+    {
+        session()->flash('active', 'login');
+        return view('home');
+    }
 
     protected function sendFailedLoginResponse(Request $request)
     {
-        session()->flash('active','login');
+        session()->flash('active', 'login');
         return redirect()->back()
             ->withInput($request->only($this->username(), 'remember'))
             ->withErrors([
-                $this->username().'login' => Lang::get('auth.failed'),
+                $this->username() . 'login' => Lang::get('auth.failed'),
             ]);
     }
 

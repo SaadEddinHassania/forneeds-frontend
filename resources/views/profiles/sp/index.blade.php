@@ -140,7 +140,7 @@
                                         class="badge bg-info">8</span></h5>
 
                         </div>
-                        <a class="btn btn-success btn-sm pull-right" href="todo_list.html#">Add New Survey</a>
+                        <a class="btn btn-success btn-sm pull-right" data-toggle="modal" data-target="#SurveyModal" href="todo_list.html#">Add New Survey</a>
                         <br>
                     </div>
                     <div class="panel-body">
@@ -368,3 +368,5 @@
 
     </div>
 @endsection
+
+@include('profiles.surveys.sp.complete')
