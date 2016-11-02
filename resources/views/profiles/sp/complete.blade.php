@@ -2,7 +2,7 @@
 @push('styles')
 <style>
     .selectpicker .btn:hover {
-        background:#398439 !important;
+        background: #398439 !important;
         text-decoration: none;
     }
 </style>
@@ -16,7 +16,8 @@
     <div class="col-lg-8 " style="position: absolute;right: 28px;">
         <div class="uk-block ">
             <div class="row uk-margin-large-top">
-                <div class=" col-md-push-1 animate-box fadeInRight animated-fast " style="margin-top: 67px;" data-animate-effect="fadeInRight">
+                <div class=" col-md-push-1 animate-box fadeInRight animated-fast " style="margin-top: 67px;"
+                     data-animate-effect="fadeInRight">
                     <row>
                         <div class="form-panel">
                             <h4 class="mb"><i class="fa fa-angle-right"></i> Service Provider Required fields</h4>
@@ -24,17 +25,10 @@
 
                                 <div class="form-group">
                                     <select class="selectpicker show-tick show-menu-arrow form-control"
-                                            data-style="btn-success">
-                                        <optgroup label="Condiments" data-max-options="1">
-                                            <option>Mustard</option>
-                                            <option>Ketchup</option>
-                                            <option>Relish</option>
-                                        </optgroup>
-                                        <optgroup label="Breads" data-max-options="1">
-                                            <option>Plain</option>
-                                            <option>Steamed</option>
-                                            <option>Toasted</option>
-                                        </optgroup>
+                                            data-style="btn-success" multiple>
+                                        @foreach($sectors as $sector)
+                                            <option value="{{$sector->id}}">{{$sector->name}}</option>
+                                        @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">

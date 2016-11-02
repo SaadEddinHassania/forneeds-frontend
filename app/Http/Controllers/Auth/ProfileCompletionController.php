@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Auth;
 
+use App\Models\Sector;
 use App\Models\Users\Citizen;
 use App\Models\Users\ServiceProvider;
 use Illuminate\Http\Request;
@@ -24,19 +25,25 @@ class ProfileCompletionController extends Controller
 
     public function choosePath($type)
     {
-        $func ='choose'.ucfirst($type);
+        $func = 'choose' . ucfirst($type);
         return $this->$func();
     }
-    private function chooseCitizen(){
+
+    private function chooseCitizen()
+    {
 
         return view('profiles.citizen.complete');
     }
 
-    private function chooseSp(){
+    private function chooseSp()
+    {
 
-        return view('profiles.sp.complete');
+        return view('profiles.sp.complete', [
+            'sectors' => Sector::all()
+        ]);
 
     }
+
     public function completeCitizenProfile(Request $request)
     {
         $citizen = new Citizen([

@@ -17,8 +17,8 @@ class CreateCitizensTable extends Migration
             $table->integer('user_id')->unsigned()->nullable()->index();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->string('national_id')->nullable();
-            $table->string('gender')->nullable();
-            $table->timestamp('dob');
+            $table->string('mobile_number')->nullable();
+            $table->boolean('contactable');
             $table->softDeletes();
             $table->timestamps();
         });
