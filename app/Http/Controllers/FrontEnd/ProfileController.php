@@ -19,8 +19,7 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return $this->serviceProviderProfile();
-
+        return null;
         if ($user->isServiceProvider()) {
             return $this->serviceProviderProfile();
         } else if ($user->isCitizen()) {
@@ -59,7 +58,6 @@ class ProfileController extends Controller
     public function settings()
     {
         $user = Auth::user();
-        return $this->serviceProviderSettings();
         if ($user->isServiceProvider()) {
             return $this->serviceProviderSettings();
         } else if ($user->isCitizen()) {

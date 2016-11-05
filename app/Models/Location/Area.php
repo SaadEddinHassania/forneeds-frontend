@@ -2,7 +2,9 @@
 
 namespace App\Models\Location;
 
-use Illuminate\Database\Eloquent\Model; 
+use App\Models\Users\Citizen;
+use App\Models\Users\ServiceProvider;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -90,5 +92,11 @@ class Area extends Model
 
     public function cities(){
         return $this->hasMany(City::class);
+    }
+    public function service_providers(){
+        return $this->belongsToMany(ServiceProvider::class);
+    }
+    public function citizens(){
+        return $this->belongsToMany(Citizen::class);
     }
 }

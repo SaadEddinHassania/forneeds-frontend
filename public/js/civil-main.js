@@ -1,6 +1,6 @@
 $(function () {
     $('.selectpicker').selectpicker({
-        style: 'btn-info',
-        size: 4
+        style: 'btn-default',
+        size: 4,
     });
 });

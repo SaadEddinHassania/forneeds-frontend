@@ -81,4 +81,12 @@ class Citizen extends Model
     {
         return $this->hasMany('App\Models\ServiceRequest');
     }
+
+    public function areas(){
+        return $this->belongsToMany(Area::class);
+    }
+    public function sectors()
+    {
+        return $this->belongsToMany(Sector::class);
+    }
 }

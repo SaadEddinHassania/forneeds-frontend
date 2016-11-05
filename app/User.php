@@ -33,7 +33,7 @@ class User extends Authenticatable
 
     public function isServiceProvider()
     {
-        if ($this->serviceProvider === null)
+        if (!$this->serviceProvider()->count())
             return false;
         else
             return true;
@@ -41,7 +41,7 @@ class User extends Authenticatable
 
     public function isCitizen()
     {
-        if ($this->citizen === null)
+        if (!$this->citizen()->count())
             return false;
         else
             return true;

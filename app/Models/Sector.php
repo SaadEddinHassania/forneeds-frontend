@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model; 
+use App\Models\Users\Citizen;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -68,5 +69,10 @@ class Sector extends Model
     public function serviceProviders()
     {
         return $this->belongsToMany(ServiceProvider::class);
+    }
+
+    public function citizens()
+    {
+        return $this->belongsToMany(Citizen::class);
     }
 }

@@ -25,6 +25,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('logout', '\App\Http\Controllers\Auth\LoginController@logout');
     Route::get('/checkpoint', 'Auth\ProfileCompletionController@index');
     Route::get('/checkpoint/{type}', 'Auth\ProfileCompletionController@choosePath');
+    Route::post('/checkpoint/sp/', 'Auth\ProfileCompletionController@completeSpProfile')->name('newSp');
 
     Route::group(['namespace' => 'FrontEnd'], function () {
         //citizen routes
@@ -33,7 +34,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/dashboard', 'ProfileController@dashboard');
 
-        Route::get('/profile', 'ProfileController@index');
+        Route::get('/profile', 'ProfileController@index')->name('profile');
 
         Route::get('/surveys', 'ProfileController@surveys');
 

@@ -20,6 +20,12 @@ class ServiceProviders extends Migration
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->integer('service_provider_type_id')->unsigned()->nullable()->index();
             $table->foreign('service_provider_type_id')->references('id')->on('service_provider_types')->onDelete('SET NULL');
+            $table->string('phone_number')->nullable();
+            $table->string('mobile_number')->nullable();
+            $table->string('fax')->nullable();
+            $table->string('website')->nullable();
+            $table->string('contact_person')->nullable();
+            $table->string('contact_person_title')->nullable();
             $table->integer('company_id')->unsigned()->nullable()->index();
             $table->foreign('company_id')->references('id')->on('companies')->onDelete('SET NULL');
 
