@@ -72,7 +72,7 @@ class ProfileCompletionController extends Controller
         $citizen->save();
         $citizen->sectors()->attach(array_filter($request->get('sector_id')));
         $citizen->areas()->attach(array_filter($request->get('area_id')));
-        redirect()->to('/profile');
+        return redirect()->route('profile');
     }
 
     public function completeSpProfile(Request $request)
@@ -82,6 +82,6 @@ class ProfileCompletionController extends Controller
         $sp->save();
         $sp->sectors()->attach(array_filter($request->get('sector_id')));
         $sp->areas()->attach(array_filter($request->get('area_id')));
-        redirect()->to('/profile');
+        return redirect()->route('profile');
     }
 }

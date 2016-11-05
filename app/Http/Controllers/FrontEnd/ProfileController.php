@@ -19,7 +19,6 @@ class ProfileController extends Controller
     public function index()
     {
         $user = Auth::user();
-        return null;
         if ($user->isServiceProvider()) {
             return $this->serviceProviderProfile();
         } else if ($user->isCitizen()) {

@@ -121,7 +121,7 @@
                                 <div class="form-group">
                                    <label class="col-sm-8 col-sm-8 control-label" for="contactable">
                                       <span>هل ترغب بالتواصل معكم لاعلامكم بالمشاريع والتدخلات والأنشطة والاستبانات في منطقة سكناكم؟</span>
-                                       <input type="checkbox" value="0" id="contactable" name="contactable" class="form-control text-center round-form">
+                                       <input type="checkbox"  value="1" id="contactable" name="contactable" class="form-control text-center round-form">
                                    </label>
                                 </div>
 
