@@ -20,8 +20,21 @@
                      data-animate-effect="fadeInRight">
                     <row>
                         <div class="form-panel">
+                            <style>
+                                .btn.dropdown-toggle.btn-default:hover,
+                                .btn.dropdown-toggle.btn-default:active,
+                                .btn.dropdown-toggle.btn-default:target {
+                                    background: #eee !important;
+                                    color: #aaa;
+                                }
+
+                                .btn.dropdown-toggle.bs-placeholder.btn-default {
+                                    background: #eee !important;
+                                    color: #131313;
+                                }
+                            </style>
                             <h4 class="mb"><i class="fa fa-angle-right"></i> Citizen Required fields</h4>
-                            <form class="form-horizontal style-form" method="get">
+                            <form class="form-horizontal style-form" method="post" action="{{route('newCitizen')}}">
                                 {{csrf_field()}}
                                 <div class="form-group">
                                     <select class="selectpicker show-tick show-menu-arrow form-control"
@@ -45,7 +58,7 @@
                                 </div>
                                 <div class="form-group">
                                     <select class="selectpicker show-tick show-menu-arrow form-control"
-                                            data-style="btn-default" name="_id[]" multiple
+                                            data-style="btn-default" name="marital_status_id"
                                             placeholder="choose Marial">
                                         <option value="" selected disabled>Marital status</option>
                                         @foreach($maritals as $id=>$name)
@@ -54,17 +67,64 @@
                                     </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Rounder</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control text-center round-form">
-                                    </div>
+                                    <select class="selectpicker show-tick show-menu-arrow form-control"
+                                            data-style="btn-default" name="age_id"
+                                            placeholder="choose Marial">
+                                        <option value="" selected disabled>Age</option>
+                                        @foreach($ages as $id=>$name)
+                                            <option value="{{$id}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-2 col-sm-2 control-label">Rounder</label>
-                                    <div class="col-sm-10">
-                                        <input type="text" class="form-control text-center round-form">
-                                    </div>
+                                    <select class="selectpicker show-tick show-menu-arrow form-control"
+                                            data-style="btn-default" name="working_state_id"
+                                            placeholder="Choose Working State">
+                                        <option value="" selected disabled>working State</option>
+                                        @foreach($workingstates as $id=>$name)
+                                            <option value="{{$id}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>
                                 </div>
+                                <div class="form-group">
+                                    <select class="selectpicker show-tick show-menu-arrow form-control"
+                                            data-style="btn-default" name="refugee_state_id"
+                                            placeholder="Choose Working State">
+                                        <option value="" selected disabled>Refugee State</option>
+                                        @foreach($refugee as $id=>$name)
+                                            <option value="{{$id}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <select class="selectpicker show-tick show-menu-arrow form-control"
+                                            data-style="btn-default" name="disability_id"
+                                            placeholder="Choose Working State">
+                                        <option value="" selected disabled>Disability</option>
+                                        @foreach($disabilities as $id=>$name)
+                                            <option value="{{$id}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+
+                                <div class="form-group">
+                                    <select class="selectpicker show-tick show-menu-arrow form-control"
+                                                data-style="btn-default" name="academic_level_id"
+                                            placeholder="Choose Working State">
+                                        <option value="" selected disabled>Academic Level</option>
+                                        @foreach($academic as $id=>$name)
+                                            <option value="{{$id}}">{{$name}}</option>
+                                        @endforeach
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                   <label class="col-sm-8 col-sm-8 control-label" for="contactable">
+                                      <span>هل ترغب بالتواصل معكم لاعلامكم بالمشاريع والتدخلات والأنشطة والاستبانات في منطقة سكناكم؟</span>
+                                       <input type="checkbox" value="0" id="contactable" name="contactable" class="form-control text-center round-form">
+                                   </label>
+                                </div>
+
                                 <div class="form-group">
                                     <div class="col-sm-3 pull-right ">
                                         <button type="submit" value="" class="form-control text-center round-form">

@@ -26,6 +26,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::get('/checkpoint', 'Auth\ProfileCompletionController@index');
     Route::get('/checkpoint/{type}', 'Auth\ProfileCompletionController@choosePath');
     Route::post('/checkpoint/sp/', 'Auth\ProfileCompletionController@completeSpProfile')->name('newSp');
+    Route::post('/checkpoint/citizen/', 'Auth\ProfileCompletionController@completeCitizenProfile')->name('newCitizen');
 
     Route::group(['namespace' => 'FrontEnd'], function () {
         //citizen routes

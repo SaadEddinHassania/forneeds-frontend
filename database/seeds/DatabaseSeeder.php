@@ -17,5 +17,9 @@ class DatabaseSeeder extends Seeder
         $this->call(AreaSeeder::class);
         $this->call(WorkFieldSeeder::class);
         $this->call(WorkingStateSeeder::class);
+        $this->call(AgeSeeder::class);
+        $this->call(RefugeeStateSeeder::class);
+        $this->call(DisabilitySeeder::class);
+        $this->call(AcademicLevelSeeder::class);
     }
 }

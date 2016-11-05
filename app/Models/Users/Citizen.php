@@ -2,6 +2,8 @@
 
 namespace App\Models\Users;
 
+use App\Models\Location\Area;
+use App\Models\Sector;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -41,7 +43,9 @@ class Citizen extends Model
 {
 
     public $fillable = [
-        'national_id', 'gender', 'dob'
+         'gender_id', 'age_id','marital_status_id',
+        'working_state_id','refugee_state_id','disability_id',
+        'academic_level_id','contactable'
     ];
 
     /**
