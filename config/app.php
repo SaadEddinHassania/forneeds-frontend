@@ -171,7 +171,7 @@ return [
         Collective\Html\HtmlServiceProvider::class,
         Intervention\Image\ImageServiceProvider::class,
         Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider::class,
-
+        TCG\Voyager\VoyagerServiceProvider::class,
         //
 
         /*

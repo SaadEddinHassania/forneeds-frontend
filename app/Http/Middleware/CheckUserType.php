@@ -19,7 +19,6 @@ class CheckUserType
 
         $user = Auth::user();
         if ($user->isServiceProvider() && in_array('serviceProvider',$userType)) {
-            dump($user->isServiceProvider());
             return $next($request);
         } else if ($user->isCitizen() && in_array('citizen',$userType)) {
             return $next($request);
