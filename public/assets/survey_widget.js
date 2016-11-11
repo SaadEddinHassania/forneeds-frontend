@@ -55,7 +55,6 @@ $(function () {
 
     $('#form_wizard_1').on('click','.questions-submit',function(){
         $(".question_form").submit();
-        console.log("a7a");
     });
     $('#form_wizard_1').on('click','.configs-submit',function(){
         $(".config_form").submit();

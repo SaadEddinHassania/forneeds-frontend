@@ -142,7 +142,7 @@
                                 <div class="portlet-title">
                                     <div class="caption caption-md">
                                         <i class="icon-bar-chart theme-font hide"></i>
-                                        <span class="caption-subject font-blue-madison bold uppercase">Your Activity</span>
+                                        <span class="caption-subject font-blue-madison bold uppercase">New Survey</span>
                                         <span class="caption-helper hide">weekly stats...</span>
                                     </div>
                                     <div class="actions">
@@ -157,7 +157,7 @@
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                  @include("surveys.complete")
+                                  @include("surveys.complete",['projects'=>$projects])
                                 </div>
                             </div>
                             <!-- END PORTLET -->
@@ -169,7 +169,7 @@
                                 <div class="portlet-title">
                                     <div class="caption caption-md">
                                         <i class="icon-bar-chart theme-font hide"></i>
-                                        <span class="caption-subject font-blue-madison bold uppercase">Your Activity</span>
+                                        <span class="caption-subject font-blue-madison bold uppercase">New Project</span>
                                         <span class="caption-helper hide">weekly stats...</span>
                                     </div>
                                     <div class="actions">
@@ -184,7 +184,7 @@
                                     </div>
                                 </div>
                                 <div class="portlet-body">
-                                    @include("projects.add",["marginalizedSituations"=>$marginalizedSituations])
+                                    @include("projects.add")
                                 </div>
                             </div>
                             <!-- END PORTLET -->
@@ -328,7 +328,7 @@
 @endpush
 
 @push('scripts')
-<script src="http://malsup.github.com/jquery.form.js"></script>
+<script src="js/jquery.form.js"></script>
 <script src="/assets/survey_widget.js" type="text/javascript"></script>
 <script src="/assets/project_widget.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/form-wizard.min.js"></script>

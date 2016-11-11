@@ -58,7 +58,8 @@ class Survey extends Model
         'description',
         'project_id',
         'survey_meta_id',
-        'deleted_at'
+        'deleted_at',
+        'questions_count'
     ];
 
     /**

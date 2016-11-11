@@ -19,7 +19,7 @@
             {!! Form::hidden('survey_id',null,['class'=>'curr-survey']) !!}
             <!-- User Attr Name Field -->
                 <div class="form-group col-sm-4">
-                    {!! Form::select('user_attr_name', $user_attrs, null, ['class' => 'form-control','placeholder'=>'User Attribute...']) !!}
+                    {!! Form::select('user_attr_name', array(), null, ['class' => 'form-control','placeholder'=>'User Attribute...']) !!}
                 </div>
 
                 <!-- Operator Field -->

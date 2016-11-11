@@ -17,7 +17,7 @@ class GenderSeeder extends Seeder
         ];
 
         foreach ($fields as $field) {
-            \App\Models\Age::create(['name' => $field]);
+            \App\Models\Gender::create(['name' => $field]);
         }
     }
 }

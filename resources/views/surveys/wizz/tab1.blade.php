@@ -23,22 +23,13 @@
                     {!! Form::text('subject', null, ['class' => 'form-control']) !!}
                 </div>
 
-                <div class="form-group col-sm-9">
-                    <label class="control-label col-md-3">Advance Date Ranges</label>
-                    <div class="col-md-4">
-                        <div id="reportrange" tabindex="2" class="btn default">
-                            <i class="fa fa-calendar"></i> &nbsp;
-                            <span> </span>
-                            <b class="fa fa-angle-down"></b>
-                        </div>
-                    </div>
-                </div>
+
                 <!-- Starts At Field -->
 
-            {!! Form::hidden('starts_at', null, ['class' => 'form-control','placeholder'=>'Starts At','id'=>'starts_at']) !!}
+            {!! Form::hidden('starts_at', null, ['class' => 'form-control starts_at','placeholder'=>'Starts At']) !!}
 
             <!-- Expires At Field -->
-            {!! Form::hidden('expires_at', null, ['class' => 'form-control','placeholder'=>'Expires At','id'=>'expires_at']) !!}
+            {!! Form::hidden('expires_at', null, ['class' => 'form-control expires_at','placeholder'=>'Expires At']) !!}
 
 
             <!-- Description Field -->
@@ -52,7 +43,15 @@
                     {!! Form::label('projects-drop-down', 'Project Id:') !!}
                     {!! Form::select('project_id',$projects, null, ['class' => 'form-control','id'=>'projects-drop-down','placeholder'=>'Please Choose A project']) !!}
                 </div>
-
+                <div class="form-group col-sm-6">
+                    <div class="col-md-4">
+                        <div tabindex="2" class="btn default surveyRange">
+                            <i class="fa fa-calendar"></i> &nbsp;
+                            <span> </span>
+                            <b class="fa fa-angle-down"></b>
+                        </div>
+                    </div>
+                </div>
 
                 <!-- Submit Field -->
                 <div class="form-group col-sm-12">

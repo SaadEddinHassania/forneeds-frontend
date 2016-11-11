@@ -31,7 +31,8 @@ class SurveysController extends Controller
     public function storeSurvey(Request $request)
     {
         $input = $request->all();
-        $survey = Survey::create($input);
+
+        $survey = Survey::create(array_merge($input,['questions_count'=>0]));
         Flash::success('Survey saved successfully.');
         return response()->json(collect(["id" => $survey->id]));
     }

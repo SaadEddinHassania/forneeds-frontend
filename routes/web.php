@@ -33,10 +33,13 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('gateways/surveys/store/questions', "Surveys\\SurveysController@storeQuestions")->name('storeQuestions');
     Route::post('gateways/surveys/store/configs', "Surveys\\SurveysController@storeConfig")->name('storeConfig');
     Route::post('gateways/projects/store/', "Projects\\ProjectsController@store")->name('storeProject');
+
     Route::post('gateways/service_requests/store', "ServiceRequests\\ServiceRequestsController@store")->name('storeServiceRequest');
 
     Route::group(['namespace' => 'FrontEnd'], function () {
         //citizen routes
+        Route::get('listings/projects/{service_provider_id}', "AjaxApiController@projects");
+        Route::get('gateways/listings/{model}', "AjaxApiController@Listings")->name('getListing');
 
         Route::get('/service-requests', 'ProfileController@serviceRequests');
 

@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Models\Users\ServiceProvider;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -55,7 +56,7 @@ class Project extends Model
     use SoftDeletes;
 
     public $table = 'projects';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -65,12 +66,12 @@ class Project extends Model
 
     public $fillable = [
         'name',
-        'serialno',
+        'sponsor',
         'description',
         'sector_id',
         'service_provider_id',
-        'marginalized_situation_id',
-        'location_meta_id',
+        'area_id',
+        'starts_at',
         'deleted_at'
     ];
 
@@ -81,12 +82,15 @@ class Project extends Model
      */
     protected $casts = [
         'id' => 'integer',
+        'sponsor' => 'string',
         'name' => 'string',
-        'serialno' => 'string',
+        'expires_at' => 'datetime',
+        'starts_at' => 'datetime',
+
         'description' => 'string',
         'sector_id' => 'integer',
         'service_provider_id' => 'integer',
-        'marginalized_situation_id' => 'integer',
+        'area_id' => 'integer',
         'deleted_at' => 'datetime'
     ];
 
@@ -96,6 +100,16 @@ class Project extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
+
+    public function serviceProvider()
+    {
+        return $this->belongsTo(ServiceProvider::class);
+    }
+
+    public function targets()
+    {
+        return $this->hasMany(Target::class);
+    }
 }

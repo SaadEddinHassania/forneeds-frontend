@@ -7,6 +7,8 @@ use App\Models\Location\Area;
 use App\Models\MarginalizedSituation;
 use App\Models\Project;
 use App\Models\Sector;
+use App\Models\Target;
+use App\Models\Users\Company;
 use App\Models\Users\ServiceProvider;
 use App\Models\Users\ServiceProviderType;
 use App\User;
@@ -14,6 +16,7 @@ use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
 use Illuminate\Http\Request;
 use Session;
+use App\Models\Age;
 
 class ProfileController extends Controller
 {
@@ -37,14 +40,19 @@ class ProfileController extends Controller
     private function serviceProviderProfile()
     {
         $user = Auth::user();
+        $targets = collect(Target::$types);;
+        $sp = $user->serviceProvider()->first();
         return view('profiles.sp.index1', [
             "user" => $user,
-            "sp" => $user->serviceProvider()->first(),
-            'projects' => Project::where('service_provider_id', $user->serviceProvider()->first()->id, ['id', 'name'])->pluck('name', 'id')->toarray(),
-            "user_attrs" => $user->getFillable(),
-            'marginalizedSituations' => MarginalizedSituation::all()->pluck('name', 'id')->toarray(),
-
-            'sectors' => $user->serviceProvider()->first()->sectors()->pluck('name', 'id')->toarray(),
+            "sp" => $sp,
+            'projects' => $sp->projects()->pluck('name', 'id'),
+            'sectors' => Sector::pluck('name', 'id'),
+            'companies' => Company::pluck('name', 'id'),
+            'areas' => Area::pluck('name', 'id'),
+            'ages' => Age::pluck('name', 'id'),
+            'target_types' => array_flip($targets->map(function ($key, $val) {
+                return str_replace('\\', '-', $key);
+            })->toArray())
         ]);
     }
 
@@ -53,7 +61,7 @@ class ProfileController extends Controller
         $user = Auth::user();
         $sRequests = $user->citizen->servicesRequests;
 
-        return view('profiles.citizen.index1', [
+        return view('profiles.citizen.index', [
             "user" => $user,
             "sRequests" => $sRequests,
             'areas' => Area::all()->pluck('name', 'id')->toarray(),
@@ -95,12 +103,12 @@ class ProfileController extends Controller
     private function serviceProviderSettings()
     {
         $user = Auth::user();
-        return view('profiles.sp.settings1',[
+        return view('profiles.sp.settings1', [
             "user" => $user->with('ServiceProvider')->first(),
-            'serviceProviders' => ServiceProvider::all()->pluck('name', 'id')->toarray(),
-//            "user_attrs" => $this->userRepository->getFieldsSearchable(),
-            "types" => ServiceProviderType::all()->pluck('name', 'id')->toarray(),
-            'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
+            "sp" => $user->serviceProvider()->first(),
+            'sectors' => Sector::pluck('name', 'id'),
+            'companies' => Company::pluck('name', 'id'),
+            'areas' => Area::pluck('name', 'id')
         ]);
 
     }
@@ -165,10 +173,9 @@ class ProfileController extends Controller
     public function getImage()
     {
         $user = Auth::user();
-        if ($user->avatar != null ){
+        if ($user->avatar != null) {
             $img = Image::make(storage_path('assets\images\users\\' . $user->avatar))->resize(150, 150);
-        }
-        else
+        } else
             $img = Image::make("http://www.placehold.it/200x150/EFEFEF/AAAAAA&amp;text=no+image")->resize(150, 150);
 
 
@@ -176,7 +183,8 @@ class ProfileController extends Controller
 //        return Image::make(storage_path('assets\images\\' . $user->avatar));
     }
 
-    private function postSPUpdate(Request $request,User $user){
+    private function postSPUpdate(Request $request, User $user)
+    {
 
         $this->validate($request, [
             'name' => 'required',
@@ -194,7 +202,8 @@ class ProfileController extends Controller
         $user->save();
     }
 
-    private function postCitizenUpdate(Request $request ,User $user){
+    private function postCitizenUpdate(Request $request, User $user)
+    {
         $this->validate($request, [
             'name' => 'required',
             'email' => 'required|unique:users,email,' . $user->id,
@@ -209,21 +218,22 @@ class ProfileController extends Controller
 
         return true;
     }
+
     public function postUpdate(Request $request)
     {
         $user = Auth::user();
         $success = false;
         if ($user->isServiceProvider()) {
-            $success = $this->postSPUpdate($request,$user);
+            $success = $this->postSPUpdate($request, $user);
         } else if ($user->isCitizen()) {
-            $success = $this->postCitizenUpdate($request,$user);
+            $success = $this->postCitizenUpdate($request, $user);
         }
 
         if ($success) {
             Session::flash('flash_message', 'Profile updated successfully');
 
             return ['flash_message' => 'Profile updated successfully'];
-        }else {
+        } else {
             Session::flash('flash_message', 'Profile updated error');
 
             return ['flash_message' => 'Profile updated error'];

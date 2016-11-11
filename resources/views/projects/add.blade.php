@@ -13,7 +13,7 @@
     <div class="row">
         {!! Form::open(['route' => 'storeProject' , "class"=>"project_form"]) !!}
 
-        @include('projects.fields',["marginalizedSituations"=>$marginalizedSituations])
+        @include('projects.fields')
 
         {!! Form::close() !!}
     </div>

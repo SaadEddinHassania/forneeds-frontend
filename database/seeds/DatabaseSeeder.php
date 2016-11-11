@@ -21,5 +21,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RefugeeStateSeeder::class);
         $this->call(DisabilitySeeder::class);
         $this->call(AcademicLevelSeeder::class);
+        $this->call(GenderSeeder::class);
     }
 }

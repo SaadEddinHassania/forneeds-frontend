@@ -3,6 +3,7 @@
 namespace App\Models\Users;
 
 use App\Models\Location\Area;
+use App\Models\Project;
 use App\Models\Sector;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -68,7 +69,6 @@ class ServiceProvider extends Model
     }
 
 
-
     public function getSectorsStringAttribute()
     {
         $sectors = $this->sectors()->get()->toArray();
@@ -79,13 +79,21 @@ class ServiceProvider extends Model
         }
     }
 
-    public function beneficiaries(){
+    public function beneficiaries()
+    {
         return $this->belongsToMany(Beneficiary::class);
     }
 
-    public function areas(){
+    public function projects()
+    {
+        return $this->hasMany(Project::class);
+    }
+
+    public function areas()
+    {
         return $this->belongsToMany(Area::class);
     }
+
     public function sectors()
     {
         return $this->belongsToMany(Sector::class);

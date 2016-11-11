@@ -188,20 +188,48 @@
 
                                         <div class="form-group {{ $errors->has('mission_statement') ? 'has-error' : ''}}">
                                             {!! Form::label('mission_statement', 'Mission Statement:') !!}
-                                            {{--<input type="text" class="form-control" name="mission_statement"--}}
-                                            {{--value="{!! old('mission_statement') !!}"--}}
-                                            {{--placeholder="Mission Statement">--}}
-                                            {!! Form::text('serviceProvider[mission_statement]', null, ['class' => 'form-control','placeholder'=>'Mission Statement']) !!}
+                                            {!! Form::text('serviceProvider[mission_statement]', $sp->mission_statement, ['class' => 'form-control','placeholder'=>'Mission Statement']) !!}
                                         </div>
 
-                                        <div class="form-group {{ $errors->has('service_provider_type_id') ? 'has-error' : ''}}">
-                                            {!! Form::label('service_provider_type_id', 'Type:') !!}
-{{--                                            {{Form::select('serviceProvider[service_provider_type_id]', $types,$user->serviceProvider->service_provider_type_id,['class'=>'form-control'])}}--}}
-                                        </div>
                                         <div class="form-group {{ $errors->has('sector_id') ? 'has-error' : ''}}">
                                             {!! Form::label('sector_id', 'Sector:') !!}
-{{--                                            {{Form::select('serviceProvider[sector_id]', $sectors,$user->serviceProvider->sector_id,['class'=>'form-control'])}}--}}
+                                            {{ Form::select('serviceProvider[sector_id][]', $sectors,array_keys($sp->sectors()->pluck('name','id')->toArray()),['class'=>'form-control','multiple'=>true]) }}
                                         </div>
+                                        <div class="form-group {{ $errors->has('company_id') ? 'has-error' : ''}}">
+                                            {!! Form::label('company_id', 'Company:') !!}
+                                            {{ Form::select('serviceProvider[company_id][]', $companies,$sp->company_id,['class'=>'form-control']) }}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('service_provider_type_id') ? 'has-error' : ''}}">
+                                            {!! Form::label('area_id', 'Area:') !!}
+                                            {{ Form::select('serviceProvider[area_id][]', $sectors,array_keys($sp->areas()->pluck('name','id')->toArray()),['class'=>'form-control','multiple'=>true]) }}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('mobile_number') ? 'has-error' : ''}}">
+                                            {!! Form::label('mobile_number', 'Mobile Number:') !!}
+                                            {!! Form::text('serviceProvider[mobile_number]', $sp->mobile_number, ['class' => 'form-control','placeholder'=>'Mobile Number']) !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('phone_number') ? 'has-error' : ''}}">
+                                            {!! Form::label('phone_number', 'Phone Number:') !!}
+                                            {!! Form::text('serviceProvider[phone_number]', $sp->phone_number, ['class' => 'form-control','placeholder'=>'Phone Number']) !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('fax') ? 'has-error' : ''}}">
+                                            {!! Form::label('fax', 'Fax:') !!}
+                                            {!! Form::text('serviceProvider[fax]', $sp->fax, ['class' => 'form-control','placeholder'=>'Fax']) !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('website') ? 'has-error' : ''}}">
+                                            {!! Form::label('website', 'Website:') !!}
+                                            {!! Form::text('serviceProvider[website]', $sp->website, ['class' => 'form-control','placeholder'=>'Website']) !!}
+                                        </div>
+                                        <div class="form-group {{ $errors->has('contact_person_title') ? 'has-error' : ''}}">
+                                            {!! Form::label('contact_person_title', 'Contact Person Title:') !!}
+                                            {!! Form::text('serviceProvider[contact_person_title]', $sp->contact_person_title, ['class' => 'form-control','placeholder'=>'Contact Person Title']) !!}
+                                        </div>
+
+
+                                        <div class="form-group {{ $errors->has('contact_person') ? 'has-error' : ''}}">
+                                            {!! Form::label('contact_person', 'Contact Person :') !!}
+                                            {!! Form::text('serviceProvider[contact_person]', $sp->contact_person, ['class' => 'form-control','placeholder'=>'Contact Person ']) !!}
+                                        </div>
+
                                         <div class="margiv-top-10">
                                             <input type="submit" value="Save Changes" class="btn green"/>
                                             <a href="javascript:;" class="btn default"> Cancel </a>
@@ -238,8 +266,8 @@
                                                         <span class="fileinput-new"> Select image </span>
                                                         <span class="fileinput-exists"> Change </span>
                                                         <input type="file" name="file"> </span>
-                                                            <a href="javascript:;" class="btn default fileinput-exists"
-                                                               data-dismiss="fileinput"> Remove </a>
+                                                        <a href="javascript:;" class="btn default fileinput-exists"
+                                                           data-dismiss="fileinput"> Remove </a>
                                                     </div>
                                                 </div>
                                                 <div class="clearfix margin-top-10">
@@ -254,32 +282,32 @@
                                         </form>
 
                                         {{--<div class="row">--}}
-                                            {{--<div class="col-md-12">--}}
-                                                {{--<div class="m-heading-1 border-green m-bordered">--}}
-                                                    {{--<h3>Dropzone</h3>--}}
-                                                    {{--<p> DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews. It’s lightweight, doesn’t depend on any other library (like jQuery) and is highly customizable. </p>--}}
-                                                    {{--<p> For more info please check out--}}
-                                                        {{--<a class="btn red btn-outline" href="http://www.dropzonejs.com/" target="_blank">the official documentation</a>--}}
-                                                    {{--</p>--}}
-                                                    {{--<p>--}}
-                                                        {{--<span class="label label-danger">NOTE:</span> &nbsp; This plugins works only on Latest Chrome, Firefox, Safari, Opera & Internet Explorer 10. </p>--}}
-                                                {{--</div>--}}
-                                                {{--{!! Form::open(['url' => url('profile_image'),'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone','style'=>"width: 500px; margin-top: 50px;"]) !!}--}}
+                                        {{--<div class="col-md-12">--}}
+                                        {{--<div class="m-heading-1 border-green m-bordered">--}}
+                                        {{--<h3>Dropzone</h3>--}}
+                                        {{--<p> DropzoneJS is an open source library that provides drag’n’drop file uploads with image previews. It’s lightweight, doesn’t depend on any other library (like jQuery) and is highly customizable. </p>--}}
+                                        {{--<p> For more info please check out--}}
+                                        {{--<a class="btn red btn-outline" href="http://www.dropzonejs.com/" target="_blank">the official documentation</a>--}}
+                                        {{--</p>--}}
+                                        {{--<p>--}}
+                                        {{--<span class="label label-danger">NOTE:</span> &nbsp; This plugins works only on Latest Chrome, Firefox, Safari, Opera & Internet Explorer 10. </p>--}}
+                                        {{--</div>--}}
+                                        {{--{!! Form::open(['url' => url('profile_image'),'class' => 'dropzone', 'files'=>true, 'id'=>'real-dropzone','style'=>"width: 500px; margin-top: 50px;"]) !!}--}}
 
-                                                {{--<div class="dz-message">--}}
+                                        {{--<div class="dz-message">--}}
 
-                                                {{--</div>--}}
+                                        {{--</div>--}}
 
-                                                {{--<div class="fallback">--}}
-                                                    {{--<input name="file" type="file" multiple />--}}
-                                                {{--</div>--}}
+                                        {{--<div class="fallback">--}}
+                                        {{--<input name="file" type="file" multiple />--}}
+                                        {{--</div>--}}
 
-                                                {{--<div class="dropzone-previews" id="dropzonePreview"></div>--}}
+                                        {{--<div class="dropzone-previews" id="dropzonePreview"></div>--}}
 
-                                                {{--<h4 style="text-align: center;color:#428bca;">Drop images in this area  <span class="glyphicon glyphicon-hand-down"></span></h4>--}}
+                                        {{--<h4 style="text-align: center;color:#428bca;">Drop images in this area  <span class="glyphicon glyphicon-hand-down"></span></h4>--}}
 
-                                                {{--{!! Form::close() !!}--}}
-                                            {{--</div>--}}
+                                        {{--{!! Form::close() !!}--}}
+                                        {{--</div>--}}
                                         {{--</div>--}}
                                     </div>
                                     <!-- END CHANGE AVATAR TAB -->
@@ -331,7 +359,6 @@
 
 <script src="/assets/global/plugins/bootstrap-fileinput/bootstrap-fileinput.js" type="text/javascript"></script>
 <script src="/assets/global/plugins/jquery.sparkline.min.js" type="text/javascript"></script>
-
 
 
 <script src="/assets/pages/scripts/profile.min.js" type="text/javascript"></script>
