@@ -34,10 +34,10 @@
     {!! Form::hidden('etxpires_at', null, ['class' => 'form-control','placeholder'=>'Expires At','id'=>'expires_at']) !!}
 </div>
 <div class="form-group col-sm-12 col-lg-12">
-    {{ Form::select('sector_id',($sp->sectors()->pluck('name','id')),null,['class'=>'form-control']) }}
+    {{ Form::select('sector_id',$sectors,null,['class'=>'form-control']) }}
 </div>
 <div class="form-group col-sm-12 col-lg-12">
-    {{ Form::select('area_id',($sp->areas()->pluck('name','id')),null,['class'=>'form-control']) }}
+    {{ Form::select('area_id',$areas,null,['class'=>'form-control']) }}
 </div>
 <div class=" form-group form-actions">
     <div class="col-lg-8 form-group">

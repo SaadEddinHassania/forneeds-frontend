@@ -11,8 +11,22 @@
 |
 */
 
-Route::get('/', function () {
-    return view('home');
+Route::get('/', 'HomeController@index');
+
+
+Route::get('/test', function () {
+    $sur = \App\Models\Survey::find(3);
+    $questions_chuncked = [];
+    $citizen = Auth::user()->citizen()->first();
+    $questions = $sur->questions->groupBy('step');
+    $surveys = $citizen->surveys()->where('id', $sur->id)->withPivot('step', 'is_final_step')->get();
+    foreach ($surveys as $sur) {
+        unset($questions[$sur->pivot->step]);
+    }
+    foreach ($questions as $question) {
+        $questions_chuncked[] = $question;
+    }
+    return view('profiles.surveys.citizen.fill', ['survey' => $sur, 'questions' => $questions_chuncked]);
 });
 Route::get('/home', function () {
     return view('home');
@@ -30,6 +44,7 @@ Route::group(['middleware' => 'auth'], function () {
 
     Route::get('gateways/surveys/create', "Surveys\\SurveysController@create");
     Route::post('gateways/surveys/store/survey', "Surveys\\SurveysController@storeSurvey")->name('storeSurvey');
+    Route::post('gateways/surveys/users/store/survey', "Surveys\\SurveysController@storeUserSurvey")->name('userSurvey');
     Route::post('gateways/surveys/store/questions', "Surveys\\SurveysController@storeQuestions")->name('storeQuestions');
     Route::post('gateways/surveys/store/configs', "Surveys\\SurveysController@storeConfig")->name('storeConfig');
     Route::post('gateways/projects/store/', "Projects\\ProjectsController@store")->name('storeProject');

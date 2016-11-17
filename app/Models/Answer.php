@@ -2,7 +2,8 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model; 
+use App\Models\Users\Citizen;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -33,7 +34,7 @@ class Answer extends Model
     use SoftDeletes;
 
     public $table = 'answers';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -44,6 +45,7 @@ class Answer extends Model
     public $fillable = [
         'question_id',
         'answer',
+        'order',
         'deleted_at'
     ];
 
@@ -65,6 +67,16 @@ class Answer extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
+
+    public function question()
+    {
+        return $this->belongsTo(Question::class);
+    }
+
+    public function users()
+    {
+        return $this->belongsToMany(Citizen::class);
+    }
 }

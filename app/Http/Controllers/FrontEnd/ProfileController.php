@@ -46,10 +46,9 @@ class ProfileController extends Controller
             "user" => $user,
             "sp" => $sp,
             'projects' => $sp->projects()->pluck('name', 'id'),
-            'sectors' => Sector::pluck('name', 'id'),
+            'sectors' => $sp->sectors()->pluck('name', 'id'),
             'companies' => Company::pluck('name', 'id'),
-            'areas' => Area::pluck('name', 'id'),
-            'ages' => Age::pluck('name', 'id'),
+            'areas' => $sp->areas()->pluck('name', 'id'),
             'target_types' => array_flip($targets->map(function ($key, $val) {
                 return str_replace('\\', '-', $key);
             })->toArray())

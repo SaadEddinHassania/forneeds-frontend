@@ -2,8 +2,10 @@
 
 namespace App\Models\Users;
 
+use App\Models\Answer;
 use App\Models\Location\Area;
 use App\Models\Sector;
+use App\Models\Survey;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -92,5 +94,15 @@ class Citizen extends Model
     public function sectors()
     {
         return $this->belongsToMany(Sector::class);
+    }
+
+    public function Answers()
+    {
+        return $this->belongsToMany(Answer::class);
+    }
+
+    public function surveys()
+    {
+        return $this->belongsToMany(Survey::class);
     }
 }

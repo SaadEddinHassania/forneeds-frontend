@@ -35,6 +35,14 @@
 
                         {!! Form::textarea('body', null, ['class' => 'form-control', 'rows' => '5','placeholder'=>"Ask Your Question..."]) !!}
                     </div>
+                    <!-- Order Field -->
+                    <div class="form-group col-sm-4">
+                        {!! Form::selectRange('order',1,100,null, ['class' => 'form-control','placeholder'=>"Choose Order...",'title'=>'how questions are ordered in a page']) !!}
+                    </div>
+                    <!-- Order Field -->
+                    <div class="form-group col-sm-4">
+                        {!! Form::selectRange('step',1,100,null, ['class' => 'form-control','placeholder'=>"Choose step...",'title'=>'how questions are split among pages']) !!}
+                    </div>
                 </div>
 
 
@@ -68,7 +76,7 @@
 
                                     <!-- Order Field -->
                                     <div class="form-group col-sm-4">
-                                        {!! Form::selectRange('order[]',1,100,null, ['class' => 'form-control','placeholder'=>"Choose Order...",'title'=>'how answers are ordered']) !!}
+                                        {!! Form::selectRange('answer[order][]',1,100,null, ['class' => 'form-control','placeholder'=>"Choose Order...",'title'=>'how answers are ordered']) !!}
                                     </div>
 
                                 </div>
@@ -97,7 +105,7 @@
             <div class="form-group col-sm-12">
                 <div class="form-actions">
                     <div class="row  col-md-offset-0">
-                        {!! Form::submit('Continue', ['class' => 'btn green  btn-outline questions-submit']) !!}
+                        {!! Form::submit('Finish', ['class' => 'btn green  btn-outline questions-submit']) !!}
 
                     </div>
                 </div>

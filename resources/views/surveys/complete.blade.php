@@ -37,15 +37,6 @@
                              <i class="fa fa-check"></i> Add Questions</span>
                         </a>
                     </li>
-
-                    <li>
-                        <a href="#tab3" data-toggle="tab" class="step last">
-                            <a href="#tab3" data-toggle="tab" class="step last">
-                                <span class="number"> 3 </span>
-                                <span class="desc">
-                                <i class="fa fa-check"></i> Targeting Mechanism </span>
-                            </a>
-                    </li>
                 </ul>
                 <div id="bar" class="progress progress-striped" role="progressbar">
                     <div class="progress-bar progress-bar-success" style="width: 25%;"></div>
@@ -67,9 +58,7 @@
                             @include("surveys.wizz.tab2")
                         </div>
 
-                        <div class="tab-pane " id="tab3">
-                            @include("surveys.wizz.tab3")
-                        </div>
+
                         <div class="form-actions">
                             <div class="row">
                                 <div class="col-md-offset-3 col-md-9">

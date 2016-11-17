@@ -2,8 +2,10 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model; 
+use App\Models\Users\Citizen;
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @SWG\Definition(
@@ -44,7 +46,7 @@ class Survey extends Model
     use SoftDeletes;
 
     public $table = 'surveys';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -83,10 +85,36 @@ class Survey extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
 
-    public function Config(){
+    public function Config()
+    {
         return $this->belongsToMany(Config::class);
+    }
+
+    public function questions()
+    {
+        return $this->hasMany(Question::class)->orderBy('order');
+    }
+
+    public function citizens()
+    {
+        return $this->belongsToMany(Citizen::class);
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withQuestions', function (Builder $builder) {
+            $builder->with('questions');
+        });
+
     }
 }

@@ -71,7 +71,7 @@
                                     <label class="col-sm-2 col-sm-2 control-label">Mission Statement</label>
                                     <div class="col-sm-10">
                                         <textarea type="text" name="mission_statement"
-                                               class="form-control text-center round-form"></textarea>
+                                                  class="form-control text-center round-form"></textarea>
                                     </div>
                                 </div>
                                 <div class="form-group">

@@ -12,7 +12,8 @@ use App\User;
 use Flash;
 use Illuminate\Http\Request;
 use Response;
-
+use Auth;
+use DB;
 
 class SurveysController extends Controller
 {
@@ -32,7 +33,7 @@ class SurveysController extends Controller
     {
         $input = $request->all();
 
-        $survey = Survey::create(array_merge($input,['questions_count'=>0]));
+        $survey = Survey::create(array_merge($input, ['questions_count' => 0]));
         Flash::success('Survey saved successfully.');
         return response()->json(collect(["id" => $survey->id]));
     }
@@ -42,8 +43,9 @@ class SurveysController extends Controller
         $input = $request->all();
         $question = Question::create($input);
         $input['answer'] = array_filter($input['answer']);
-        $input['order'] = array_filter($input['order']);
 
+        $input['order'] = array_filter($input['answer']['order']);
+        unset($input['answer']['order']);
         foreach ($input['answer'] as $key => $val) {
             Answer::create(
                 array(
@@ -56,5 +58,18 @@ class SurveysController extends Controller
         return response()->json(collect(["id" => $question->id]));
     }
 
+    public function storeUserSurvey(Request $request)
+    {
+        $input = $request->all();
+        $citizen = Auth::user()->citizen()->first();
+        DB::transaction(function () use ($input, $citizen) {
+            $citizen->surveys()->attach($input['survey_id'], array(
+                'step' => $input['step'],
+                'is_final_step' => isset($input['final_step'])
+            ));
+            $citizen->answers()->attach(((array_values($input['answers']))));
+        });
+        return response()->json(['status' => true]);
+    }
 
 }

@@ -2,8 +2,9 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model; 
+use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @SWG\Definition(
@@ -44,7 +45,7 @@ class Question extends Model
     use SoftDeletes;
 
     public $table = 'questions';
-    
+
     const CREATED_AT = 'created_at';
     const UPDATED_AT = 'updated_at';
 
@@ -56,7 +57,7 @@ class Question extends Model
         'body',
         'survey_id',
         'step',
-        'rule',
+        'order',
         'deleted_at'
     ];
 
@@ -80,6 +81,30 @@ class Question extends Model
      * @var array
      */
     public static $rules = [
-        
+
     ];
+
+    public function survey()
+    {
+        return $this->belongsTo(Survey::class);
+    }
+
+    public function answers()
+    {
+        return $this->hasMany(Answer::class)->orderBy('order');
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withAnswers', function (Builder $builder) {
+            $builder->with('answers');
+        });
+    }
 }

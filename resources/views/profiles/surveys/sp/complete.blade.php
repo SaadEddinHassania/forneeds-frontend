@@ -1,3 +1,5 @@
+<input type="hidden" id="sp_id" value="{{$sp->id}}">
+
 <div class="modal fade in" id="SurveyModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel"
      aria-hidden="false">
     <div class="modal-dialog">
@@ -77,13 +79,13 @@
 </div>
 
 
-
 @push('styles')
 <link href="/assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet" type="text/css"/>
 @endpush
 
 @push('scripts')
 <script src="http://malsup.github.com/jquery.form.js"></script>
+
 <script src="/assets/survey_widget.js" type="text/javascript"></script>
 <script src="/assets/pages/scripts/form-wizard.js"></script>
 <script src="/assets/global/plugins/select2/js/select2.full.min.js" type="text/javascript"></script>
