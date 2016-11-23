@@ -2,10 +2,16 @@
 
 namespace App\Models\Users;
 
+use App\Models\AcademicLevel;
+use App\Models\Age;
 use App\Models\Answer;
+use App\Models\Disability;
 use App\Models\Location\Area;
+use App\Models\MaritalStatus;
+use App\Models\RefugeeState;
 use App\Models\Sector;
 use App\Models\Survey;
+use App\Models\WorkingState;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -91,9 +97,30 @@ class Citizen extends Model
     public function areas(){
         return $this->belongsToMany(Area::class);
     }
+    public function ages(){
+        return $this->belongsTo(Age::class);
+    }
+    public function marital(){
+        return $this->belongsTo(MaritalStatus::class);
+    }
+    public function workStates(){
+        return $this->belongsTo(WorkingState::class);
+    }
     public function sectors()
     {
         return $this->belongsToMany(Sector::class);
+    }
+    public function refuge()
+    {
+        return $this->belongsToMany(RefugeeState::class);
+    }
+    public function disability()
+    {
+        return $this->belongsToMany(Disability::class);
+    }
+    public function academic()
+    {
+        return $this->belongsToMany(AcademicLevel::class);
     }
 
     public function Answers()

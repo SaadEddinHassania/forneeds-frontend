@@ -3,14 +3,19 @@
 namespace App\Http\Controllers\FrontEnd;
 
 use App\Http\Controllers\Controller;
+use App\Models\AcademicLevel;
+use App\Models\Disability;
 use App\Models\Location\Area;
 use App\Models\MarginalizedSituation;
+use App\Models\MaritalStatus;
 use App\Models\Project;
+use App\Models\RefugeeState;
 use App\Models\Sector;
 use App\Models\Target;
 use App\Models\Users\Company;
 use App\Models\Users\ServiceProvider;
 use App\Models\Users\ServiceProviderType;
+use App\Models\WorkingState;
 use App\User;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Facades\Image;
@@ -63,7 +68,8 @@ class ProfileController extends Controller
         return view('profiles.citizen.index', [
             "user" => $user,
             "sRequests" => $sRequests,
-            'areas' => Area::all()->pluck('name', 'id')->toarray(),
+            'areas' => Area::all(),
+            'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
             'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
 
         ]);
@@ -118,10 +124,16 @@ class ProfileController extends Controller
 //            dd($sRequests);
 
         return view('profiles.citizen.settings1', [
-            "user" => $user,
-            "sRequests" => $sRequests,
-            'areas' => Area::all()->pluck('name', 'id')->toarray(),
-            'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
+            "user" => $user->with('citizen')->first(),
+            'citizen' => $user->citizen()->first(),
+            'sectors' => Sector::pluck('name', 'id'),
+            'maritals' => MaritalStatus::pluck('name', 'id'),
+            'ages' => Age::pluck('name', 'id'),
+            'areas' => Area::pluck('name', 'id'),
+            'workingstates' => WorkingState::pluck('name', 'id'),
+            'refugee' => RefugeeState::pluck('name', 'id'),
+            'disabilities' => Disability::pluck('name', 'id'),
+            'academic' => AcademicLevel::pluck('name', 'id'),
 
         ]);
     }
@@ -184,34 +196,20 @@ class ProfileController extends Controller
 
     private function postSPUpdate(Request $request, User $user)
     {
-
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|unique:users,email,' . $user->id,
-            'serviceProvider.mission_statement' => 'required',
-            'serviceProvider.service_provider_type_id' => 'required|exists:service_provider_types,id',
-            'serviceProvider.sector_id' => 'required|exists:sectors,id'
-        ]);
-
         $sv = $user->serviceProvider;
         $sv->update($request->input('serviceProvider'));
         $sv->save();
-
         $user->update($request->all());
         $user->save();
     }
 
     private function postCitizenUpdate(Request $request, User $user)
     {
-        $this->validate($request, [
-            'name' => 'required',
-            'email' => 'required|unique:users,email,' . $user->id,
-        ]);
+
 
         $citizen = $user->citizen;
         $citizen->update($request->input('citizen'));
         $citizen->save();
-
         $user->update($request->all());
         $user->save();
 
