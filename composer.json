@@ -12,8 +12,10 @@
         "laravelcollective/html": "5.3.*",
         "intervention/image": "^2.3",
         "barryvdh/laravel-ide-helper": "^2.2",
-        "tcg/voyager": "^0.9.19"
-
+        "tcg/voyager": "^0.9.19",
+        "barryvdh/laravel-snappy": "^0.3.1",
+        "wemersonjanuario/wkhtmltopdf-windows": "0.12.2.3",
+        "facebook/graph-sdk": "^5.4"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

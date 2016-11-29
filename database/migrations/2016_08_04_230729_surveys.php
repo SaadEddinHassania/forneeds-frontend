@@ -20,7 +20,7 @@ class Surveys extends Migration {
             $table->integer('project_id')->unsigned()->nullable()->index();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('SET NULL');
             $table->string('questions_count');
-
+            $table->tinyInteger('state')->default(0);
             $table->softDeletes();	
             $table->timestamps();
         });

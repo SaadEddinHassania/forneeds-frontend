@@ -50,6 +50,7 @@ class ProfileController extends Controller
         return view('profiles.sp.index1', [
             "user" => $user,
             "sp" => $sp,
+            'surveys' => $sp->surveys()->get(),
             'projects' => $sp->projects()->pluck('name', 'id'),
             'sectors' => $sp->sectors()->pluck('name', 'id'),
             'companies' => Company::pluck('name', 'id'),
@@ -64,14 +65,13 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         $sRequests = $user->citizen->servicesRequests;
-
         return view('profiles.citizen.index', [
             "user" => $user,
             "sRequests" => $sRequests,
             'areas' => Area::all(),
             'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
             'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
-
+            'surveys'=>$user->citizen->applicable_surveys()->orderBy('created_at','desc')->get()
         ]);
     }
 

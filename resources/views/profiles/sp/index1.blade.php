@@ -11,10 +11,10 @@
         box-shadow: none; /* You may want to include this as bootstrap applies these styles too */
     }
 
-     input.transparent-input{
-         background-color:rgba(0,0,0,0) !important;
-         border:none !important;
-     }
+    input.transparent-input {
+        background-color: rgba(0, 0, 0, 0) !important;
+        border: none !important;
+    }
 </style>
 @endpush
 @section('content')
@@ -28,7 +28,7 @@
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
-                <a href="index.html">Home</a>
+                <a href="{{url('/')}}">Home</a>
                 <i class="fa fa-circle"></i>
             </li>
             <li>
@@ -43,22 +43,11 @@
                 </button>
                 <ul class="dropdown-menu pull-right" role="menu">
                     <li>
-                        <a href="#">
-                            <i class="icon-bell"></i> Action</a>
+                        <a href="{{url('logout')}}">
+                            <i class="icon-bell"></i> logout</a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-shield"></i> Another action</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-user"></i> Something else here</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-bag"></i> Separated link</a>
-                    </li>
+
+
                 </ul>
             </div>
         </div>
@@ -108,42 +97,7 @@
                     <!-- END MENU -->
                 </div>
                 <!-- END PORTLET MAIN -->
-                <!-- PORTLET MAIN -->
-                <div class="portlet light ">
-                    <!-- STAT -->
-                    <div class="row list-separated profile-stat">
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 37</div>
-                            <div class="uppercase profile-stat-text"> Projects</div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 51</div>
-                            <div class="uppercase profile-stat-text"> Tasks</div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 61</div>
-                            <div class="uppercase profile-stat-text"> Uploads</div>
-                        </div>
-                    </div>
-                    <!-- END STAT -->
-                    <div>
-                        <h4 class="profile-desc-title">About Marcus Doe</h4>
-                        <span class="profile-desc-text"> Lorem ipsum dolor sit amet diam nonummy nibh dolore. </span>
-                        <div class="margin-top-20 profile-desc-link">
-                            <i class="fa fa-globe"></i>
-                            <a href="http://www.keenthemes.com">www.keenthemes.com</a>
-                        </div>
-                        <div class="margin-top-20 profile-desc-link">
-                            <i class="fa fa-twitter"></i>
-                            <a href="http://www.twitter.com/keenthemes/">@keenthemes</a>
-                        </div>
-                        <div class="margin-top-20 profile-desc-link">
-                            <i class="fa fa-facebook"></i>
-                            <a href="http://www.facebook.com/keenthemes/">keenthemes</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- END PORTLET MAIN -->
+
             </div>
             <!-- END BEGIN PROFILE SIDEBAR -->
             <!-- BEGIN PROFILE CONTENT -->
@@ -214,181 +168,195 @@
                                             class="badge bg-info">8</span></h5>
 
                             </div>
-                            <a class="btn btn-success btn-sm pull-right" href="todo_list.html#">Add New Survey</a>
+                            <a class="btn btn-success btn-sm pull-right" href="{{url('\test')}}">download pdf</a>
                             <br>
                         </div>
                         <div class="portlet-body">
                             <div class="task-content">
 
                                 <ul class="task-list col-md-12">
-                                    <li>
-                                        <div class="row">
-                                            <a class=" btn-block  btn-xs " style="color:#797979;" data-toggle="collapse"
-                                               href="#collapse1">
-                                                <div class="task-title text-left">
-                                                    <span class="task-title-sp">دراسة عن العنف ضد المعنفين</span>
-                                                    <span class="badge bg-theme">Done</span>
-                                                    <span class="caret pull-right"></span>
-                                                </div>
-                                            </a>
-                                        </div>
-                                        <div class="row">
-                                            <div id="collapse1" class="task-content row panel-collapse collapse">
-                                                <div class="panel  ">
-                                                    <div class="panel-body">Lorem ipsum dolor sit amet, consectetur
-                                                        adipisicing elit,
-                                                        sed do eiusmod tempor incididunt ut labore et dolore magna
-                                                        aliqua. Ut enim ad
-                                                        minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-                                                        aliquip ex ea
-                                                        commodo consequat.
+                                    @foreach($surveys as $survey)
+                                        <li>
+                                            <div class="row col-lg-12">
+                                                <a class=" btn-block   "
+                                                   data-toggle="collapse"
+                                                   href="#collapse{{$survey->id}}">
+                                                    <div class="task-title text-left">
+                                                        <span class="task-title-sp">{{$survey->subject}}</span>
+                                                        <span class="caret pull-right"></span>
+                                                        <span class="badge  bg-theme text-center badge-primary">pending</span>
                                                     </div>
-                                                </div>
-                                                <div class="panel-body">
-                                                    <div class="row">
-                                                        <div class="col-md-4">
-                                                            <div class="dashboard-stat2 ">
-                                                                <div class="display">
-                                                                    <div class="number">
-                                                                        <h3 class="font-green-sharp">
+                                                </a>
+                                            </div>
+                                            <div class="row">
+                                                <div id="collapse{{$survey->id}}"
+                                                     class="task-content row panel-collapse collapse">
+                                                    <div class="panel  ">
+                                                        <div class="panel-body">
+                                                            <p class="well col-lg-12">{{$survey->description}}</p>
+                                                        </div>
+                                                    </div>
+                                                    <div class="panel-body">
+                                                        <div class="row">
+                                                            <div class="col-md-4">
+                                                                <div class="dashboard-stat2 ">
+                                                                    <div class="display">
+                                                                        <div class="number">
+                                                                            <h3 class="font-green-sharp">
                                                                             <span data-counter="counterup"
                                                                                   data-value="7800">7800</span>
-                                                                            <small class="font-green-sharp">$</small>
-                                                                        </h3>
-                                                                        <small>TOTAL PROFIT</small>
+                                                                                <small class="font-green-sharp">$
+                                                                                </small>
+                                                                            </h3>
+                                                                            <small>TOTAL PROFIT</small>
+                                                                        </div>
+                                                                        <div class="icon">
+                                                                            <i class="icon-pie-chart"></i>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="icon">
-                                                                        <i class="icon-pie-chart"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="progress-info">
-                                                                    <div class="progress">
+                                                                    <div class="progress-info">
+                                                                        <div class="progress">
                                             <span style="width: 76%;"
                                                   class="progress-bar progress-bar-success green-sharp">
                                                 <span class="sr-only">76% progress</span>
                                             </span>
-                                                                    </div>
-                                                                    <div class="status">
-                                                                        <div class="status-title"> progress</div>
-                                                                        <div class="status-number"> 76%</div>
+                                                                        </div>
+                                                                        <div class="status">
+                                                                            <div class="status-title"> progress</div>
+                                                                            <div class="status-number"> 76%</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="dashboard-stat2 ">
-                                                                <div class="display">
-                                                                    <div class="number">
-                                                                        <h3 class="font-purple-soft">
+                                                            <div class="col-md-4">
+                                                                <div class="dashboard-stat2 ">
+                                                                    <div class="display">
+                                                                        <div class="number">
+                                                                            <h3 class="font-purple-soft">
                                                                             <span data-counter="counterup"
                                                                                   data-value="276">276</span>
-                                                                        </h3>
-                                                                        <small>NEW USERS</small>
+                                                                            </h3>
+                                                                            <small>NEW USERS</small>
+                                                                        </div>
+                                                                        <div class="icon">
+                                                                            <i class="icon-user"></i>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="icon">
-                                                                        <i class="icon-user"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="progress-info">
-                                                                    <div class="progress">
+                                                                    <div class="progress-info">
+                                                                        <div class="progress">
                                             <span style="width: 57%;"
                                                   class="progress-bar progress-bar-success purple-soft">
                                                 <span class="sr-only">56% change</span>
                                             </span>
-                                                                    </div>
-                                                                    <div class="status">
-                                                                        <div class="status-title"> change</div>
-                                                                        <div class="status-number"> 57%</div>
+                                                                        </div>
+                                                                        <div class="status">
+                                                                            <div class="status-title"> change</div>
+                                                                            <div class="status-number"> 57%</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
-                                                        </div>
-                                                        <div class="col-md-4">
-                                                            <div class="dashboard-stat2 ">
-                                                                <div class="display">
-                                                                    <div class="number">
-                                                                        <h3 class="font-red-haze">
+                                                            <div class="col-md-4">
+                                                                <div class="dashboard-stat2 ">
+                                                                    <div class="display">
+                                                                        <div class="number">
+                                                                            <h3 class="font-red-haze">
                                                                             <span data-counter="counterup"
                                                                                   data-value="1349">1349</span>
-                                                                        </h3>
-                                                                        <small>NEW FEEDBACKS</small>
+                                                                            </h3>
+                                                                            <small>NEW FEEDBACKS</small>
+                                                                        </div>
+                                                                        <div class="icon">
+                                                                            <i class="icon-like"></i>
+                                                                        </div>
                                                                     </div>
-                                                                    <div class="icon">
-                                                                        <i class="icon-like"></i>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="progress-info">
-                                                                    <div class="progress">
+                                                                    <div class="progress-info">
+                                                                        <div class="progress">
                                             <span style="width: 85%;"
                                                   class="progress-bar progress-bar-success red-haze">
                                                 <span class="sr-only">85% change</span>
                                             </span>
-                                                                    </div>
-                                                                    <div class="status">
-                                                                        <div class="status-title"> change</div>
-                                                                        <div class="status-number"> 85%</div>
+                                                                        </div>
+                                                                        <div class="status">
+                                                                            <div class="status-title"> change</div>
+                                                                            <div class="status-number"> 85%</div>
+                                                                        </div>
                                                                     </div>
                                                                 </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                    <div class="col-md-12  mb">
-                                                        <div class="panel-group accordion scrollable" id="accordion2">
-                                                            <div class="panel panel-default">
-                                                                <div class="panel-heading">
-                                                                    <h4 class="panel-title">
-                                                                        <a class="accordion-toggle collapsed"
-                                                                           data-toggle="collapse"
-                                                                           data-parent="#accordion2"
-                                                                           href="#collapse_2_1" aria-expanded="false">
-                                                                            <input type="text" class="transparent-input" readonly name="answer" value="question">
-                                                                        </a>
-                                                                    </h4>
-                                                                </div>
-                                                                <div id="collapse_2_1" class="panel-collapse collapse"
-                                                                     aria-expanded="false" style="height: 0px;">
-                                                                    <div class="panel-body">
-                                                                        <div class="col-md-4">
-                                                                            <div class="dashboard-stat2 ">
-                                                                                <div class="display">
-                                                                                    <div class="number">
-                                                                                        <input type="text" class="no-border" readonly name="answer" value="TOTAL PROFIT">
-                                                                                    </div>
-                                                                                    <div class="icon">
-                                                                                        <i class="icon-pie-chart"></i>
-                                                                                    </div>
-                                                                                </div>
-                                                                                <div class="progress-info">
-                                                                                    <div class="progress">
-                                            <span style="width: 76%;"
-                                                  class="progress-bar progress-bar-success green-sharp">
-                                                <span class="sr-only">76% progress</span>
-                                            </span>
-                                                                                    </div>
-                                                                                    <div class="status">
-                                                                                        <div class="status-title">
-                                                                                            progress
+                                                        <div class="col-md-12  mb">
+
+                                                            <div class="panel-group accordion scrollable"
+                                                                 id="accordion2">
+                                                                @foreach($survey->questions as $question)
+                                                                    <div class="panel panel-default">
+                                                                        <div class="panel-heading">
+                                                                            <h4 class="panel-title">
+                                                                                <a class="accordion-toggle collapsed"
+                                                                                   data-toggle="collapse"
+                                                                                   data-parent="#accordion2"
+                                                                                   href="#collapse_{{$survey->id}}{{$survey->id}}_{{$question->id}}"
+                                                                                   aria-expanded="false">
+                                                                                    <input type="text"
+                                                                                           class="transparent-input"
+                                                                                           readonly name="body"
+                                                                                           value="{{$question->body}} ?">
+                                                                                </a>
+                                                                            </h4>
+                                                                        </div>
+                                                                        <div id="collapse_{{$survey->id}}{{$survey->id}}_{{$question->id}}"
+                                                                             class="panel-collapse collapse"
+                                                                             aria-expanded="false" style="height: 0px;">
+                                                                            <div class="panel-body">
+                                                                                @foreach($question->answers as $answer)
+                                                                                    <div class="col-md-4">
+                                                                                        <div class="dashboard-stat2 ">
+                                                                                            <div class="display">
+                                                                                                <div class="number">
+                                                                                                    <input type="text"
+                                                                                                           class="no-border"
+                                                                                                           readonly
+                                                                                                           name="answer"
+                                                                                                           value="{{$answer->answer}}">
+                                                                                                </div>
+                                                                                                <div class="icon">
+                                                                                                    <i class="icon-pie-chart"></i>
+                                                                                                </div>
+                                                                                            </div>
+                                                                                            <div class="progress-info">
+                                                                                                <div class="progress">
+                                                                                                <span style="width: 76%;"
+                                                                                                      class="progress-bar progress-bar-success green-sharp">
+                                                                                                    <span class="sr-only">76% pick rate</span>
+                                                                                                </span>
+                                                                                                </div>
+                                                                                                <div class="status">
+                                                                                                    <div class="status-title">
+                                                                                                        Pick Rate
+                                                                                                    </div>
+                                                                                                    <div class="status-number">
+                                                                                                        76%
+                                                                                                    </div>
+                                                                                                </div>
+                                                                                            </div>
                                                                                         </div>
-                                                                                        <div class="status-number">
-                                                                                            76%
-                                                                                        </div>
                                                                                     </div>
-                                                                                </div>
+
+                                                                                @endforeach
+
                                                                             </div>
                                                                         </div>
-
                                                                     </div>
-                                                                </div>
+                                                                @endforeach
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
 
-                                    </li>
-
+                                        </li>
+                                    @endforeach
                                 </ul>
                             </div>
 
@@ -400,133 +368,6 @@
                             </div>
                         </div>
                     </section>
-                    <div class="row">
-                        <div class="col-md-12">
-                            <!-- BEGIN PORTLET -->
-                            <div class="portlet light ">
-                                <div class="portlet-title">
-                                    <div class="caption caption-md">
-                                        <i class="icon-bar-chart theme-font hide"></i>
-                                        <span class="caption-subject font-blue-madison bold uppercase">Your Activity</span>
-                                        <span class="caption-helper hide">weekly stats...</span>
-                                    </div>
-                                    <div class="actions">
-                                        <div class="btn-group btn-group-devided" data-toggle="buttons">
-                                            <label class="btn btn-transparent grey-salsa btn-circle btn-sm active">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option1">Today</label>
-                                            <label class="btn btn-transparent grey-salsa btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Week</label>
-                                            <label class="btn btn-transparent grey-salsa btn-circle btn-sm">
-                                                <input type="radio" name="options" class="toggle"
-                                                       id="option2">Month</label>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="portlet-body">
-                                    <div class="row number-stats margin-bottom-30">
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-left">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar"></div>
-                                                </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> Total</div>
-                                                    <div class="number"> 2460</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6 col-sm-6 col-xs-6">
-                                            <div class="stat-right">
-                                                <div class="stat-chart">
-                                                    <!-- do not line break "sparkline_bar" div. sparkline chart has an issue when the container div has line break -->
-                                                    <div id="sparkline_bar2"></div>
-                                                </div>
-                                                <div class="stat-number">
-                                                    <div class="title"> New</div>
-                                                    <div class="number"> 719</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div class="table-scrollable table-scrollable-borderless">
-                                        <table class="table table-hover table-light">
-                                            <thead>
-                                            <tr class="uppercase">
-                                                <th colspan="2"> MEMBER</th>
-                                                <th> Earnings</th>
-                                                <th> CASES</th>
-                                                <th> CLOSED</th>
-                                                <th> RATE</th>
-                                            </tr>
-                                            </thead>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic" src="../assets/pages/media/users/avatar4.jpg">
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Brain</a>
-                                                </td>
-                                                <td> $345</td>
-                                                <td> 45</td>
-                                                <td> 124</td>
-                                                <td>
-                                                    <span class="bold theme-font">80%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic" src="../assets/pages/media/users/avatar5.jpg">
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Nick</a>
-                                                </td>
-                                                <td> $560</td>
-                                                <td> 12</td>
-                                                <td> 24</td>
-                                                <td>
-                                                    <span class="bold theme-font">67%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic" src="../assets/pages/media/users/avatar6.jpg">
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Tim</a>
-                                                </td>
-                                                <td> $1,345</td>
-                                                <td> 450</td>
-                                                <td> 46</td>
-                                                <td>
-                                                    <span class="bold theme-font">98%</span>
-                                                </td>
-                                            </tr>
-                                            <tr>
-                                                <td class="fit">
-                                                    <img class="user-pic" src="../assets/pages/media/users/avatar7.jpg">
-                                                </td>
-                                                <td>
-                                                    <a href="javascript:;" class="primary-link">Tom</a>
-                                                </td>
-                                                <td> $645</td>
-                                                <td> 50</td>
-                                                <td> 89</td>
-                                                <td>
-                                                    <span class="bold theme-font">58%</span>
-                                                </td>
-                                            </tr>
-                                        </table>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <!-- END PORTLET -->
-                        </div>
-
-                    </div>
 
 
                 </div>

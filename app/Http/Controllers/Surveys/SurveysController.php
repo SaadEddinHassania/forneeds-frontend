@@ -72,4 +72,21 @@ class SurveysController extends Controller
         return response()->json(['status' => true]);
     }
 
+    public function surveysUser($id)
+    {
+        $sur = \App\Models\Survey::find($id);
+        $questions_chuncked = [];
+        $citizen = Auth::user()->citizen()->first();
+        $questions = $sur->questions->groupBy('step');
+        $surveys = $citizen->surveys()->where('id', $sur->id)->withPivot('step', 'is_final_step')->get();
+        foreach ($surveys as $sur) {
+            unset($questions[$sur->pivot->step]);
+        }
+        foreach ($questions as $question) {
+            $questions_chuncked[] = $question;
+        }
+        return view('profiles.surveys.citizen.fill', ['survey' => $sur, 'questions' => $questions_chuncked]);
+
+    }
+
 }

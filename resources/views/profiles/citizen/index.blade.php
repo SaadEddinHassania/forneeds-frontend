@@ -54,7 +54,7 @@
     <div class="page-bar">
         <ul class="page-breadcrumb">
             <li>
-                <a href="index.html">Home</a>
+                <a href="{{url('/')}}">Home</a>
                 <i class="fa fa-circle"></i>
             </li>
             <li>
@@ -69,22 +69,10 @@
                 </button>
                 <ul class="dropdown-menu pull-right" role="menu">
                     <li>
-                        <a href="#">
-                            <i class="icon-bell"></i> Action</a>
+                        <a href="{{url('logout')}}">
+                            <i class="icon-bell"></i> Logout</a>
                     </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-shield"></i> Another action</a>
-                    </li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-user"></i> Something else here</a>
-                    </li>
-                    <li class="divider"></li>
-                    <li>
-                        <a href="#">
-                            <i class="icon-bag"></i> Separated link</a>
-                    </li>
+
                 </ul>
             </div>
         </div>
@@ -110,7 +98,7 @@
                     <!-- SIDEBAR USER TITLE -->
                     <div class="profile-usertitle">
                         <div class="profile-usertitle-name"> {{$user->name}} </div>
-                        <div class="profile-usertitle-job"> Service Provider</div>
+                        <div class="profile-usertitle-job"> {{$user->getUserTypeAttribute()}}</div>
                     </div>
                     <!-- END SIDEBAR USER TITLE -->
                     <!-- SIDEBAR BUTTONS -->
@@ -135,42 +123,7 @@
                     <!-- END MENU -->
                 </div>
                 <!-- END PORTLET MAIN -->
-                <!-- PORTLET MAIN -->
-                <div class="portlet light ">
-                    <!-- STAT -->
-                    <div class="row list-separated profile-stat">
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 37</div>
-                            <div class="uppercase profile-stat-text"> Projects</div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 51</div>
-                            <div class="uppercase profile-stat-text"> Tasks</div>
-                        </div>
-                        <div class="col-md-4 col-sm-4 col-xs-6">
-                            <div class="uppercase profile-stat-title"> 61</div>
-                            <div class="uppercase profile-stat-text"> Uploads</div>
-                        </div>
-                    </div>
-                    <!-- END STAT -->
-                    <div>
-                        <h4 class="profile-desc-title">About Marcus Doe</h4>
-                        <span class="profile-desc-text"> Lorem ipsum dolor sit amet diam nonummy nibh dolore. </span>
-                        <div class="margin-top-20 profile-desc-link">
-                            <i class="fa fa-globe"></i>
-                            <a href="http://www.keenthemes.com">www.keenthemes.com</a>
-                        </div>
-                        <div class="margin-top-20 profile-desc-link">
-                            <i class="fa fa-twitter"></i>
-                            <a href="http://www.twitter.com/keenthemes/">@keenthemes</a>
-                        </div>
-                        <div class="margin-top-20 profile-desc-link">
-                            <i class="fa fa-facebook"></i>
-                            <a href="http://www.facebook.com/keenthemes/">keenthemes</a>
-                        </div>
-                    </div>
-                </div>
-                <!-- END PORTLET MAIN -->
+
             </div>
             <!-- END BEGIN PROFILE SIDEBAR -->
 
@@ -258,6 +211,39 @@
                     </div>
                 </div>
                 <!-- END PORTLET -->
+                <div class="col-lg-5">
+                    <section class="task-panel portlet light  tasks-widget">
+                        <div class="portlet-title">
+                            <div class="pull-left"><h5><i class="fa fa-tasks"></i> Surveys - <span
+                                            class="badge bg-info">8</span></h5></div>
+                            <br>
+                        </div>
+                        <div class="portlet-body ">
+                            <div class="task-content ">
+
+                                <ul class="task-list">
+                                    @foreach($surveys as $sr)
+                                        <li>
+
+                                            <a href="{{route('surveys',$sr->id)}}">
+                                                <div class="task-title">
+                                                    <span class="task-title-sp">{{$sr->subject}}</span>
+                                                </div>
+                                            </a>
+                                        </li>
+
+                                    @endforeach
+
+                                </ul>
+                                <div class=" add-task-row">
+
+                                </div>
+                            </div>
+
+
+                        </div>
+                    </section>
+                </div>
             </div>
 
         </div>

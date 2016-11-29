@@ -45,31 +45,31 @@
     <link rel="shortcut icon" href="favicon.ico">
 
     <!-- <link href='https://fonts.googleapis.com/css?family=PT+Sans:400,700,400italic,700italic' rel='stylesheet' type='text/css'> -->
-    <link rel="stylesheet" href="css/uikit.min.css">
-    <link rel="stylesheet" href="css/uikit.gradient.min.css">
+    <link rel="stylesheet" href="{{asset('css/uikit.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/uikit.gradient.min.css')}}">
 
     <!-- Animate.css -->
-    <link rel="stylesheet" href="css/animate.css">
+    <link rel="stylesheet" href="{{asset('css/animate.css')}}">
     <!-- Icomoon Icon Fonts-->
-    <link rel="stylesheet" href="css/icomoon.css">
+    <link rel="stylesheet" href="{{asset('css/icomoon.css')}}">
     <!-- Simple Line Icons -->
-    <link rel="stylesheet" href="css/simple-line-icons.css">
+    <link rel="stylesheet" href="{{asset('css/simple-line-icons.css')}}">
 
     <!-- Bootstrap  -->
-    <link rel="stylesheet" href="css/bootstrap.css">
+    <link rel="stylesheet" href="{{asset('css/bootstrap.css')}}">
     <!-- Owl Carousel  -->
-    <link rel="stylesheet" href="css/owl.carousel.min.css">
-    <link rel="stylesheet" href="css/owl.theme.default.min.css">
+    <link rel="stylesheet" href="{{asset('css/owl.carousel.min.css')}}">
+    <link rel="stylesheet" href="{{asset('css/owl.theme.default.min.css')}}">
     <!-- Style -->
     <link href="//maxcdn.bootstrapcdn.com/font-awesome/4.2.0/css/font-awesome.min.css" rel="stylesheet">
 
-    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="{{asset('css/style.css')}}">
 
     <!-- Modernizr JS -->
-    <script src="js/modernizr-2.6.2.min.js"></script>
+    <script src="{{asset('js/modernizr-2.6.2.min.js')}}"></script>
     <!-- FOR IE9 below -->
     <!--[if lt IE 9]>
-    <script src="js/respond.min.js"></script>
+    <script src="{{asset('js/respond.min.js')}}"></script>
 
 
     <![endif]-->
@@ -437,7 +437,7 @@
         </div>
     </div>
     <div class="core-features">
-        <div class="grid2 to-animate" style="background-image: url(images/full_image_5.jpg);">
+        <div class="grid2 to-animate" style="background-image: url({{asset('images/full_image_5.jpg')}});">
         </div>
         <div class="grid2 fh5co-bg-color">
             <div class="core-f">
@@ -548,7 +548,7 @@
 </section>
 
 <div class="getting-started row getting-started-1">
-    <div class="getting-grid" style="background-image:  url(images/full_image_3.jpg);">
+    <div class="getting-grid" style="background-image:  url({{asset('images/full_image_3.jpg')}});">
         <div class="desc">
             <h2>Getting <span>Started</span></h2>
             <p>Far far away, behind the word mountains, far from the countries Vokalia and Consonantia, there live the
@@ -658,27 +658,27 @@
             <div class="row">
                 <div class="col-md-2 col-sm-3 col-xs-6 col-sm-offset-0 col-md-offset-1">
                     <div class="partner-logo to-animate-2">
-                        <img src="images/logo1.png" alt="Partners" class="img-responsive">
+                        <img src="{{asset('images/logo1.png')}}" alt="Partners" class="img-responsive">
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="partner-logo to-animate-2">
-                        <img src="images/logo2.png" alt="Partners" class="img-responsive">
+                        <img src="{{asset('images/logo2.png')}}" alt="Partners" class="img-responsive">
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="partner-logo to-animate-2">
-                        <img src="images/logo3.png" alt="Partners" class="img-responsive">
+                        <img src="{{asset('images/logo3.png')}}" alt="Partners" class="img-responsive">
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-3 col-xs-6">
                     <div class="partner-logo to-animate-2">
-                        <img src="images/logo4.png" alt="Partners" class="img-responsive">
+                        <img src="{{asset('images/logo4.png')}}" alt="Partners" class="img-responsive">
                     </div>
                 </div>
                 <div class="col-md-2 col-sm-12 col-xs-12">
                     <div class="partner-logo to-animate-2">
-                        <img src="images/logo5.png" alt="Partners" class="img-responsive">
+                        <img src="{{asset('images/logo5.png')}}" alt="Partners" class="img-responsive">
                     </div>
                 </div>
             </div>
@@ -741,28 +741,28 @@
 
 
 <!-- jQuery -->
-<script src="js/jquery.min.js"></script>
+<script src="{{asset('js/jquery.min.js')}}"></script>
 <!-- Ui kit -->
-<script src="js/uikit.min.js"></script>
+<script src="{{asset('js/uikit.min.js')}}"></script>
 <!-- jQuery Easing -->
-<script src="js/jquery.easing.1.3.js"></script>
+<script src="{{asset('js/jquery.easing.1.3.js')}}"></script>
 <!-- Bootstrap -->
-<script src="js/bootstrap.min.js"></script>
+<script src="{{asset('js/bootstrap.min.js')}}"></script>
 <!-- Waypoints -->
-<script src="js/jquery.waypoints.min.js"></script>
+<script src="{{asset('js/jquery.waypoints.min.js')}}"></script>
 <!-- Stellar Parallax -->
-<script src="js/jquery.stellar.min.js"></script>
+<script src="{{asset('js/jquery.stellar.min.js')}}"></script>
 <!-- Owl Carousel -->
-<script src="js/owl.carousel.min.js"></script>
+<script src="{{asset('js/owl.carousel.min.js')}}"></script>
 <!-- Counters -->
-<script src="js/jquery.countTo.js"></script>
+<script src="{{asset('js/jquery.countTo.js')}}"></script>
 <!-- switcher -->
-<script src="js/jquery.style.switcher.js"></script>
+<script src="{{asset('js/jquery.style.switcher.js')}}"></script>
 <!-- Google Map -->
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
-<script src="js/google_map.js"></script>
+<script src="{{asset('js/google_map.js')}}"></script>
 <!-- Main JS (Do not remove) -->
-<script src="js/main.js"></script>
+<script src="{{asset('js/main.js')}}"></script>
 
 </body>
 </html>

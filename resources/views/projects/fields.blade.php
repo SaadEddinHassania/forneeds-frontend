@@ -66,7 +66,6 @@
     <div class="form-actions">
         <div class="row  col-md-offset-0">
             {!! Form::submit('Save', ['class' => 'btn green']) !!}
-            <a href="{!! route('admin.projects.index') !!}" class="btn btn-default">Cancel</a>
         </div>
     </div>
 </div>

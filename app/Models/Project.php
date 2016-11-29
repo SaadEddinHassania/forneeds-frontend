@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Users\ServiceProvider;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @SWG\Definition(
@@ -111,5 +112,19 @@ class Project extends Model
     public function targets()
     {
         return $this->hasMany(Target::class);
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withTargets', function (Builder $builder) {
+            $builder->with('targets');
+        });
     }
 }

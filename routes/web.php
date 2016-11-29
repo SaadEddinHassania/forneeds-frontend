@@ -17,19 +17,42 @@ Route::get('/log/{id}', function ($id) {
 });
 
 Route::get('/test', function () {
-    $sur = \App\Models\Survey::find(3);
-    $questions_chuncked = [];
-    $citizen = Auth::user()->citizen()->first();
-    $questions = $sur->questions->groupBy('step');
-    $surveys = $citizen->surveys()->where('id', $sur->id)->withPivot('step', 'is_final_step')->get();
-    foreach ($surveys as $sur) {
-        unset($questions[$sur->pivot->step]);
-    }
-    foreach ($questions as $question) {
-        $questions_chuncked[] = $question;
-    }
-    return view('profiles.surveys.citizen.fill', ['survey' => $sur, 'questions' => $questions_chuncked]);
+
+
+    $user = Auth::user();
+    $sp = $user->serviceProvider()->first();
+
+    $pdf = PDF::loadView('pdfs.sample_report',[
+        "user" => $user,
+        "sp" => $sp,
+        'surveys' => $sp->surveys()->get(),
+        'sectors' => $sp->sectors()->pluck('name', 'id'),
+        'areas' => $sp->areas()->pluck('name', 'id'),
+    ]);
+    //return PDF::loadFile('http://forneeds-frontend.dev')->inline('github.pdf');
+   // return view('home');
+     //PDF::loadView('home');
+    $pdf->setOption('enable-javascript', true);
+    $pdf->setOption('javascript-delay', 13500);
+    $pdf->setOption('enable-smart-shrinking', true);
+    $pdf->setOption('no-stop-slow-scripts', true);
+    return $pdf->download('invoice.pdf');
+    $html = '<h1>Bill</h1><p>You owe me money, dude.</p>';
+
+    $snappy = App::make('snappy.pdf');
+    $snappy->generateFromHtml($html, '/tmp/bill-123.pdf');
+
+    return new Response(
+        $snappy->getOutputFromHtml($html),
+        200,
+        array(
+            'Content-Type' => 'application/pdf',
+            'Content-Disposition' => 'attachment; filename="file.pdf"'
+        )
+    );
 });
+
+
 Route::get('/home', function () {
     return view('home');
 });
@@ -44,6 +67,7 @@ Route::group(['middleware' => 'auth'], function () {
     Route::post('/checkpoint/sp/', 'Auth\ProfileCompletionController@completeSpProfile')->name('newSp');
     Route::post('/checkpoint/citizen/', 'Auth\ProfileCompletionController@completeCitizenProfile')->name('newCitizen');
 
+    Route::get('gateways/surveys/{id}', "Surveys\\SurveysController@surveysUser")->name('surveys');
     Route::get('gateways/surveys/create', "Surveys\\SurveysController@create");
     Route::post('gateways/surveys/store/survey', "Surveys\\SurveysController@storeSurvey")->name('storeSurvey');
     Route::post('gateways/surveys/users/store/survey', "Surveys\\SurveysController@storeUserSurvey")->name('userSurvey');

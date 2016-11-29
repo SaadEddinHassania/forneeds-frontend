@@ -5,6 +5,7 @@ namespace App\Models\Users;
 use App\Models\Location\Area;
 use App\Models\Project;
 use App\Models\Sector;
+use App\Models\Survey;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 
@@ -56,6 +57,11 @@ class ServiceProvider extends Model
         } else {
             return "No User";
         }
+    }
+
+    public function surveys()
+    {
+        return $this->hasManyThrough(Survey::class, Project::class);
     }
 
     public function user()

@@ -52,7 +52,7 @@ class ServiceRequestsController extends Controller
         $serviceRequest=new ServiceRequest();
         $serviceRequest = ServiceRequest::firstOrCreate((array_intersect_key($input,array_flip($serviceRequest->getFillable()))));
         Flash::success('ServiceRequests saved successfully.');
-        return response()->json($serviceRequest);
+        return redirect()->back();
     }
 }
 
