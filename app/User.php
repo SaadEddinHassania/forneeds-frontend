@@ -20,7 +20,7 @@ class User extends Authenticatable
         'name', 'email', 'password', 'facebook_token', 'facebook_id', 'google_token', 'google_id'
     ];
 
-    protected $appends = ['user_type'];
+    protected $appends = ['user_type','password'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -30,6 +30,11 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function setPasswordAttribute($password)
+    {
+        $this->attributes['password'] = bcrypt($password);
+    }
 
     public function isServiceProvider()
     {
@@ -76,6 +81,13 @@ class User extends Authenticatable
     public function citizen()
     {
         return $this->hasOne(Citizen::class);
+    }
+
+    public function unlink()
+    {
+        $this->facebook_token = null;
+        $this->facebook_id = null;
+        $this->save();
     }
 
     public function getUserTypeAttribute()

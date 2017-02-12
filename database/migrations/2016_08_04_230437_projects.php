@@ -19,6 +19,7 @@ class Projects extends Migration
             $table->string('sponsor');
             $table->timestamp('expires_at')->nullable();
             $table->timestamp('starts_at')->nullable();
+            $table->boolean('is_accepted')->default(false);
             $table->text('description');
             $table->integer('sector_id')->unsigned()->nullable()->index();
             $table->foreign('sector_id')->references('id')->on('sectors')->onDelete('SET NULL');

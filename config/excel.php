@@ -58,15 +58,15 @@ return array(
     ),
 
     'properties' => array(
-        'creator'        => 'Maatwebsite',
-        'lastModifiedBy' => 'Maatwebsite',
+        'creator'        => 'forneeds',
+        'lastModifiedBy' => 'forneeds',
         'title'          => 'Spreadsheet',
-        'description'    => 'Default spreadsheet export',
+        'description'    => ' spreadsheet export',
         'subject'        => 'Spreadsheet export',
         'keywords'       => 'maatwebsite, excel, export',
         'category'       => 'Excel',
-        'manager'        => 'Maatwebsite',
-        'company'        => 'Maatwebsite',
+        'manager'        => 'forneeeds',
+        'company'        => 'forneeds',
     ),
 
     /*

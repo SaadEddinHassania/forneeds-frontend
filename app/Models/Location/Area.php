@@ -99,4 +99,10 @@ class Area extends Model
     public function citizens(){
         return $this->belongsToMany(Citizen::class);
     }
+
+    public function citizensCount()
+    {
+        return $this->citizens()->selectRaw('count(citizens.id) as aggregate')
+            ->groupBy(['pivot_citizen_id', 'pivot_area_id']);
+    }
 }

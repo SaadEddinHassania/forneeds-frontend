@@ -43,9 +43,9 @@
                                             placeholder="select sector" multiple>
                                         <option value="" selected disabled>Sectors</option>
 
-                                        @foreach($sectors as $id=>$name)
-                                            <option value="{{$id}}">{{$name}}</option>
-                                        @endforeach
+                                            @foreach($sectors as $id=>$name)
+                                                <option value="{{$id}}">{{$name}}</option>
+                                            @endforeach
                                     </select>
                                 </div>
                                 <div class="form-group">

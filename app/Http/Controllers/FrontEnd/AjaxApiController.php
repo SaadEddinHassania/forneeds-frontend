@@ -10,6 +10,7 @@ use App\Models\Location\Area;
 use App\Models\MaritalStatus;
 use App\Models\Project;
 use App\Models\RefugeeState;
+use App\Models\Survey;
 use App\Models\WorkField;
 use App\Models\WorkingState;
 use function response;
@@ -56,7 +57,7 @@ class AjaxApiController extends Controller
 
     public function surveys($project_id)
     {
-        $surveys = $this->surveyRepository->findByField('project_id', $project_id, array('id', 'subject'));
+        $surveys = Survey::where('project_id', $project_id )->select(array('id', 'subject'))->get();
         return response()->json($surveys);
     }
 

@@ -21,6 +21,9 @@ class CreateCitizensTable extends Migration
             $table->foreign('marital_status_id','msId')->references('id')->on('marital_statuses')->onDelete('SET NULL');
             $table->integer('age_id')->unsigned()->nullable()->index();
             $table->foreign('age_id','ageId')->references('id')->on('ages')->onDelete('SET NULL');
+            $table->integer('gender_id')->unsigned()->nullable()->index();
+            $table->foreign('gender_id')->references('id')->on('genders')->onDelete('SET NULL');
+
             $table->integer('refugee_state_id')->unsigned()->nullable()->index();
             $table->foreign('refugee_state_id')->references('id')->on('refugee_states')->onDelete('SET NULL');
             $table->integer('working_state_id')->unsigned()->nullable()->index();

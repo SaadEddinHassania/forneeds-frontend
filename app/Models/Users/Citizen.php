@@ -14,6 +14,7 @@ use App\Models\RefugeeState;
 use App\Models\Sector;
 use App\Models\Survey;
 use App\Models\Target;
+use App\Models\WorkField;
 use App\Models\WorkingState;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
@@ -84,7 +85,7 @@ class Citizen extends Model
     public static $rules = [
     ];
 
-    protected $appends = array('name');
+    //protected $appends = array('name', 'marital', 'age', 'refuge', 'work', 'disability', 'academic');//,,);
 
 
     public function getNameAttribute()
@@ -94,6 +95,36 @@ class Citizen extends Model
         } else {
             return "No User";
         }
+    }
+
+    public function getMaritalAttribute()
+    {
+        return MaritalStatus::where('id', $this->marital_status_id)->first() ? MaritalStatus::where('id', $this->marital_status_id)->first()->name : '';
+    }
+
+    public function getAgeAttribute()
+    {
+        return Age::where('id', $this->age_id)->first() ? Age::where('id', $this->age_id)->first()->name : '';
+    }
+
+    public function getWorkAttribute()
+    {
+        return WorkField::where('id', $this->working_state_id)->first() ? WorkField::where('id', $this->working_state_id)->first()->name : '';
+    }
+
+    public function getDisabilityAttribute()
+    {
+        return Disability::where('id', $this->disability_id)->first() ? Disability::where('id', $this->disability_id)->first()->name : '';
+    }
+
+    public function getAcademicAttribute()
+    {
+        return AcademicLevel::where('id', $this->academic_level_id)->first() ? AcademicLevel::where('id', $this->academic_level_id)->first()->name : '';
+    }
+
+    public function getRefugeAttribute()
+    {
+        return RefugeeState::where('id', $this->refugee_state_id)->first() ? RefugeeState::where('id', $this->refugee_state_id)->first()->name : '';
     }
 
     public function user()
@@ -111,17 +142,21 @@ class Citizen extends Model
         return $this->belongsToMany(Area::class);
     }
 
-    public function ages()
+    public function age()
     {
         return $this->belongsTo(Age::class);
     }
-
-    public function marital()
+    public function gender()
     {
-        return $this->belongsTo(MaritalStatus::class);
+        return $this->belongsTo(Gender::class);
     }
 
-    public function workStates()
+    public function maritalStatus()
+    {
+        return ($this->belongsTo(MaritalStatus::class));
+    }
+
+    public function workingState()
     {
         return $this->belongsTo(WorkingState::class);
     }
@@ -131,19 +166,19 @@ class Citizen extends Model
         return $this->belongsToMany(Sector::class);
     }
 
-    public function refuge()
+    public function refugeeState()
     {
-        return $this->belongsToMany(RefugeeState::class);
+        return $this->belongsTo(RefugeeState::class);
     }
 
     public function disability()
     {
-        return $this->belongsToMany(Disability::class);
+        return $this->belongsTo(Disability::class);
     }
 
-    public function academic()
+    public function academicLevel()
     {
-        return $this->belongsToMany(AcademicLevel::class);
+        return $this->belongsTo(AcademicLevel::class);
     }
 
     public function Answers()
@@ -168,4 +203,8 @@ class Citizen extends Model
         return Survey::whereIn('project_id', $projects->pluck('project_id'));
 
     }
+
+
+
+
 }

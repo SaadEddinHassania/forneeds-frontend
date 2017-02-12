@@ -27,6 +27,7 @@ class ServiceProvider extends Model
         'contact_person',
         'contact_person_title',
         'company_id',
+        'is_accepted'
     ];
 
     /**
@@ -48,7 +49,9 @@ class ServiceProvider extends Model
     public static $rules = [
 
     ];
-
+    public function company(){
+        return $this->belongsTo(Company::class);
+    }
 
     public function getNameAttribute()
     {
