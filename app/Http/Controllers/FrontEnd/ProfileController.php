@@ -36,9 +36,9 @@ class ProfileController extends Controller
     {
         $user = Auth::user();
         if ($user->isServiceProvider()) {
-            return redirect()->route('org.profile');
+            return $this->serviceProviderProfile();
         } else if ($user->isCitizen()) {
-            return redirect()->route('ben.profile');
+            return $this->citizenProfile();
         }
     }
 
