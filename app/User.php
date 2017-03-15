@@ -11,16 +11,17 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+
     /**
      * The attributes that are mass assignable.
      *
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'facebook_token', 'facebook_id', 'google_token', 'google_id'
+        'name', 'email', 'password', 'facebook_token', 'facebook_id', 'google_token', 'google_id','is_admin'
     ];
 
-    protected $appends = ['user_type','password'];
+    protected $appends = ['user_type', 'password'];
 
     /**
      * The attributes that should be hidden for arrays.
@@ -30,6 +31,16 @@ class User extends Authenticatable
     protected $hidden = [
         'password', 'remember_token',
     ];
+
+    public function getUserTypes()
+    {
+        return ([
+            'admin',
+            'sp',
+            'worker',
+            'citizen',
+        ]);
+    }
 
     public function setPasswordAttribute($password)
     {
@@ -92,15 +103,21 @@ class User extends Authenticatable
 
     public function getUserTypeAttribute()
     {
+        $type = [];
         if ($this->isServiceProvider()) {
-            return 'Service Provider';
-        } else if ($this->isCitizen()) {
-            return 'Citizen';
-        } else if ($this->is_admin) {
-            return 'Admin';
-        } else {
+            $type[] = 'Service_Provider';
+        }
+        if ($this->isCitizen()) {
+            $type[] = 'Citizen';
+        }
+        if ($this->is_admin) {
+            $type[] = 'Admin';
+        }
+
+        if (empty($type)) {
             return 'Not completed';
         }
+        return str_replace('_', ' ', implode(' , ', $type));
     }
 
 }

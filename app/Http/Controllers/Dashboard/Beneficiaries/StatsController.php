@@ -27,23 +27,8 @@ class StatsController extends Controller
         $targets_types_m = collect(Target::getMultTypes())->forget(['gender', 'workfield'])->toArray();
         return view('dashboard.beneficiaries.statistics',
             ['chart' => $chart,
-                'libs' => ([
-                    'chartjs' => ['chartjs_line' => 'line', 'chartjs_area' => 'area', 'chartjs_bar' => 'bar', 'chartjs_pie' => 'pie', 'chartjs_donut' => 'donut'],
-                    'highcharts' => ['highcharts_line' => 'line', 'highcharts_area' => 'area', 'highcharts_bar' => 'bar', 'highcharts_pie' => 'pie', 'highcharts_donut' => 'donut', 'highcharts_geo' => 'geo'],
-                    'google' => ['google_line' => 'line', 'google_area' => 'area', 'google_bar' => 'bar', 'google_pie' => 'pie', 'google_donut' => 'donut', 'google_geo' => 'geo', 'google_gauge' => 'gauge'],
-                    'chartist' => ['chartist_line' => 'line', 'chartist_area' => 'area', 'chartist_bar' => 'bar', 'chartist_pie' => 'pie', 'chartist_donut' => 'donut'],
-                    'fusioncharts' => ['fusioncharts_line' => 'line', 'fusioncharts_area' => 'area', 'fusioncharts_bar' => 'bar', 'fusioncharts_pie' => 'pie', 'fusioncharts_donut' => 'donut'],
-                    'plottablejs' => ['plottablejs_line' => 'line', 'plottablejs_area' => 'area', 'plottablejs_bar' => 'bar', 'plottablejs_pie' => 'pie', 'plottablejs_donut' => 'donut'],
-                    'c3' => ['c3_line' => 'line', 'c3_area' => 'area', 'c3_bar' => 'bar', 'c3_pie' => 'pie', 'c3_donut' => 'donut', 'c3_gauge' => 'gauge']]),
-                'multi_libs' => ([
-                    'chartjs' => ['chartjs_line' => 'line', 'chartjs_area' => 'area', 'chartjs_bar' => 'bar'],
-                    'highcharts' => ['highcharts_line' => 'line', 'highcharts_area' => 'area', 'highcharts_bar' => 'bar', 'highcharts_areaspline' => 'Areaspline'],
-                    'google' => ['google_line' => 'line', 'google_area' => 'area', 'google_bar' => 'bar'],
-                    'morris' => ['morris_line' => 'line', 'morris_area' => 'area', 'morris_bar' => 'bar'],
-                    'chartist' => ['chartist_line' => 'line', 'chartist_area' => 'area', 'chartist_bar' => 'bar'],
-                    'fusioncharts' => ['fusioncharts_line' => 'line', 'fusioncharts_area' => 'area', 'fusioncharts_bar' => 'bar'],
-                    'plottablejs' => ['plottablejs_line' => 'line', 'plottablejs_area' => 'area', 'plottablejs_bar' => 'bar'],
-                    'c3' => ['c3_line' => 'line', 'c3_area' => 'area', 'c3_bar' => 'bar']]),
+                'libs' => config('charts.libs'),
+                'multi_libs' => config('charts.multi_libs'),
                 'ben' => new Citizen(),
                 'target_types' => $targets,
                 'target_types_m' => $targets_types_m
@@ -53,7 +38,8 @@ class StatsController extends Controller
     public function render(Request $request)
 
 
-    {//DB::enableQueryLog();
+    {
+        DB::enableQueryLog();
         if ($request->has('multi')) {
             return $this->multiRender($request);
         }
@@ -65,38 +51,47 @@ class StatsController extends Controller
             //$model=str_plural(strtolower($base));
             $modelObj = new $model();
             $data = $model::with('citizensCount')->get();
+
+            //dump(DB::getQueryLog(),$data[0]['citizensCount']);
+
             $data = $data->mapWithKeys(function ($item) {
                 return [$item['name'] => count($item['citizensCount'])];
             });
+
             $data = $data->toArray();
             $totals = array_values($data);
             $keys = array_keys($data);
         } else {
-            $model = snake_case(class_basename($model));
-            $data = Citizen::groupBy($model . '_id')->select($model . '_id', DB::raw('count(*) as total'))->get();
-            //   dump(DB::getQueryLog(),$data);
+            //$model = snake_case(class_basename($model));
+            // dd($model);
+            $keys = [];
+            $totals = [];
+            $data = $model::with(['citizensCount' => function ($data) use (&$keys, &$totals) {
+                $data->each(function ($v) use (&$keys, &$totals) {
+                    //    dump($v);
+                    $totals[$v->age_id] = ($v->aggregate);
+
+                });
+                return $data;
+            }])->get();
+            $keys = $data->mapWithKeys(function ($v) {
+                return [$v->name];
+            })->toArray();
 
             //    dd($data);
-            $data = $data->mapWithKeys(function ($item) use ($target) {
-                // dd((class_basename(((str_replace('-', '\\', $target))))));
-                /***
-                 * todo
-                 * rename relations properly so that i can get the label of relation like a boss
-                 */
-                return [$item['total'] => $item[$target . '_id']];
-            });
 
-            $data = $data->toArray();
-            $keys = array_values($data);
-            $totals = array_keys($data);
+            //dump($keys, $totals);
+            //   dump(DB::getQueryLog());
+
+
         }
 
 
         $chart = Charts::create($theme[1], $theme[0])
             ->title('Beneficiaries according to ' . ucfirst($model))
             ->elementLabel("Citizens Count")
-            ->labels($keys)
-            ->values($totals)
+            ->labels(array_values($keys))
+            ->values(array_values($totals))
             ->dimensions(1000, 500)
             ->responsive(false)->width(0)->height(300);
         if ($request->isXmlHttpRequest()) {
@@ -107,6 +102,8 @@ class StatsController extends Controller
 
     public function multiRender(Request $request)
     {
+        DB::enableQueryLog();
+
         $theme = explode('_', $request->input('theme'));
         $target = $request->input('attr_list');
 
@@ -124,41 +121,51 @@ class StatsController extends Controller
         $chart = Charts::multi($theme[1], $theme[0])
             ->responsive(false)
             ->dimensions(0, 300)
-            ->colors(['#ff0000', '#00ff00', '#0000ff','#c62828','#ad1457','#6a1b9a','#4527a0','#283593'])
+            ->colors(['#ff0000', '#00ff00', '#0000ff', '#c62828', '#ad1457', '#6a1b9a', '#4527a0', '#283593'])
             ->labels($labels);
 
         $modelsY = $target['y'];
+        $model = snake_case(class_basename($modelx));
+        $dataset = [];
+        $elemnt_label = [];
+        // dump($modelsY);
 
-        if (in_array($base, ['Area', 'Sector'])) {
-        } else {
-            $model = snake_case(class_basename($modelx));
-            $dataset = [];
-            dump($modelsY);
-
-            foreach ($modelxObjects as $xObj) {
-                foreach ($modelsY as $modelY) {
-                    $val = explode('#', $modelY);
-
-                    $attr_name = snake_case(class_basename($val[0]));
-                    $data = Citizen::where($model . '_id', $xObj->id)->groupBy($attr_name . '_id')
-                        ->select($attr_name . '_id', DB::raw('count(*) as total'))->get()
-                        ->map(function($i){return $i->total?$i->total:0;})->toArray('total');
-                    dump($modelY);
-                    dump($data);
-
-                    $dataset['title'] = ucwords(str_replace('_', ' ', $val[0]::find($val[1])->name));
-
-                    $dataset['data'][] = emptyArray($data)?0:$data;
-                    dump("====================");
-
-                }
-                dump($dataset);
-                $chart->dataset($dataset['title'], $dataset['data']);
-
-                $dataset=[];
+        foreach ($modelsY as $modelY) {
+            $val = explode('#', $modelY);
+            $model_y_attr_val = ucwords(str_replace('_', ' ', $val[0]::find($val[1])->name));
+            $elemnt_label[] = $model_y_attr_val;
+            $attr_name = snake_case(class_basename($val[0]));
+            if (in_array($attr_name, ['area', 'sector'])) {
+                $data = $val[0]::with(['citizensCount' => function ($builder) use ($model, $attr_name) {
+                    dump($builder->
+                    groupBy([$model . '_id'])
+                        ->select($model . '_id', DB::raw('count(' . $model . '_id' . ') as total'))
+                        ->orderBy($model . '_id')
+                        ->get());
+                }])->get();
+            } else {
+                $data = Citizen::where($attr_name . '_id', $val[1])->groupBy([$model . '_id', $attr_name . '_id'])
+                    ->select(DB::raw('count(' . $model . '_id' . ') as total'))->get()
+                    ->map(function ($i) {
+                        return $i->total;
+                    })->toArray('total');
             }
 
+
+            $dataset['title'] = $model_y_attr_val;
+
+            $dataset['data'] = $data;
+            //  dump(DB::getQueryLog(), $data, $dataset);
+            $chart->dataset($dataset['title'], $dataset['data']);
+
+            $dataset = [];
         }
+
+
+        $elemnt_label = implode(' ', $elemnt_label);
+        $chart->title('Beneficiaries according to ' . str_replace('_', ' ', ucfirst($model)));
+        $chart->elementLabel("Count({$elemnt_label})");
+
 
         if ($request->isXmlHttpRequest()) {
             return $chart->render();

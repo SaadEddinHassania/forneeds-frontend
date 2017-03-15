@@ -22,8 +22,7 @@ class CheckUserType
             return $next($request);
         } else if ($user->isCitizen() && in_array('citizen',$userType)) {
             return $next($request);
-        } else if($user->is_admin && in_array('admin',$userType)){
-
+        }  if($user->is_admin && in_array('admin',$userType)){
             return $next($request);
         }
 

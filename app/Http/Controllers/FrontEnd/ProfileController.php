@@ -30,16 +30,24 @@ class ProfileController extends Controller
         $this->middleware(['checkUserType:serviceProvider,citizen'])->only('index', 'settings', 'surveys');
         $this->middleware('checkUserType:serviceProvider')->only('dashboard');
         $this->middleware('checkUserType:citizen')->only('serviceRequests');
+        $this->middleware('checkUserType:admin')->only('serviceRequests');
     }
 
     public function index()
     {
         $user = Auth::user();
-        if ($user->isServiceProvider()) {
+        if ($user->is_admin) {
+            return $this->admin();
+        } else if ($user->isServiceProvider()) {
             return $this->serviceProviderProfile();
         } else if ($user->isCitizen()) {
             return $this->citizenProfile();
         }
+    }
+
+    public function admin()
+    {
+        return redirect()->route('Dashboard.landing');
     }
 
     private function serviceProviderProfile()
@@ -71,7 +79,7 @@ class ProfileController extends Controller
             'areas' => Area::all(),
             'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
             'sectors' => Sector::all()->pluck('name', 'id')->toarray(),
-            'surveys'=>$user->citizen->applicable_surveys()->orderBy('created_at','desc')->get()
+            'surveys' => $user->citizen->applicable_surveys()->orderBy('created_at', 'desc')->get()
         ]);
     }
 

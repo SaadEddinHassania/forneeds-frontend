@@ -1,14 +1,7 @@
 @extends('dashboard.layout.dashboard')
 @push('page_style_plugins')
 <link rel="stylesheet" href="{{asset('/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}">
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.98.0/css/materialize.css"
-      integrity="sha256-RazOXI0Od6HGJm46fx/jowSWXoP0P4PKM0wSdsxoHiw=" crossorigin="anonymous"/>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/css/bootstrap-select.min.css"
-      integrity="sha256-an4uqLnVJ2flr7w0U74xiF4PJjO2N5Df91R2CUmCLCA=" crossorigin="anonymous"/>
-<link rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/select2-bootstrap-theme/0.1.0-beta.6/select2-bootstrap.min.css"
-      integrity="sha256-y6KxLC1PtFBBaks5Qz/ECrRRrHoqvfsQZZzAqV4zTLo=" crossorigin="anonymous"/>
+<link rel="stylesheet" href="{{asset('public/assets/cdn/materialize.min.css')}}"/>
 @endpush
 @section('content')
 
@@ -104,7 +97,8 @@
                             <div class="form-group col-sm-10">
                                 {!! Form::label('attr_list', 'Y indicators:') !!}
 
-                                <select name="attr_list[y][]" class="selectpicker show-tick show-menu-arrow form-control"
+                                <select name="attr_list[y][]"
+                                        class="selectpicker show-tick show-menu-arrow form-control"
                                         multiple>
                                     @foreach($target_types_m as $key=>$property)
 
@@ -112,7 +106,7 @@
                                                 label="{{ucwords(str_replace('_',' ',snake_case(class_basename($property['base'])))).':'}}"
                                                 data-max-options="1">
                                             @foreach($property['val'] as $pKey=>$val)
-                                                    <option value="{{$property['base'].'#'.$pKey}}">{{$val}}</option>
+                                                <option value="{{$property['base'].'#'.$pKey}}">{{$val}}</option>
                                             @endforeach
                                         </optgroup>
                                     @endforeach
@@ -192,7 +186,7 @@
             $('.charts-canvas').removeClass('hidden').fadeIn();
             $form = $(this).closest('form');
             setLabel($(this).data('name'));
-            $('div.chart.draw_chart').html(' <center>\r\n                                <div class=\"preloader-wrapper big active\" style=\"margin-top: {{ ($chart->settings()['height'] / 2) - 32 }}px;\">\r\n                                    <div class=\"spinner-layer spinner-blue-only\">\r\n                                        <div class=\"circle-clipper left\">\r\n                                            <div class=\"circle\"><\/div>\r\n                                        <\/div>\r\n                                        <div class=\"gap-patch\">\r\n                                            <div class=\"circle\"><\/div>\r\n                                        <\/div>\r\n                                        <div class=\"circle-clipper right\">\r\n                                            <div class=\"circle\"><\/div>\r\n                                        <\/div>\r\n                                    <\/div>\r\n                                <\/div>\r\n                            <\/center>');
+            $('div.chart.draw_chart').html(' <center>\r\ <div class=\"preloader-wrapper big active\" style=\"margin-top: {{ ($chart->settings()['height'] / 2) - 32 }}px;\">\r\n                                    <div class=\"spinner-layer spinner-blue-only\">\r\n                                        <div class=\"circle-clipper left\">\r\n                                            <div class=\"circle\"><\/div>\r\n                                        <\/div>\r\n                                        <div class=\"gap-patch\">\r\n                                            <div class=\"circle\"><\/div>\r\n                                        <\/div>\r\n                                        <div class=\"circle-clipper right\">\r\n                                            <div class=\"circle\"><\/div>\r\n                                        <\/div>\r\n                                    <\/div>\r\n                                <\/div>\r\n                            <\/center>');
 
             $.post($form.attr('action'), $form.serialize(), function (data) {
 
@@ -205,34 +199,33 @@
             e.stopPropagation();
             $('.charts-canvas').removeClass('hidden').fadeIn();
             $.post($(this).attr('action'), $(this).serialize(), function (data) {
-                console.log($(data).find('script'))
-                console.log($(data).find('div'))
+
                 $('div.chart.draw_chart').html(data);
             });
         });
         var charts = {!! json_encode($libs) !!};
-        $('.icheck-list input[type=radio]').on('switchChange.bootstrapSwitch', function ($event, $state) {
-            $event.preventDefault();
-            $select_val = this.value;
-            console.log(this.value);
-            $.get(document.location.origin + "/gateways/listings/" + $select_val,
-                null,
-                function (data) {
-                    var $list = $('#target_handler>div').clone()
-                        , $selectName = $select_val.split('-');
-                    $list.children('select').prop('name', 'target' + '[' + $select_val + '][]')
-
-                    $selectName = $selectName[$selectName.length - 1];
-                    $list.children('select').append("<option value='' selected='selected' disabled='disabled'>Please select " + $selectName.charAt(0).toUpperCase() + $selectName.slice(1) + "</option>");
-                    console.log(data);
-                    $.each(data, function (index, element) {
-                        $list.children('select').append("<option value='" + index + "'>" + element + "</option>");
-                    });
-                    $("#targets_wrapper").removeClass('hidden');
-
-                    $('#targets_wrapper>div.form-actions').html($list);
-                });
-        });
+//        $('.icheck-list input[type=radio]').on('switchChange.bootstrapSwitch', function ($event, $state) {
+//            $event.preventDefault();
+//            $select_val = this.value;
+//            console.log(this.value);
+//            $.get(document.location.origin + "/gateways/listings/" + $select_val,
+//                null,
+//                function (data) {
+//                    var $list = $('#target_handler>div').clone()
+//                        , $selectName = $select_val.split('-');
+//                    $list.children('select').prop('name', 'target' + '[' + $select_val + '][]')
+//
+//                    $selectName = $selectName[$selectName.length - 1];
+//                    $list.children('select').append("<option value='' selected='selected' disabled='disabled'>Please select " + $selectName.charAt(0).toUpperCase() + $selectName.slice(1) + "</option>");
+//                    console.log(data);
+//                    $.each(data, function (index, element) {
+//                        $list.children('select').append("<option value='" + index + "'>" + element + "</option>");
+//                    });
+//                    $("#targets_wrapper").removeClass('hidden');
+//
+//                    $('#targets_wrapper>div.form-actions').html($list);
+//                });
+//        });
 
     })
 </script>

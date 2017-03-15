@@ -17,6 +17,9 @@ class NoUserType
     public function handle($request, Closure $next)
     {
         $user = Auth::user();
+        if($user->is_admin){
+            return redirect()->route('Dashboard.landing');
+        }
         if (!$user->isServiceProvider() ) {
             return $next($request);
         } else if (!$user->isCitizen()) {

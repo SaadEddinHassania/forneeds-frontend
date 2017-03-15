@@ -24,9 +24,9 @@ class UserDataTable extends DataTable
         return $this->datatables
             ->eloquent($this->query())
             ->addColumn('action', function ($row) {
-                $model = "admin.users";
+                $modelRoute = "Dashboard.admin.crud";
                 $id = $row->id;
-                return view('admin.layouts.datatables_actions', compact('model','id'));
+                return view('dashboard.layout.datatables_actions', compact('modelRoute','id'));
             })
             ->editColumn('avatar', function ($row) {
                 return '<img src="'.route('admin.users.image',['id'=>$row->id]).'"  width=70 alt=""></div>';
@@ -99,10 +99,8 @@ class UserDataTable extends DataTable
             'avatar' => ['name' => 'avatar', 'data' => 'avatar','searchable'=>false,'orderable'=>false,'width'=>'20px'],
             'name' => ['name' => 'name', 'data' => 'name'],
             'email' => ['name' => 'email', 'data' => 'email'],
-            'user_type' =>['name' => 'user_type', 'data' => 'user_type','searchable'=>false,'orderable'=>false],
-            'deleted_at' => ['name' => 'deleted_at', 'data' => 'deleted_at'],
-            'created_at' => ['name' => 'created_at', 'data' => 'created_at'],
-            'updated_at' => ['name' => 'updated_at', 'data' => 'updated_at']
+            'user_type' =>['name' => 'user_type', 'data' => 'user_type','searchable'=>false,'orderable'=>true],
+
         ];
     }
 

@@ -166,6 +166,7 @@ return [
         Social\Facebook\FacebookServiceProvider::class,
         ConsoleTVs\Charts\ChartsServiceProvider::class,
         Maatwebsite\Excel\ExcelServiceProvider::class,
+        Mpociot\LaravelTestFactoryHelper\TestFactoryHelperServiceProvider::class,
 
 
         /*
@@ -187,6 +188,8 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ComposerServiceProvider::class,
+        App\Providers\DBEventsProvider::class,
 
     ],
 

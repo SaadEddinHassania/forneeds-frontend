@@ -55,9 +55,17 @@ class Citizen extends Model
 {
 
     public $fillable = [
-        'gender_id', 'age_id', 'marital_status_id',
-        'working_state_id', 'refugee_state_id', 'disability_id',
-        'academic_level_id', 'contactable'
+        'user_id',
+        'gender_id',
+        'age_id',
+        'marital_status_id',
+        'working_state_id',
+        'refugee_state_id',
+        'disability_id',
+        'academic_level_id',
+        'company_id',
+        'mobile_number',
+        'contactable'
     ];
     private $fillableMap = [
         'gender_id' => Gender::class,

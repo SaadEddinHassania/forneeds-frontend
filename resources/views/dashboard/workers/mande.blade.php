@@ -1,5 +1,9 @@
 @extends('dashboard.layout.dashboard')
+@push('page_style_plugins')
+<link href="{{asset('/assets/global/plugins/morris/morris.css')}}" rel="stylesheet" type="text/css" />
+<link href="{{asset('/dashboard/assets/global/css/plugins.min.css')}}" rel="stylesheet" type="text/css" />
 
+@endpush
 @section('content')
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content">
@@ -36,84 +40,30 @@
 
                 <div id="MainMenu">
                     <div class="list-group panel">
-                        <a href="#organization_a" class="list-group-item list-group-item-success" data-toggle="collapse"
-                           data-parent="#MainMenu"><i class="fa fa-circle " aria-hidden="true"></i> &nbsp; Organization
-                            A</a>
-                        <div class="collapse in" id="organization_a">
-                            <a href="#project_a" class="list-group-item" data-toggle="collapse"
-                               data-parent="#project_a"><i class="fa fa-angle-right" aria-hidden="true"></i> &nbsp;Project
-                                A </a>
-                            <div class="collapse list-group-submenu" id="project_a">
-                                <a class="list-group-item" data-parent="#project_a" data-toggle="modal" href="#basic">Survay
-                                    a</a>
-                                <a class="list-group-item" data-parent="#project_a" data-toggle="modal" href="#basic">Survay
-                                    b</a>
-
-                                <a class="list-group-item" data-parent="#project_a" data-toggle="modal" href="#basic">Survay
-                                    c</a>
+                        @foreach($service_providers as $provider)
+                            <a href="#organization_{{$provider->id}}" class="list-group-item list-group-item-success"
+                               data-toggle="collapse"
+                               data-parent="#MainMenu"><i class="fa fa-circle " aria-hidden="true"></i>
+                                &nbsp;{{$provider->name}}</a>
+                            <div class="collapse in" id="organization_{{$provider->id}}">
+                                @foreach($provider->projects as $project)
+                                    <a href="#project_{{$project->id}}" class="list-group-item" data-toggle="collapse"
+                                       data-parent="#project_{{$project->id}}"><i class="fa fa-angle-right"
+                                                                                  aria-hidden="true"></i>
+                                        {{$project->name}}</a>
+                                    <div class="collapse list-group-submenu" id="project_{{$project->id}}">
+                                        @foreach($project->surveys as $survey)
+                                            <a class="list-group-item" data-parent="#project_{{$project->id}}"
+                                               data-toggle="modal"
+                                               href="#basic" data-subject="{{$survey->subject}}"
+                                               data-provider="{{$provider->name}}" data-project="{{$project->name}}"
+                                               data-id="{{$survey->id}}"
+                                               data-progress="{{$survey->progress}}">{{$survey->subject}}</a>
+                                        @endforeach
+                                    </div>
+                                @endforeach
                             </div>
-                            <a href="#project_b" class="list-group-item" data-toggle="collapse"
-                               data-parent="#project_b"><i class="fa fa-angle-right" aria-hidden="true"></i> &nbsp;Project
-                                B</a>
-                            <div class="collapse list-group-submenu" id="project_b">
-                                <a class="list-group-item" data-parent="#project_b" data-toggle="modal" href="#basic">Survay
-                                    a</a>
-                                <a class="list-group-item" data-parent="#project_b" data-toggle="modal" href="#basic">Survay
-                                    b</a>
-                                <a class="list-group-item" data-parent="#project_b" data-toggle="modal" href="#basic">Survay
-                                    c</a>
-                            </div>
-                            <a href="#project_c" class="list-group-item" data-toggle="collapse"
-                               data-parent="#project_c"><i class="fa fa-angle-right" aria-hidden="true"></i> &nbsp;Project
-                                C</a>
-                            <div class="collapse list-group-submenu" id="project_c">
-                                <a class="list-group-item" data-parent="#project_c" data-toggle="modal" href="#basic">Survay
-                                    a</a>
-                                <a class="list-group-item" data-parent="#project_c" data-toggle="modal" href="#basic">Survay
-                                    b</a>
-                                <a class="list-group-item" data-parent="#project_c" data-toggle="modal" href="#basic">Survay
-                                    c</a>
-                            </div>
-                        </div>
-
-                        <a href="#organization_b" class="list-group-item list-group-item-success" data-toggle="collapse"
-                           data-parent="#MainMenu"><i class="fa fa-circle" aria-hidden="true"></i>&nbsp; Organization B</a>
-                        <div class="collapse" id="organization_b">
-                            <a href="#project_a_b" class="list-group-item" data-toggle="collapse"
-                               data-parent="#project_a_b"><i class="fa fa-angle-right" aria-hidden="true"></i> &nbsp;Project
-                                A </a>
-                            <div class="collapse list-group-submenu" id="project_a_b">
-                                <a class="list-group-item" data-parent="#project_a_b" data-toggle="modal" href="#basic">Survay
-                                    a</a>
-                                <a class="list-group-item" data-parent="#project_a_b" data-toggle="modal" href="#basic">Survay
-                                    b</a>
-
-                                <a class="list-group-item" data-parent="#project_a_b" data-toggle="modal" href="#basic">Survay
-                                    c</a>
-                            </div>
-                            <a href="#project_b_b" class="list-group-item" data-toggle="collapse"
-                               data-parent="#project_b_b"><i class="fa fa-angle-right" aria-hidden="true"></i>&nbsp;Project
-                                B</a>
-                            <div class="collapse list-group-submenu" id="project_b_b">
-                                <a class="list-group-item" data-parent="#project_b_b" data-toggle="modal" href="#basic">Survay
-                                    a</a>
-                                <a class="list-group-item" data-parent="#project_b_b" data-toggle="modal" href="#basic">Survay
-                                    b</a>
-                                <a class="list-group-item" data-parent="#project_b_b" data-toggle="modal" href="#basic">Survay
-                                    c</a>
-                            </div>
-                            <a href="#project_c_b" class="list-group-item" data-toggle="collapse"
-                               data-parent="#project_c_b"><i class="fa fa-angle-right" aria-hidden="true"></i> &nbsp;Project
-                                C</a>
-                            <div class="collapse list-group-submenu" id="project_c_b">
-                                <a class="list-group-item" data-parent="#project_c_b" data-toggle="modal" href="#basic">Survay
-                                    a</a>
-                                <a class="list-group-item" data-parent="#project_c_b" data-toggle="modal" href="#basic">Survay
-                                    b</a>
-                                <a class="list-group-item" data-parent="#project_c_b" data-toggle="modal" href="#basic">Survay
-                                    c</a>
-                            </div>
-                        </div>
+                        @endforeach
 
 
                     </div>
@@ -137,20 +87,27 @@
                     <div class="modal-body">
                         <div class="row">
                             <div class="col-md-5 col-md-offset-1" style="line-height:72px;">
-                                <i><b> Survay # 1 : </b></i> Survay Name
+                                <i><b class="sur_id"> Survay # 1 : </b></i> <span class="sur_subject">Survay Name</span>
                             </div>
                             <div class="col-md-6">
-                                <i><b> Progress of Survay: </b></i> &nbsp;
-                                <span class="easy-pie-chart">
-															<div class="number transactions" data-percent="55"
+                                <div class="row">
+                                    <div style="text-align: center;padding-top:10%;" class="col-md-7">
+                                        <i ><b > Progress of Survay: </b></i>
+                                    </div>
+                                    <div class="col-md-4">
+                                         <span class="easy-pie-chart">
+															<div class=" progress number transactions" data-percent="55"
                                                                  style="display:inline-block">
 																<span>+55</span>% </div>
 												    </span>
+                                    </div>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        <a class="btn blue" href="{{route('Dashboard.work.survey')}}">Social Workers By Name</a>
+                        <a class="btn blue distination"   href="{{route('Dashboard.work.survey','id')}}">Social Workers By Name</a>
                     </div>
                 </div>
                 <!-- /.modal-content -->
@@ -162,3 +119,31 @@
     </div>
     <!-- END CONTENT BODY -->
 @stop
+
+@push("page_script_plugins")
+<script src="{{asset('dashboard/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('dashboard/assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>
+
+<script>
+    $('#basic').on('show.bs.modal', function (event) {
+        var button = $(event.relatedTarget) // Button that triggered the modal
+        var subject = button.data('subject') // Extract info from data-* attributes
+        var provider = button.data('provider') // Extract info from data-* attributes
+        var project = button.data('project') // Extract info from data-* attributes
+        var id = button.data('id') // Extract info from data-* attributes
+        var progress = button.data('progress') // Extract info from data-* attributes
+
+        // If necessary, you could initiate an AJAX request here (and then do the updating in a callback).
+        // Update the modal's content. We'll use jQuery here, but you could use a data binding library or other methods instead.
+        var modal = $(this)
+        modal.find('.modal-title').text( provider +' > '+ project +' > '+ subject );
+        modal.find('div.progress').attr('data-percent', progress ).find('span').text('+'+progress);
+        modal.find('b.sur_id').text(" Survay # "+id+" :");
+        modal.find('span.sur_subject').text(subject);
+        var dist = modal.find('a.distination');
+        console.log(dist,dist.attr('href'));
+          dist.attr('href',dist.attr('href').replace('id',id));
+
+    })
+</script>
+@endpush

@@ -3,9 +3,11 @@
 namespace App\Models;
 
 use App\Models\Users\Citizen;
+use App\Models\Users\SocialWorker;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
+use Carbon\Carbon;
 
 /**
  * @SWG\Definition(
@@ -51,7 +53,7 @@ class Survey extends Model
     const UPDATED_AT = 'updated_at';
 
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'expires_at', 'starts_at'];
 
 
     public $fillable = [
@@ -73,12 +75,13 @@ class Survey extends Model
         'id' => 'integer',
         'subject' => 'string',
         'expires_at' => 'datetime',
+        'starts_at' => 'datetime',
         'description' => 'string',
         'project_id' => 'integer',
         'survey_meta_id' => 'integer',
         'deleted_at' => 'datetime'
     ];
-
+    protected $appends = ['progress'];
     /**
      * Validation rules
      *
@@ -87,6 +90,15 @@ class Survey extends Model
     public static $rules = [
 
     ];
+
+
+    public function getProgressAttribute()
+    {
+        $expire = $this->expires_at ? $this->expires_at->timestamp : Carbon::now()->addMonths(12)->timestamp;
+        $starts = $this->starts_at ? $this->starts_at->timestamp:Carbon::now()->timestamp;
+
+        return ($expire - Carbon::now()->timestamp) / ($expire - $starts);
+    }
 
     public function Config()
     {
@@ -102,7 +114,9 @@ class Survey extends Model
     {
         return $this->belongsToMany(Citizen::class);
     }
-
+    public function SocialWorkers(){
+        return $this->belongsToMany(SocialWorker::class);
+    }
     /**
      * The "booting" method of the model.
      *

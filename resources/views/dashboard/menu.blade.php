@@ -29,7 +29,13 @@
 
                 </a>
             </li>
-
+            <li class="nav-item  {!! Request::is('*stats*') ? 'active' : '' !!}">
+                <a href="{{route('Dashboard.stats')}}" class="nav-link ">
+                    <span class="title">Statistics</span>
+                    <span class="selected"></span>
+                    <span class="arrow "></span>
+                </a>
+            </li>
             <li class="nav-item {!! strpos(Route::current()->getName(), 'ben') !== false  ? 'active open' : '' !!}">
                 <a href="{{route('Dashboard.ben.crud.list')}}" class="nav-link nav-toggle">
                     <i class="fa fa-users"></i>
@@ -43,17 +49,6 @@
                             <span class="title">Database</span>
                         </a>
                     </li>
-                    <li class="nav-item  {!! Request::is('*stats*') ? 'active' : '' !!}">
-                        <a href="{{route('Dashboard.ben.stats')}}" class="nav-link ">
-                            <span class="title">Statistics</span>
-                        </a>
-                    </li>
-                    <li class="nav-item {!! Request::is('*report*') ? 'active' : '' !!}">
-                        <a href="{{route('Dashboard.ben.report')}}" class="nav-link ">
-                            <span class="title">Reporting</span>
-                        </a>
-                    </li>
-
                 </ul>
             </li>
             <li class="nav-item {!! strpos(Route::current()->getName(), 'org') !== false  ? 'active open' : '' !!} ">
@@ -75,17 +70,6 @@
                             <span class="title">Organization</span>
                         </a>
                     </li>
-                    <li class="nav-item {!! Request::is('*stats*') ? 'active' : '' !!}">
-                        <a href="{{route('Dashboard.org.stats')}}" class="nav-link ">
-                            <span class="title">Statistics</span>
-                        </a>
-                    </li>
-                    <li class="nav-item  {!! Request::is('*report*') ? 'active' : '' !!}">
-                        <a href="{{route('Dashboard.org.report')}}" class="nav-link ">
-                            <span class="title">Reporting</span>
-                        </a>
-                    </li>
-
                 </ul>
 
             </li>
@@ -107,22 +91,11 @@
                             <span class="title">Hiring</span>
                         </a>
                     </li>
-                    <li class="nav-item  {!! Request::is('*stats*') ? 'active' : '' !!}">
-                        <a href="{{route('Dashboard.work.stats')}}" class="nav-link ">
-                            <span class="title">Statistics</span>
-                        </a>
-                    </li>
                     <li class="nav-item  {!! Request::is('*monitor*') ? 'active' : '' !!}">
                         <a href="{{route('Dashboard.work.monitor')}}" class="nav-link ">
                             <span class="title">monitoring and evaluation</span>
                         </a>
                     </li>
-                    <li class="nav-item  {!! Request::is('*report*') ? 'active' : '' !!}">
-                        <a href="{{route('Dashboard.work.report')}}" class="nav-link ">
-                            <span class="title">Reporting</span>
-                        </a>
-                    </li>
-
                 </ul>
             </li>
             <li class="nav-item  {!! strpos(Route::current()->getName(), 'admin') !== false  ? 'active open' : '' !!}">

@@ -1,5 +1,7 @@
 @extends('dashboard.layout.dashboard')
-
+@push('page_style_plugins')
+<link rel="stylesheet" href="{{asset('/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}">
+@endpush
 
 @section('content')
     <div class="page-content-wrapper">
@@ -11,18 +13,18 @@
             <div class="page-bar">
                 <ul class="page-breadcrumb">
                     <li>
-                        <a href="index.html">Beneficiaries</a>
+                        <a href="index.html">Users</a>
                         <i class="fa fa-circle"></i>
                     </li>
                     <li>
-                        <span>Edit Beneficiary</span>
+                        <span>Edit User</span>
                     </li>
                 </ul>
 
             </div>
             <!-- END PAGE BAR -->
             <!-- BEGIN PAGE TITLE-->
-            <h3 class="page-title"> Edit Beneficiary
+            <h3 class="page-title"> Edit User
                 <small></small>
             </h3>
 
@@ -30,18 +32,24 @@
             <!-- END PAGE HEADER-->
             <div class="row">
                 <div class="col-md-6">
-                    <form action="#">
-                        @include('dashboard.admin.forms.fields')
+                    {!! Form::model($user, ['route' => ['Dashboard.admin.crud.update', $user->id], 'method' => 'patch']) !!}
 
-                        <div class="margin-top-10">
-                            <a href="javascript:;" class="btn green"> edit </a>
-                            <a href="{{route('Dashboard.admin.crud.list')}}" class="btn default"> Cancel </a>
-                        </div>
-                    </form>
-                    </div>
+                    @include('dashboard.admin.forms.fields',['update'=>true])
+
+                    {!! Form::close() !!}
+                </div>
+                <div class="col-md-5">
+                    @include('flash::message')
+
+                    @include('dashboard.layout.errors')
+                </div>
             </div>
         </div>
         <!-- END CONTENT BODY -->
     </div>
 
 @stop
+@push('page_script_plugins')
+<script src="{{asset('/assets/global/plugins/bootstrap-switch/js/bootstrap-switch.min.js')}}"></script>
+<script src="{{asset('/assets/pages/scripts/components-bootstrap-switch.min.js')}}"></script>
+@endpush

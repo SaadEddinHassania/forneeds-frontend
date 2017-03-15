@@ -59,10 +59,7 @@ class ProjectsDataTablePending extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
-            'name',
-            'created_at',
-            'updated_at',
+            ['data' => 'name', 'name' => 'name', 'title' => 'Name', 'searchable' => true]
         ];
     }
 

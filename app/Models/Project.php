@@ -114,6 +114,11 @@ class Project extends Model
         return $this->hasMany(Target::class);
     }
 
+    public function surveys()
+    {
+        return $this->hasMany(Survey::class);
+    }
+
     /**
      * The "booting" method of the model.
      *

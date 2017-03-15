@@ -15,7 +15,8 @@
         display: inline-block;
         line-height: 1.42857;
     }
-    .dt-buttons{
+
+    .dt-buttons {
         right: 1%;
         position: absolute !important;
         top: 1%;
@@ -46,7 +47,8 @@
 
             <div class="page-toolbar">
                 <div class="pull-right">
-                    <a href="{{route('Dashboard.org.payment')}}" class="btn blue"><i class="fa fa-hand-o-up" aria-hidden="true"></i>
+                    <a href="{{route('Dashboard.org.payment')}}" class="btn blue"><i class="fa fa-hand-o-up"
+                                                                                     aria-hidden="true"></i>
                         Request for payment</a>
                 </div>
             </div>
@@ -66,211 +68,27 @@
             <div class="col-md-12">
                 <ul class="nav nav-tabs">
                     <li class="active">
-                        <a href="#tab_1_1" data-toggle="tab"> New Organizations </a>
+                        <a href="#tab_org" data-toggle="tab"
+                           data-location="{{route('Dashboard.org.verify.list','org')}}"
+                           class="model"> New Organizations </a>
                     </li>
                     <li>
-                        <a href="#tab_1_2" data-toggle="tab"> New Projects </a>
+                        <a href="#tab_project" data-toggle="tab"
+                           data-location="{{route('Dashboard.org.verify.list','project')}}"
+                           class="model"> New Projects </a>
                     </li>
                     <li>
-                        <a href="#tab_1_3" data-toggle="tab"> New Survays </a>
+                        <a href="#tab_survey" data-toggle="tab"
+                           data-location="{{route('Dashboard.org.verify.list','survey')}}"
+                           class="model"> New Survays </a>
                     </li>
                 </ul>
+
                 <div class="tab-content">
-                    <div class="tab-pane fade active in" id="tab_1_1">
+                    <div class="tab-pane fade active in" id="tab_org">
                         {!! $dataTable->table(['width' => '100%','class'=>'table-striped']) !!}
-
-                    </div>
-                    <div class="tab-pane fade" id="tab_1_2">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th> #</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td> 1</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                                data-toggle="dropdown" aria-expanded="false"> Actions
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-check" aria-hidden="true"></i> Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-times" aria-hidden="true"></i> Reject</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 2</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                                data-toggle="dropdown" aria-expanded="false"> Actions
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-check" aria-hidden="true"></i> Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-times" aria-hidden="true"></i> Reject</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 3</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                                data-toggle="dropdown" aria-expanded="false"> Actions
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-check" aria-hidden="true"></i> Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-times" aria-hidden="true"></i> Reject</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
                     </div>
 
-                    <div class="tab-pane fade" id="tab_1_3">
-                        <table class="table">
-                            <thead>
-                            <tr>
-                                <th> #</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th> Table heading</th>
-                                <th></th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            <tr>
-                                <td> 1</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                                data-toggle="dropdown" aria-expanded="false"> Actions
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-check" aria-hidden="true"></i> Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-times" aria-hidden="true"></i> Reject</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 2</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                                data-toggle="dropdown" aria-expanded="false"> Actions
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-check" aria-hidden="true"></i> Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-times" aria-hidden="true"></i> Reject</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td> 3</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td> Table cell</td>
-                                <td>
-                                    <div class="btn-group">
-                                        <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                                data-toggle="dropdown" aria-expanded="false"> Actions
-                                            <i class="fa fa-angle-down"></i>
-                                        </button>
-                                        <ul class="dropdown-menu pull-right" role="menu">
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-check" aria-hidden="true"></i> Accept</a>
-                                            </li>
-                                            <li>
-                                                <a href="#">
-                                                    <i class="fa fa-times" aria-hidden="true"></i> Reject</a>
-                                            </li>
-                                        </ul>
-                                    </div>
-                                </td>
-                            </tr>
-                            </tbody>
-                        </table>
-                    </div>
                 </div>
 
             </div>
@@ -315,5 +133,16 @@
             tr.addClass('shown');
         }
     });
-   </script>
+</script>
+<script>
+
+
+    $(function () {
+        $('a.model').on('click', function () {
+            if (document.location.href != $(this).data('location'))
+                document.location.href = $(this).data('location');
+        });
+        $('.model[href=#tab_{{$model}}]').click();
+    })
+</script>
 @endpush

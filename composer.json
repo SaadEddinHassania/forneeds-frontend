@@ -18,7 +18,8 @@
         "facebook/graph-sdk": "^5.4",
         "nahid/talk": "^2.1",
         "consoletvs/charts": "3.*",
-        "maatwebsite/excel": "^2.1"
+        "maatwebsite/excel": "^2.1",
+        "mpociot/laravel-test-factory-helper": "^0.4.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",

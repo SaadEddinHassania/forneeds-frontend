@@ -196,35 +196,35 @@
                                         </div>
                                         <div class="form-group {{ $errors->has('marital_status_id') ? 'has-error' : ''}}">
                                             {!! Form::label('marital_status_id', 'Marital Status:') !!}
-                                            {{ Form::select('citizen[marital_status_id]', $maritals,$user->citizen->marital_status_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
+                                            {{ Form::select('citizen[marital_status_id]', $maritals,$citizen->marital_status_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
                                         </div>
                                         <div class="form-group {{ $errors->has('age_id') ? 'has-error' : ''}}">
                                             {!! Form::label('age_id', 'Age:') !!}
-                                            {{ Form::select('citizen[age_id]', $ages,$user->citizen->age_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
+                                            {{ Form::select('citizen[age_id]', $ages,$citizen->age_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
                                         </div>
                                         <div class="form-group {{ $errors->has('working_state_id') ? 'has-error' : ''}}">
                                             {!! Form::label('working_state_id', 'Labor State:') !!}
-                                            {{ Form::select('citizen[working_state_id]', $workingstates,$user->citizen->working_state_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
+                                            {{ Form::select('citizen[working_state_id]', $workingstates,$citizen->working_state_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
                                         </div>
                                         <div class="form-group {{ $errors->has('refugee_state_id') ? 'has-error' : ''}}">
                                             {!! Form::label('refugee_state_id', 'Refuge State:') !!}
-                                            {{ Form::select('citizen[refugee_state_id]', $refugee,$user->citizen->refugee_state_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
+                                            {{ Form::select('citizen[refugee_state_id]', $refugee,$citizen->refugee_state_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
                                         </div>
 
                                         <div class="form-group {{ $errors->has('disability_id') ? 'has-error' : ''}}">
                                             {!! Form::label('disability_id', 'Disablity:') !!}
-                                            {{ Form::select('citizen[disability_id]', $disabilities,$user->citizen->disability_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
+                                            {{ Form::select('citizen[disability_id]', $disabilities,$citizen->disability_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
                                         </div>
                                         <div class="form-group {{ $errors->has('academic_level_id') ? 'has-error' : ''}}">
                                             {!! Form::label('academic_level_id', 'Academic Level:') !!}
-                                            {{ Form::select('citizen[academic_level_id]', $academic,$user->citizen->academic_level_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
+                                            {{ Form::select('citizen[academic_level_id]', $academic,$citizen->academic_level_id,['class'=>'selectpicker show-tick show-menu-arrow form-control','data-style'=>"btn-default"]) }}
                                         </div>
 
 
                                         <div class="form-group">
                                             <label class="col-sm-8 col-sm-8 control-label" for="contactable">
                                                 <span>هل ترغب بالتواصل معكم لاعلامكم بالمشاريع والتدخلات والأنشطة والاستبانات في منطقة سكناكم؟</span>
-                                                <input type="checkbox" value="1" checked="{{$user->citizen->contactable}}" id="contactable" name="contactable"
+                                                <input type="checkbox" value="1" checked="{{$citizen->contactable}}" id="contactable" name="contactable"
                                                        class="form-control text-center round-form">
                                             </label>
                                         </div>

@@ -1,10 +1,10 @@
 @extends('dashboard.layout.dashboard')
 @push('page_style_plugins')
-    <!-- BEGIN PAGE LEVEL PLUGINS -->
-    <link href="../assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet"
-          type="text/css"/>
-    <link href="../assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css"/>
-    <!-- END PAGE LEVEL PLUGINS -->
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<link href="../assets/global/plugins/bootstrap-daterangepicker/daterangepicker.min.css" rel="stylesheet"
+      type="text/css"/>
+<link href="../assets/global/plugins/morris/morris.css" rel="stylesheet" type="text/css"/>
+<!-- END PAGE LEVEL PLUGINS -->
 @endpush
 @section('content')
     <div class="page-content">
@@ -102,7 +102,7 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="100"></span></div>
+                            <span data-counter="counterup" data-value="{{$workers_count}}"></span></div>
                         <div class="desc">Social Workers</div>
                     </div>
                     <a class="more" href="javascript:;"> View more

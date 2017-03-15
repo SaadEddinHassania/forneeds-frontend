@@ -1,5 +1,23 @@
 @extends('dashboard.layout.dashboard')
+@push('page_style_plugins')
+<link rel="stylesheet" href="{{asset('/assets/global/plugins/datatables/plugins/bootstrap/datatables.bootstrap.css')}}">
 
+
+<link rel="stylesheet" href="https://cdn.datatables.net/1.10.13/css/dataTables.bootstrap.min.css">
+<link rel="stylesheet" href="https://cdn.datatables.net/buttons/1.2.1/css/buttons.dataTables.min.css">
+<style>
+    #dataTableBuilder_filter {
+        display: inline-block;
+        float: right;
+    }
+
+    #dataTableBuilder_length {
+        display: inline-block;
+        line-height: 1.42857;
+    }
+</style>
+
+@endpush
 @section('content')
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content">
@@ -32,6 +50,10 @@
         <h3 class="page-title"> Monitoring and Evaluation
             <small>Social Workers By Name</small>
         </h3>
+        <div class="clearfix"></div>
+
+        @include('flash::message')
+        <div class="clearfix"></div>
         <!-- END PAGE TITLE-->
         <!-- END PAGE HEADER-->
 
@@ -47,116 +69,27 @@
                     <div class="portlet-body">
                         <div class="form-group">
                             <i>Organization : </i>
-                            <span> Organization Name </span>
+                            <span> {{$sp->name}} </span>
                         </div>
                         <div class="form-group">
                             <i>Project : </i>
-                            <span> Project Name </span>
+                            <span> {{$project->name}} </span>
                         </div>
                         <div class="form-group">
                             <i>Survay : </i>
-                            <span> Survay Name </span>
+                            <span> {{$survey->subject}} </span>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
-        <div class="row">
-            <div class="col-md-12">
-                <table class="table">
-                    <thead>
-                    <tr>
-                        <th> #</th>
-                        <th> Table heading</th>
-                        <th> Table heading</th>
-                        <th> Table heading</th>
-                        <th> Table heading</th>
-                        <th> Table heading</th>
-                        <th></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td> 1</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                        data-toggle="dropdown" aria-expanded="false"> Actions
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="inbox.html">
-                                            <i class="fa fa-commenting-o" aria-hidden="true"></i> Send Message</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('Dashboard.work.payment')}}">
-                                            <i class="fa fa-money" aria-hidden="true"></i> Payment</a>
-                                    </li>
-                                </ul>
-                            </div>
+        <div class="portlet light borderless">
 
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> 2</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                        data-toggle="dropdown" aria-expanded="false"> Actions
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="inbox.html">
-                                            <i class="fa fa-commenting-o" aria-hidden="true"></i> Send Message</a>
-                                    </li>
-                                    <li>
-                                        <a href="add-payment.html">
-                                            <i class="fa fa-money" aria-hidden="true"></i> Payment</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    <tr>
-                        <td> 3</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td> Table cell</td>
-                        <td>
-                            <div class="btn-group">
-                                <button type="button" class="btn blue btn-sm btn-outline dropdown-toggle"
-                                        data-toggle="dropdown" aria-expanded="false"> Actions
-                                    <i class="fa fa-angle-down"></i>
-                                </button>
-                                <ul class="dropdown-menu pull-right" role="menu">
-                                    <li>
-                                        <a href="inbox.html">
-                                            <i class="fa fa-commenting-o" aria-hidden="true"></i> Send Message</a>
-                                    </li>
-                                    <li>
-                                        <a href="{{route('Dashboard.work.payment')}}">
-                                            <i class="fa fa-money" aria-hidden="true"></i> Payment</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </td>
-                    </tr>
-                    </tbody>
-                </table>
+            <div class="clearfix"></div>
+            <div class="box box-primary">
+                <div class="box-body">
+                    {!! $dataTable->table(['width' => '100%','class'=>'table-striped'],true) !!}
+                </div>
             </div>
         </div>
 
@@ -167,3 +100,36 @@
     </div>
     <!-- END CONTENT BODY -->
 @stop
+
+@push('page_script_plugins')
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/handlebars.js/4.0.6/handlebars.min.js"></script>
+<script src="http://cdn.datatables.net/1.10.7/js/jquery.dataTables.min.js"></script>
+<script src="https://cdn.datatables.net/1.10.11/js/dataTables.bootstrap.min.js"></script>
+
+
+<script src="https://cdn.datatables.net/buttons/1.2.1/js/dataTables.buttons.min.js"></script>
+<script src="{{asset('/vendor/datatables/buttons.server-side.js')}}"></script>
+{!! $dataTable->scripts() !!}
+<script>
+    function mix(source, target) {
+        $(source).each(function (i, v) {
+            console.log(i, v);
+            target[v['name']] = v['value'];
+        })
+
+    }
+
+    $('#dataTableBuilder')
+        .on('preXhr.dt', function (e, settings, data) {
+            mix({name: "survey_id", value: {{$survey->id}} }, data);
+        })
+        .dataTable({
+            ajax: "data.json"
+        });
+
+    $(function () {
+        window.LaravelDataTables.dataTableBuilder.draw();
+    });
+</script>
+@endpush

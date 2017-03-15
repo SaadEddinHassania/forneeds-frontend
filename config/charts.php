@@ -9,15 +9,31 @@ return [
     */
 
     'default' => [
-        'type'          => 'line',
-        'library'       => 'google',
+        'type' => 'line',
+        'library' => 'google',
         'element_label' => 'Element',
-        'title'         => 'My chart',
-        'height'        => 400,
-        'width'         => 500,
-        'responsive'    => true,
+        'title' => 'My chart',
+        'height' => 400,
+        'width' => 500,
+        'responsive' => true,
     ],
-
+    'multi_libs' => [
+        'chartjs' => ['chartjs_line' => 'line', 'chartjs_area' => 'area', 'chartjs_bar' => 'bar'],
+        'highcharts' => ['highcharts_line' => 'line', 'highcharts_area' => 'area', 'highcharts_bar' => 'bar', 'highcharts_areaspline' => 'Areaspline'],
+        'google' => ['google_line' => 'line', 'google_area' => 'area', 'google_bar' => 'bar'],
+        'chartist' => ['chartist_line' => 'line', 'chartist_area' => 'area', 'chartist_bar' => 'bar'],
+        'fusioncharts' => ['fusioncharts_line' => 'line', 'fusioncharts_area' => 'area', 'fusioncharts_bar' => 'bar'],
+        'plottablejs' => ['plottablejs_line' => 'line', 'plottablejs_area' => 'area', 'plottablejs_bar' => 'bar'],
+        'c3' => ['c3_line' => 'line', 'c3_area' => 'area', 'c3_bar' => 'bar']
+    ],
+    'libs' => [
+        'chartjs' => ['chartjs_line' => 'line', 'chartjs_area' => 'area', 'chartjs_bar' => 'bar', 'chartjs_pie' => 'pie', 'chartjs_donut' => 'donut'],
+        'highcharts' => ['highcharts_line' => 'line', 'highcharts_area' => 'area', 'highcharts_bar' => 'bar', 'highcharts_pie' => 'pie', 'highcharts_donut' => 'donut', 'highcharts_geo' => 'geo'],
+        'google' => ['google_line' => 'line', 'google_area' => 'area', 'google_bar' => 'bar', 'google_pie' => 'pie', 'google_donut' => 'donut', 'google_geo' => 'geo', 'google_gauge' => 'gauge'],
+        'chartist' => ['chartist_line' => 'line', 'chartist_area' => 'area', 'chartist_bar' => 'bar', 'chartist_pie' => 'pie', 'chartist_donut' => 'donut'],
+        'fusioncharts' => ['fusioncharts_line' => 'line', 'fusioncharts_area' => 'area', 'fusioncharts_bar' => 'bar', 'fusioncharts_pie' => 'pie', 'fusioncharts_donut' => 'donut'],
+        'plottablejs' => ['plottablejs_line' => 'line', 'plottablejs_area' => 'area', 'plottablejs_bar' => 'bar', 'plottablejs_pie' => 'pie', 'plottablejs_donut' => 'donut'],
+        'c3' => ['c3_line' => 'line', 'c3_area' => 'area', 'c3_bar' => 'bar', 'c3_pie' => 'pie', 'c3_donut' => 'donut', 'c3_gauge' => 'gauge']],
     /*
     |--------------------------------------------------------------------------
     | Assets required by the libraries
@@ -32,22 +48,22 @@ return [
 
         'canvas-gauges' => [
             'scripts' => [
-                'https://cdn.rawgit.com/Mikhus/canvas-gauges/gh-pages/download/2.0.9/all/gauge.min.js',
+                asset('/assets/cdn/gauge/gauge.min.js'),
             ],
         ],
 
         'chartist' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.js',
+                asset('/assets/cdn/chartist.js/chartist.js'),
             ],
             'styles' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/chartist/0.10.1/chartist.min.css',
+                asset('/assets/cdn/chartist.js/chartist.min.css'),
             ],
         ],
 
         'chartjs' => [
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js',
+                asset('/assets/cdn/Chart.js/Chart.min.js'),
             ],
         ],
 
@@ -68,14 +84,14 @@ return [
 
         'highcharts' => [
             'styles' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.4/css/highcharts.css',
+                asset('/assets/cdn/Highcharts/css/highcharts.css'),
             ],
             'scripts' => [
-                'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.2/highcharts.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/highcharts/5.0.2/js/modules/exporting.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.2/js/modules/map.js',
-                'https://cdnjs.cloudflare.com/ajax/libs/highmaps/5.0.2/js/modules/data.js',
-                'https://code.highcharts.com/mapdata/custom/world.js',
+                asset('/assets/cdn/Highcharts/highcharts.js'),
+                asset('/assets/cdn/Highcharts/js/modules/exporting.js'),
+                asset('public/assets/cdn/Highcharts/js/modules/map.js'),
+                asset('/assets/cdn/Highcharts/js/modules/data.js'),
+                asset('/assets/cdn/Highcharts/world.js'),
             ],
         ],
 

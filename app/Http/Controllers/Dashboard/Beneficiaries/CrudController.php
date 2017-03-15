@@ -42,10 +42,10 @@ class CrudController extends Controller
 
     public function edit($id)
     {
-        $user = User::with('citizen')->find($id);
+        $user = Citizen::with('user')->find($id);
         return view('dashboard.beneficiaries.forms.edit', [
-            "user" => $user,
-            'citizen' => $user->citizen()->first(),
+            "user" => $user->user()->first(),
+            'citizen' => $user,
             'sectors' => Sector::pluck('name', 'id'),
             'maritals' => MaritalStatus::pluck('name', 'id'),
             'ages' => Age::pluck('name', 'id'),

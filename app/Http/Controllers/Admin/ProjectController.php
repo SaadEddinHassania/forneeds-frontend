@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\DataTables\ProjectDataTable;
+use App\Http\Controllers\Controller;
 use App\Http\Requests\CreateProjectRequest;
 use App\Http\Requests\UpdateProjectRequest;
 use App\Repositories\AreaRepository;
@@ -12,10 +13,9 @@ use App\Repositories\SectorRepository;
 use App\Repositories\ServiceProviderRepository;
 use App\Models\District;
 use Flash;
-use InfyOm\Generator\Controller\AppBaseController;
 use Response;
 
-class ProjectController extends AppBaseController
+class ProjectController extends Controller
 {
     /**
      * Display a listing of the Project.

@@ -60,10 +60,9 @@ class SurveysDataTablePending extends DataTable
     protected function getColumns()
     {
         return [
-            'id',
-            'name',
-            'created_at',
-            'updated_at',
+            ['data' => 'subject', 'name' => 'subject', 'title' => 'Subject', 'searchable' => true],
+            ['data' => 'description', 'name' => 'description', 'title' => 'description', 'searchable' => true]
+
         ];
     }
 

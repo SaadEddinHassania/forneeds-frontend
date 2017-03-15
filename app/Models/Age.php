@@ -2,10 +2,12 @@
 
 namespace App\Models;
 
-use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\Targetable;
-
+use Illuminate\Database\Eloquent\Model;
+use App\Models\Traits\CitizenProp;
 class Age extends Model
 {
- use Targetable;
+ use Targetable ,CitizenProp;
+
+
 }

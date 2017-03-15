@@ -5,12 +5,13 @@ namespace App\Models\Users;
 use App\Models\Age;
 use App\Models\Gender;
 use App\Models\Location\Area;
+use App\Models\Survey;
 use Illuminate\Database\Eloquent\Model;
 
 class SocialWorker extends Model
 {
     public $fillable = [
-        'is_accepted','cv','gender_id', 'age_id','area_id', 'is_accepted', 'address', 'telephone', 'mobile'
+        'is_accepted', 'cv', 'gender_id', 'age_id', 'area_id', 'is_accepted', 'address', 'telephone', 'mobile'
     ];
     private $fillableMap = [
         'gender_id' => Gender::class,
@@ -51,5 +52,10 @@ class SocialWorker extends Model
     public function age()
     {
         return $this->belongsTo(Age::class);
+    }
+
+    public function surveys()
+    {
+        return $this->belongsToMany(Survey::class);
     }
 }
