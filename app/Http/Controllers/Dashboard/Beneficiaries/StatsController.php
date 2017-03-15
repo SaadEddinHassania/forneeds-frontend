@@ -135,21 +135,40 @@ class StatsController extends Controller
             $model_y_attr_val = ucwords(str_replace('_', ' ', $val[0]::find($val[1])->name));
             $elemnt_label[] = $model_y_attr_val;
             $attr_name = snake_case(class_basename($val[0]));
-            if (in_array($attr_name, ['area', 'sector'])) {
-                $data = $val[0]::with(['citizensCount' => function ($builder) use ($model, $attr_name) {
-                    dump($builder->
-                    groupBy([$model . '_id'])
-                        ->select($model . '_id', DB::raw('count(' . $model . '_id' . ') as total'))
-                        ->orderBy($model . '_id')
-                        ->get());
-                }])->get();
+            if (in_array($model, ['area', 'sector'])) {
+                if (!in_array($attr_name, ['area', 'sector'])) {
+                    $data = null;
+
+                    $modelx::with(['citizens' => function ($builder) use (&$data, $model, $attr_name, $val) {
+                        $data = ($builder->where($attr_name . '_id', $val[1])
+                            ->select(DB::raw('count(' . $model . '_id) as total'))
+                            ->groupBy('citizen_id', 'area_id')
+                            ->get()->map(function ($i) {
+                                return $i->total;
+                            })->toArray('total'));
+                    }])->get();
+
+                }
             } else {
-                $data = Citizen::where($attr_name . '_id', $val[1])->groupBy([$model . '_id', $attr_name . '_id'])
-                    ->select(DB::raw('count(' . $model . '_id' . ') as total'))->get()
-                    ->map(function ($i) {
-                        return $i->total;
-                    })->toArray('total');
+                if (in_array($attr_name, ['area', 'sector'])) {
+                    $rel = str_plural($attr_name);
+                    $data = Citizen::whereHas($rel, function ($q) use ($val, $attr_name, $model) {
+                        return $q->where($attr_name . '_id', $val[1])->groupBy([$model . '_id', $attr_name . '_id']);
+                    })->select(DB::raw('count(' . $model . '_id' . ') as total'))
+                        ->groupBy([$model . '_id'])
+                        ->get()
+                        ->map(function ($i) {
+                            return $i->total;
+                        })->toArray('total');
+                } else {
+                    $data = Citizen::where($attr_name . '_id', $val[1])->groupBy([$model . '_id', $attr_name . '_id'])
+                        ->select(DB::raw('count(' . $model . '_id' . ') as total'))->get()
+                        ->map(function ($i) {
+                            return $i->total;
+                        })->toArray('total');
+                }
             }
+          //  dump(DB::getQueryLog(), $data);
 
 
             $dataset['title'] = $model_y_attr_val;

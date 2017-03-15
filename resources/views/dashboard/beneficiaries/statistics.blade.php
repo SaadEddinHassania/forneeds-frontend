@@ -1,7 +1,7 @@
 @extends('dashboard.layout.dashboard')
 @push('page_style_plugins')
 <link rel="stylesheet" href="{{asset('/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}">
-<link rel="stylesheet" href="{{asset('public/assets/cdn/materialize.min.css')}}"/>
+<link rel="stylesheet" href="{{asset('/assets/cdn/materialize.min.css')}}"/>
 @endpush
 @section('content')
 
@@ -92,19 +92,19 @@
                             </div>
                             <div class="form-group col-sm-10">
                                 {!! Form::label('attr_list', 'X indicator:') !!}
-                                {{Form::select('attr_list[x]',$target_types ,null,['class'=>'select2me show-tick show-menu-arrow form-control','data-style'=>"btn-default"])}}
+                                {{Form::select('attr_list[x]',$target_types ,null,['class'=>'select2me show-tick show-menu-arrow form-control','data-style'=>"btn-default",'id'=>'attr_list_x'])}}
                             </div>
                             <div class="form-group col-sm-10">
                                 {!! Form::label('attr_list', 'Y indicators:') !!}
 
-                                <select name="attr_list[y][]"
+                                <select name="attr_list[y][]" id="attr_list_y"
                                         class="selectpicker show-tick show-menu-arrow form-control"
                                         multiple>
                                     @foreach($target_types_m as $key=>$property)
 
-                                        <optgroup
-                                                label="{{ucwords(str_replace('_',' ',snake_case(class_basename($property['base'])))).':'}}"
-                                                data-max-options="1">
+                                        <optgroup id="opt_{{str_replace('\\','-',$property['base'])}}"
+                                                  label="{{ucwords(str_replace('_',' ',snake_case(class_basename($property['base'])))).':'}}"
+                                                  data-max-options="1">
                                             @foreach($property['val'] as $pKey=>$val)
                                                 <option value="{{$property['base'].'#'.$pKey}}">{{$val}}</option>
                                             @endforeach
@@ -201,9 +201,29 @@
             $.post($(this).attr('action'), $(this).serialize(), function (data) {
 
                 $('div.chart.draw_chart').html(data);
+
             });
         });
         var charts = {!! json_encode($libs) !!};
+
+        $('#attr_list_x').on('change', function (e) {
+            $('#attr_list_y optgroup').prop('disabled', function (i, v) {
+                console.log(v ? !v : v);
+                return v ? !v : v;
+            });
+            console.log($('#opt_' + $(this).val()).prop('disabled', true).prop('disabled'))
+
+            $('#attr_list_y option').prop('selected', function() {
+                return this.defaultSelected;
+            });
+
+            $('#attr_list_y').selectpicker('destroy');
+            $('#attr_list_y').selectpicker({
+                style: 'blue'
+            });
+            ;
+
+        });
 //        $('.icheck-list input[type=radio]').on('switchChange.bootstrapSwitch', function ($event, $state) {
 //            $event.preventDefault();
 //            $select_val = this.value;
