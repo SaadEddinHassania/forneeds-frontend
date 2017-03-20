@@ -27,7 +27,7 @@ class ProfileController extends Controller
 {
     public function __construct()
     {
-        $this->middleware(['checkUserType:serviceProvider,citizen'])->only('index', 'settings', 'surveys');
+        $this->middleware(['checkUserType:serviceProvider,citizen,worker'])->only('index', 'settings', 'surveys');
         $this->middleware('checkUserType:serviceProvider')->only('dashboard');
         $this->middleware('checkUserType:citizen')->only('serviceRequests');
         $this->middleware('checkUserType:admin')->only('serviceRequests');
@@ -39,9 +39,11 @@ class ProfileController extends Controller
         if ($user->is_admin) {
             return $this->admin();
         } else if ($user->isServiceProvider()) {
-            return $this->serviceProviderProfile();
+            return redirect()->route('endusers.org.index');
         } else if ($user->isCitizen()) {
-            return $this->citizenProfile();
+            return redirect()->route('endusers.ben.index');
+        }else if ($user->isWorker()) {
+            return redirect()->route('endusers.ben.index');
         }
     }
 

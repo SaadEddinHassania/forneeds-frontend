@@ -106,7 +106,9 @@ Route::group(['middleware' => 'auth'], function () {
     Route::group(['namespace' => 'FrontEnd'], function () {
         //citizen routes
         Route::get('listings/projects/{service_provider_id}', "AjaxApiController@projects");
+        Route::get('listings/projects/', "AjaxApiController@projectsWithAreas");
         Route::get('listings/surveys/{project_id}', "AjaxApiController@surveys");
+        Route::get('listings/questions/{survey_id}', "AjaxApiController@questions");
         Route::get('gateways/listings/{model}', "AjaxApiController@Listings")->name('getListing');
 
         Route::get('/service-requests', 'ProfileController@serviceRequests');
@@ -133,6 +135,48 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('serviceProviders', 'ServiceProviderController');
         Route::resource('projects', 'ProjectController');
 
+
+    });
+});
+Route::group(['middleware' => ['auth'], 'prefix' => 'users', 'namespace' => 'EndUsers', 'as' => 'endusers.'], function () {
+    Route::group(['middleware' => ['auth', 'checkUserType:serviceProvider'], 'prefix' => 'org', 'namespace' => 'ServiceProvider', 'as' => 'org.'], function () {
+        Route::get('/dashboard', 'DashboardController@index')->name('index');
+        Route::group([ 'prefix' => 'projects', 'as' => 'projects.'], function () {
+           /*projects*/
+            Route::get('/index', 'ProjectsController@index')->name('list');
+            Route::get('/create', 'ProjectsController@create')->name('create');
+            Route::post('/', 'ProjectsController@store')->name('store');
+            Route::get('{id}/edit', 'ProjectsController@edit')->name('edit');
+            Route::patch('{id}', 'ProjectsController@update')->name('update');
+            Route::get('{id}/delete', 'ProjectsController@delete')->name('delete');
+            Route::get('/{id}', 'ProjectsController@show')->name('show');
+
+            /*projects end*/
+
+            /*surveys*/
+            Route::get('/surveys/{id}', 'SurveysController@index')->name('surveys.show');
+            Route::get('{project_id}/surveys/create', 'SurveysController@create')->name('surveys.create');
+            Route::post('/surveys/', 'SurveysController@store')->name('surveys.store');
+            Route::get('/surveys/{id}/edit', 'SurveysController@edit')->name('surveys.edit');
+            Route::patch('/surveys/{id}', 'SurveysController@update')->name('surveys.update');
+            Route::get('/surveys/{id}/delete', 'SurveysController@delete')->name('surveys.delete');
+            /*surveys end*/
+
+            /*questions end*/
+            Route::get('/surveys/{survey_id}/questions/create', 'QuestionsController@create')->name('surveys.questions.create');
+            Route::post('/surveys/questions', 'QuestionsController@store')->name('surveys.questions.store');
+            Route::get('/surveys/questions/{id}/edit', 'QuestionsController@edit')->name('surveys.questions.edit');
+            Route::patch('/surveys/questions/{id}', 'QuestionsController@update')->name('surveys.questions.update');
+            Route::get('/surveys/questions/{id}/delete', 'QuestionsController@delete')->name('surveys.questions.delete');
+            Route::get('/surveys/questions/{id}/chart', 'SurveyStatsController@question_chart')->name('surveys.questions.chart');
+            /*questions end*/
+
+        });
+        Route::get('/stats', 'SurveyStatsController@index')->name('stats');
+        Route::get('/report', 'CitizenStatsController@index')->name('report');
+    });
+    Route::group(['middleware' => ['auth', 'checkUserType:citizen'], 'prefix' => 'ben', 'namespace' => 'Citizens', 'as' => 'ben.'], function () {
+        Route::get('/dashboard', 'DashboardController@index')->name('index');
 
     });
 });

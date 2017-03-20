@@ -154,6 +154,7 @@ class Citizen extends Model
     {
         return $this->belongsTo(Age::class);
     }
+
     public function gender()
     {
         return $this->belongsTo(Gender::class);
@@ -208,11 +209,10 @@ class Citizen extends Model
                 $query->orWhere(array('targetable_id' => $this->$key, 'targetable_type' => $index));
             }
         });
-        return Survey::whereIn('project_id', $projects->pluck('project_id'));
+        $surveys = $this->surveys()->pluck('id');
+        return Survey::whereIn('project_id', $projects->pluck('project_id'))->whereNotIn('id', $surveys);
 
     }
-
-
 
 
 }

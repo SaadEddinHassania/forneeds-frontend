@@ -55,9 +55,20 @@ class AjaxApiController extends Controller
         return response()->json($projects);
     }
 
+    public function projectsWithAreas()
+    {
+        $projects = Project::with('area')->get()->map(function ($v) {
+            if ($v->area)
+                return ['name' => $v->name,
+                    'lat' => $v->area->lat,
+                    'lng' => $v->area->lng];
+        })->filter();
+        return response()->json($projects);
+    }
+
     public function surveys($project_id)
     {
-        $surveys = Survey::where('project_id', $project_id )->select(array('id', 'subject'))->get();
+        $surveys = Survey::where('project_id', $project_id)->select(array('id', 'subject'))->get();
         return response()->json($surveys);
     }
 
@@ -72,4 +83,8 @@ class AjaxApiController extends Controller
         return response()->json(str_replace('-', '\\', $lookup)::all()->pluck('name', 'id'));
     }
 
+    public function questionChart($question_id)
+    {
+
+    }
 }

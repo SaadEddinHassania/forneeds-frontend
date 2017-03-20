@@ -10,6 +10,7 @@ use App\DataTables\SurveysDataTablePending;
 use App\Models\Project;
 use App\Models\Survey;
 use App\Models\Users\ServiceProvider;
+use App\Models\Users\SocialWorker;
 use App\User;
 use App\Notifications\ProjectAccepted;
 use App\Notifications\SurveyAccepted;
@@ -51,9 +52,13 @@ class VerificationController extends Controller
     {
         $mod = str_replace('-', '\\', $model);
         $sp = $mod::findOrFail($id);
+        if($mod == SocialWorker::class){
+            $sp->projects()->sync([$project]);
+        }
         $is_accepted = $request->input('is_accepted');
         $sp->is_accepted = $is_accepted;
         $sp->save();
+
         if ($is_accepted == 1) {
             $target_users = User::where('is_admin', true)->get();
             switch (snake_case(class_basename($mod))) {

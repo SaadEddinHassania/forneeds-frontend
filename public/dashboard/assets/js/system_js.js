@@ -5,11 +5,7 @@ jQuery(document).ready(function() {
   
 
    
-    $('.date-picker').datepicker({
-                rtl: App.isRTL(),
-                orientation: "left",
-                autoclose: true
-    });
+
 	
 	$('body').on('click','.remove-answer',function(){
 	 $(this).closest('.form-group').remove(); 

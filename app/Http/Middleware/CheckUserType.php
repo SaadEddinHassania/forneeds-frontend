@@ -18,17 +18,20 @@ class CheckUserType
     {
 
         $user = Auth::user();
-        if ($user->isServiceProvider() && in_array('serviceProvider',$userType)) {
+        if ($user->isServiceProvider() && in_array('serviceProvider', $userType)) {
             return $next($request);
-        } else if ($user->isCitizen() && in_array('citizen',$userType)) {
+        } else if ($user->isCitizen() && in_array('citizen', $userType)) {
             return $next($request);
-        }  if($user->is_admin && in_array('admin',$userType)){
+        } else if ($user->isWorker() && in_array('worker', $userType)) {
+            return $next($request);
+        }
+        if ($user->is_admin && in_array('admin', $userType)) {
             return $next($request);
         }
 
         return redirect('/checkpoint');
 
-       // return $next($request);
+        // return $next($request);
 
 //        return response('Unauthorized.', 401);
     }

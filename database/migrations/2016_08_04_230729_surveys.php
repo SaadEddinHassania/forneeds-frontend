@@ -3,14 +3,16 @@
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class Surveys extends Migration {
+class Surveys extends Migration
+{
 
     /**
      * Run the migrations.
      *
      * @return void
      */
-    public function up() {
+    public function up()
+    {
         Schema::create('surveys', function (Blueprint $table) {
             $table->increments('id');
             $table->string('subject');
@@ -19,10 +21,10 @@ class Surveys extends Migration {
             $table->text('description');
             $table->integer('project_id')->unsigned()->nullable()->index();
             $table->foreign('project_id')->references('id')->on('projects')->onDelete('SET NULL');
-            $table->string('questions_count');
+            $table->integer('questions_count')->default(0);
             $table->boolean('is_accepted')->default(false);
             $table->tinyInteger('state')->default(0);
-            $table->softDeletes();	
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -32,7 +34,8 @@ class Surveys extends Migration {
      *
      * @return void
      */
-    public function down() {
+    public function down()
+    {
         Schema::drop('surveys');
     }
 

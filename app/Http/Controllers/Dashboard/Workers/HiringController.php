@@ -11,11 +11,11 @@ class HiringController extends Controller
 {
     public function index()
     {
-        return view('dashboard.workers.hire',['projects'=>Project::all()]);
+        return view('dashboard.workers.hire', ['projects' => Project::all()]);
     }
 
-    public function applicants(SocialWorkerDatatablePending $socialWorkerDatatablePending)
+    public function applicants(SocialWorkerDatatablePending $socialWorkerDatatablePending, $id)
     {
-        return $socialWorkerDatatablePending->render('dashboard.workers.applicants');
+        return $socialWorkerDatatablePending->with('project_id', $id)->render('dashboard.workers.applicants');
     }
 }

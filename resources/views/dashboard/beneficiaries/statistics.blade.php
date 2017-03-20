@@ -180,7 +180,6 @@
     }
     $(function () {
         $('.icheck-list input[type=radio]').on('switchChange.bootstrapSwitch', function (e) {
-
             e.preventDefault();
             e.stopPropagation();
             $('.charts-canvas').removeClass('hidden').fadeIn();

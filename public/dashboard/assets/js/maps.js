@@ -4,26 +4,31 @@ var MapsGoogle = function () {
     var mapMarker = function () {
         var map = new GMaps({
             div: '#gmap_marker',
-           lat: 31.428077,
-                lng: 34.380341,
+            lat: 31.428077,
+            lng: 34.380341,
+            scrollwheel: false,
+            navigationControl: false,
+            mapTypeControl: false,
+            scaleControl: false,
+            draggable: false,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
         });
-        map.addMarker({
-           lat: 31.345427,
-                lng: 34.30275,
-            title: 'Project A',
-            infoWindow: {
-                content: 'Project A Details'
-            }
-        });
-        map.addMarker({
-            lat: 31.500702,
-            lng: 34.466171,
-            title: 'Project B',
-            infoWindow: {
-                content: 'Project B Details'
-            }
-        });
+
+        $.get(window.location.origin + '/listings/projects/', function (data) {
+            $(data).each(function (i, v) {
+                map.addMarker({
+                    lat: v.lat,
+                    lng: v.lng,
+                    title: v.name,
+                    infoWindow: {
+                        content: v.name
+                    }
+                });
+            });
+        })
+
         map.setZoom(10);
+
     }
 
 
@@ -37,7 +42,7 @@ var MapsGoogle = function () {
 
 }();
 
-jQuery(document).ready(function() {
+jQuery(document).ready(function () {
     MapsGoogle.init();
 });
 

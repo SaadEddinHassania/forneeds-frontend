@@ -5,8 +5,10 @@ namespace App\Models\Users;
 use App\Models\Age;
 use App\Models\Gender;
 use App\Models\Location\Area;
+use App\Models\Project;
 use App\Models\Survey;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Builder;
 
 class SocialWorker extends Model
 {
@@ -28,6 +30,11 @@ class SocialWorker extends Model
     public function user()
     {
         return $this->belongsTo('App\User');
+    }
+
+    public function projects()
+    {
+        return $this->belongsToMany(Project::class);
     }
 
     public function getNameAttribute()
@@ -57,5 +64,19 @@ class SocialWorker extends Model
     public function surveys()
     {
         return $this->belongsToMany(Survey::class);
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withUser', function (Builder $builder) {
+            $builder->with('user');
+        });
     }
 }

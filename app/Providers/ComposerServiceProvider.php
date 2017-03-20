@@ -20,7 +20,7 @@ class ComposerServiceProvider extends ServiceProvider
 //        );
 
         // Using Closure based composers...
-        View::composer('dashboard.layout.dashboard', function ($view) {
+        View::composer(['dashboard.layout.dashboard','endusers.layout.dashboard'], function ($view) {
             $view->with('auth_user', Auth::user());
         });
     }

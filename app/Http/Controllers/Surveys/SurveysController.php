@@ -69,7 +69,7 @@ class SurveysController extends Controller
             ));
             $citizen->answers()->attach(((array_values($input['answers']))));
         });
-        return response()->json(['status' => true]);
+        return redirect()->route('endusers.ben.index');
     }
 
     public function surveysUser($id)

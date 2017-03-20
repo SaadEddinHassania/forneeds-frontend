@@ -58,6 +58,7 @@ class Survey extends Model
 
     public $fillable = [
         'subject',
+        'starts_at',
         'expires_at',
         'description',
         'project_id',
@@ -95,9 +96,9 @@ class Survey extends Model
     public function getProgressAttribute()
     {
         $expire = $this->expires_at ? $this->expires_at->timestamp : Carbon::now()->addMonths(12)->timestamp;
-        $starts = $this->starts_at ? $this->starts_at->timestamp:Carbon::now()->timestamp;
+        $starts = $this->starts_at ? $this->starts_at->timestamp : Carbon::now()->timestamp;
 
-        return ($expire - Carbon::now()->timestamp) / ($expire - $starts);
+        return ($expire - Carbon::now()->timestamp) / (($expire - $starts)+1) ;
     }
 
     public function Config()
@@ -107,16 +108,31 @@ class Survey extends Model
 
     public function questions()
     {
-        return $this->hasMany(Question::class)->orderBy('order');
+        return $this->hasMany(Question::class);
     }
 
     public function citizens()
     {
-        return $this->belongsToMany(Citizen::class);
+        return $this->belongsToMany(Citizen::class)->withPivot('is_final_step');
     }
-    public function SocialWorkers(){
+
+    public function project()
+    {
+        return $this->belongsTo(Project::class);
+    }
+
+    public function SocialWorkers()
+    {
         return $this->belongsToMany(SocialWorker::class);
     }
+
+    public function SocialWorkers_string()
+    {
+        return $this->SocialWorkers->mapWithKeys(function ($v) {
+            return [$v->user->name];
+        })->implode(',');
+    }
+
     /**
      * The "booting" method of the model.
      *
@@ -129,6 +145,10 @@ class Survey extends Model
         static::addGlobalScope('withQuestions', function (Builder $builder) {
             $builder->with('questions');
         });
+        static::addGlobalScope('withWorkers', function (Builder $builder) {
+            $builder->with('SocialWorkers');
+        });
+
 
     }
 }

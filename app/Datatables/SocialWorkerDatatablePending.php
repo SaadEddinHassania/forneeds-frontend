@@ -13,6 +13,12 @@ class SocialWorkerDatatablePending extends DataTable
      *
      * @return \Illuminate\Http\JsonResponse
      */
+
+    public function with($key, $val)
+    {
+        $this->$key = $val;
+        return $this;
+    }
     public function ajax()
     {
         return $this->datatables
@@ -28,13 +34,8 @@ class SocialWorkerDatatablePending extends DataTable
             ->addColumn('action', function ($row) {
                 $modelRoute = str_replace('\\', '-', SocialWorker::class);
                 $id = $row->id;
-                if ($this->request()->has('id')) {
-                    /***
-                     * todo
-                     * make accept function add in the manytomany between socialworkers and projects relation if
-                     */
-                    $project_id = $this->request()->input('id');
-                }
+
+                $project_id = $this->project_id;
                 return view('dashboard.organizations.forms.accept-org', compact('modelRoute', 'id', 'project_id'));
             })->make(true);
     }

@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Users\Citizen;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Database\Eloquent\Builder;
 
 /**
  * @SWG\Definition(
@@ -75,8 +76,29 @@ class Answer extends Model
         return $this->belongsTo(Question::class);
     }
 
-    public function users()
+    public function citizens()
     {
         return $this->belongsToMany(Citizen::class);
+    }
+
+    public function citizens_count()
+    {
+        return $this->citizens->count();
+    }
+
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withCitizens', function (Builder $builder) {
+            $builder->with('citizens');
+        });
+
+
     }
 }

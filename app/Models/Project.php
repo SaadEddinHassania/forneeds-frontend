@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Location\Area;
 use App\Models\Users\ServiceProvider;
+use App\Models\Users\SocialWorker;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Builder;
@@ -62,7 +64,7 @@ class Project extends Model
     const UPDATED_AT = 'updated_at';
 
 
-    protected $dates = ['deleted_at'];
+    protected $dates = ['deleted_at', 'starts_at', 'expires_at'];
 
 
     public $fillable = [
@@ -73,6 +75,7 @@ class Project extends Model
         'service_provider_id',
         'area_id',
         'starts_at',
+        'expires_at',
         'deleted_at'
     ];
 
@@ -95,6 +98,7 @@ class Project extends Model
         'deleted_at' => 'datetime'
     ];
 
+
     /**
      * Validation rules
      *
@@ -103,6 +107,16 @@ class Project extends Model
     public static $rules = [
 
     ];
+
+    public function sector()
+    {
+        return $this->belongsTo(Sector::class);
+    }
+
+    public function area()
+    {
+        return $this->belongsTo(Area::class);
+    }
 
     public function serviceProvider()
     {
@@ -130,6 +144,25 @@ class Project extends Model
 
         static::addGlobalScope('withTargets', function (Builder $builder) {
             $builder->with('targets');
+        });
+    }
+
+    public function in_targets($val)
+    {
+        return in_array($val, array_values($this->targets->mapWithKeys(function ($v) {
+            return [$v->targetable->name];
+        })->toArray()));
+    }
+
+    public function workers()
+    {
+        return $this->belongsToMany(SocialWorker::class);
+    }
+
+    public function targets_string()
+    {
+        return $this->targets->mapWithKeys(function ($v) {
+            return [ucfirst(str_replace('_', ' ', snake_case(class_basename($v->targetable_type)))) => $v->targetable->name];
         });
     }
 }

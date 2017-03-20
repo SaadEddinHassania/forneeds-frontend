@@ -48,22 +48,22 @@ return [
 
         'canvas-gauges' => [
             'scripts' => [
-                asset('/assets/cdn/gauge/gauge.min.js'),
+                ('/assets/cdn/gauge/gauge.min.js'),
             ],
         ],
 
         'chartist' => [
             'scripts' => [
-                asset('/assets/cdn/chartist.js/chartist.js'),
+                ('/assets/cdn/chartist.js/chartist.js'),
             ],
             'styles' => [
-                asset('/assets/cdn/chartist.js/chartist.min.css'),
+                ('/assets/cdn/chartist.js/chartist.min.css'),
             ],
         ],
 
         'chartjs' => [
             'scripts' => [
-                asset('/assets/cdn/Chart.js/Chart.min.js'),
+                ('/assets/cdn/Chart.js/Chart.min.js'),
             ],
         ],
 
@@ -84,14 +84,14 @@ return [
 
         'highcharts' => [
             'styles' => [
-                asset('/assets/cdn/Highcharts/css/highcharts.css'),
+                ('/assets/cdn/Highcharts/css/highcharts.css'),
             ],
             'scripts' => [
-                asset('/assets/cdn/Highcharts/highcharts.js'),
-                asset('/assets/cdn/Highcharts/js/modules/exporting.js'),
-                asset('/assets/cdn/Highcharts/js/modules/map.js'),
-                asset('/assets/cdn/Highcharts/js/modules/data.js'),
-                asset('/assets/cdn/Highcharts/world.js'),
+                ('/assets/cdn/Highcharts/highcharts.js'),
+                ('/assets/cdn/Highcharts/js/modules/exporting.js'),
+                ('/assets/cdn/Highcharts/js/modules/map.js'),
+                ('/assets/cdn/Highcharts/js/modules/data.js'),
+                ('/assets/cdn/Highcharts/world.js'),
             ],
         ],
 

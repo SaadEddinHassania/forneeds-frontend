@@ -4,6 +4,7 @@ namespace App;
 
 use App\Models\Users\Citizen;
 use App\Models\Users\ServiceProvider;
+use App\Models\Users\SocialWorker;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 
@@ -18,7 +19,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'facebook_token', 'facebook_id', 'google_token', 'google_id','is_admin'
+        'name', 'email', 'password', 'facebook_token', 'facebook_id', 'google_token', 'google_id', 'is_admin'
     ];
 
     protected $appends = ['user_type', 'password'];
@@ -101,6 +102,11 @@ class User extends Authenticatable
         $this->save();
     }
 
+    Public function isWorker()
+    {
+        return $this->hasOne(SocialWorker::class);
+    }
+
     public function getUserTypeAttribute()
     {
         $type = [];
@@ -112,6 +118,10 @@ class User extends Authenticatable
         }
         if ($this->is_admin) {
             $type[] = 'Admin';
+        }
+
+        if ($this->isWorker()) {
+            $type[] = 'Worker';
         }
 
         if (empty($type)) {

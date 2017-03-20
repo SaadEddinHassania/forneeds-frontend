@@ -5,6 +5,7 @@ namespace App\Models;
 use App\Models\Location\Area;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Traits\Targetable;
+use Illuminate\Database\Eloquent\Builder;
 
 class Target extends Model
 {
@@ -48,5 +49,18 @@ class Target extends Model
         return $this->belongsTo(Project::class);
     }
 
+    /**
+     * The "booting" method of the model.
+     *
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::addGlobalScope('withTargetable', function (Builder $builder) {
+            $builder->with('targetable');
+        });
+    }
 
 }

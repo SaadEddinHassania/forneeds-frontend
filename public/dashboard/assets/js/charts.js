@@ -167,11 +167,30 @@ jQuery(document).ready(function() {
    });
    
    $('#draw-table').click(function(){
-     ChartsFlotcharts.initBarCharts();
+   $('.draw_chart').html('');
+      new Morris.Bar({
+    element: 'morris_chart',
+    data: [
+      { y: '2006', a: 100, b: 90 },
+      { y: '2007', a: 75,  b: 65 },
+      { y: '2008', a: 50,  b: 40 },
+      { y: '2009', a: 75,  b: 65 },
+      { y: '2010', a: 50,  b: 40 },
+      { y: '2011', a: 75,  b: 65 },
+      { y: '2012', a: 100, b: 90 }
+    ],
+    xkey: 'y',
+    ykeys: ['a', 'b'],
+    labels: ['Series A', 'Series B']
+  });
    });
 
    $('#draw-chart').click(function(){
      ChartsFlotcharts.initPieCharts();
+   });
+   
+   $('#draw-bar').click(function(){
+     ChartsFlotcharts.initBarCharts();
    });
 
 	

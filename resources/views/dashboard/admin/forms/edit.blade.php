@@ -1,4 +1,4 @@
-@extends('dashboard.layout.dashboard')
+@extends('endusers.layout.dashboard')
 @push('page_style_plugins')
 <link rel="stylesheet" href="{{asset('/assets/global/plugins/bootstrap-switch/css/bootstrap-switch.min.css')}}">
 @endpush
