@@ -246,7 +246,7 @@ Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dash
 
     });
 
-    Route::group(['prefix' => 'admin', 'namespace' => 'admin', 'as' => 'admin.'], function () {
+    Route::group(['prefix' => 'admin', 'namespace' => 'Admin', 'as' => 'admin.'], function () {
         Route::group(['prefix' => 'crud', 'as' => 'crud.'], function () {
             Route::get('/', 'CrudController@index')->name('list');
             Route::get('/create', 'CrudController@create')->name('create');
