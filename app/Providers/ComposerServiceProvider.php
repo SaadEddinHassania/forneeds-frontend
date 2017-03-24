@@ -5,6 +5,7 @@ namespace App\Providers;
 use Illuminate\Support\Facades\View;
 use Illuminate\Support\ServiceProvider;
 use Auth;
+
 class ComposerServiceProvider extends ServiceProvider
 {
     /**
@@ -20,8 +21,9 @@ class ComposerServiceProvider extends ServiceProvider
 //        );
 
         // Using Closure based composers...
-        View::composer(['dashboard.layout.dashboard','endusers.layout.dashboard'], function ($view) {
+        View::composer(['dashboard.layout.dashboard','endusers.layout.dashboard','endusers.citizens.menu'], function ($view) {
             $view->with('auth_user', Auth::user());
+            $view->with('impersonator',session('impersonator'));
         });
     }
 

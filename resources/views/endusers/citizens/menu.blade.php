@@ -29,6 +29,17 @@
 
                 </a>
             </li>
+            @if($impersonator)
+            <li class="nav-item  {!! Route::current()->getName() == 'endusers.ben.need.create' ? 'start active open' : '' !!}">
+                <a href="{{route('endusers.ben.need.create')}}" class="nav-link nav-toggle">
+                    <i class="icon-home"></i>
+                    <span class="title">Need Acquisition</span>
+                    <span class="selected"></span>
+
+                </a>
+            </li>
+            @endif
+
 
 
         </ul>

@@ -24,7 +24,8 @@
 
             <div class="page-toolbar">
                 <div class="pull-right">
-                    <a href="generate_report.html" class="btn red"><i class="fa fa-file-image-o" aria-hidden="true"></i> Generate Report</a>
+                    <a href="generate_report.html" class="btn red"><i class="fa fa-file-image-o" aria-hidden="true"></i>
+                        Generate Report</a>
                     <a href="#" class="btn blue"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
                 </div>
             </div>
@@ -48,9 +49,11 @@
                             <span class="caption-subject font-red sbold uppercase">Choose Survay</span>
                         </div>
                         <div class="pull-right">
-                            <a class="btn red" data-toggle="modal" href="#basic"><i class="fa fa-bar-chart" aria-hidden="true"></i>&nbsp;Statistics For Two Question</a>
+                            <a class="btn red hidden" data-toggle="modal" href="#basic" id="question_stats_toggle"><i
+                                        class="fa fa-bar-chart"
+                                        aria-hidden="true"></i>&nbsp;Statistics
+                                For Two Question</a>
                         </div>
-
                     </div>
                     <div class="portlet-body">
                         <div class="row">
@@ -74,12 +77,14 @@
             </div>
         </div>
 
-        <div class="row hidden" id="questions_wrapper" >
+        <div class="row hidden" id="questions_wrapper">
             <div class="col-md-12">
                 <div class="portlet light portlet-fit bordered">
                     <div class="portlet-title">
                         <div class="">
-                            <div class="pull-left"><h4 class="font-red sbold uppercase"><i class="fa fa-list" aria-hidden="true"></i> Survay Questions list</h4></div>
+                            <div class="pull-left"><h4 class="font-red sbold uppercase"><i class="fa fa-list"
+                                                                                           aria-hidden="true"></i>
+                                    Survay Questions list</h4></div>
 
                         </div>
 
@@ -100,23 +105,21 @@
 
         <div id="question_template_holder" class="hidden">
             <div class="row question">
-                <a href="javascript:;" style="background-color:#DFDFDF" href="" class="list-group-item toggle-holder" ><i class="fa fa-minus" aria-hidden="true"></i> &nbsp; Question
+                <a href="javascript:;" style="background-color:#DFDFDF" href="" class="list-group-item toggle-holder"><i
+                            class="fa fa-minus" aria-hidden="true"></i> &nbsp; Question
 
                 </a>
-                <div class="data-holder" >
-                    <div class="list-group-item toggle-target" data-toggle="" >
+                <div class="data-holder">
+                    <div class="list-group-item toggle-target" data-toggle="">
                         <div class="row">
                             <div class="col-md-6 ">
                                 <ol class="answers-list">
-                                    <li>Answer</li>
-                                    <li>Answer</li>
-                                    <li>Answer</li>
-                                    <li>Answer</li>
+
                                 </ol>
 
                             </div>
                             <div class="col-md-6">
-                                <div  class="chart draw-canvas " style="height:230px;"> </div>
+                                <div class="chart draw-canvas " style="height:230px;"></div>
 
                             </div>
 
@@ -129,6 +132,55 @@
 
 
     </div>
+    <div class="modal fade bs-modal-lg" id="basic" tabindex="-1" role="basic" aria-hidden="true" style="display: none;">
+        <div class="modal-dialog modal-lg">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true"></button>
+                    <h4 class="modal-title"><i class="fa fa-info-circle" aria-hidden="true"></i> <span
+                                id="survey_label"></span></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-6">
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="icon-settings font-red"></i>
+                                        <span class="caption-subject font-red sbold uppercase">Questions</span>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body">
+                                    <div class="row" id="question_stats">
+
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="portlet light portlet-fit bordered">
+                                <div class="portlet-title">
+                                    <div class="caption">
+                                        <i class="i icon-layers font-red"></i>
+                                        <span class="caption-subject font-red sbold uppercase">Bar Chart </span>
+                                    </div>
+
+                                </div>
+                                <div class="portlet-body">
+                                    <div id="questions_stat_chart_canvas" class="chart draw_chart"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+            <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+    </div>
+
 
 @stop
 
@@ -137,15 +189,15 @@
 
 <script>
     $questions = [];
-    $('#project_select').on('change',function(e){
-        $.get(window.location.origin + "/listings/surveys/val".replace('val',$(this).val()),
-            function(data){
+    $('#project_select').on('change', function (e) {
+        $.get(window.location.origin + "/listings/surveys/val".replace('val', $(this).val()),
+            function (data) {
 
-                $options  = data.map(function(v){
-                    $questions[v.id]=v.questions;
+                $options = data.map(function (v) {
+                    $questions[v.id] = v;
                     $opt = document.createElement('option');
                     $opt.value = v.id;
-                    $opt.text  = v.subject;
+                    $opt.text = v.subject;
 
                     return $opt;
                 });
@@ -161,27 +213,31 @@
             })
 
     });
-    $('#survey_wrapper').on('change','#survey_select',function(){
+    $('#survey_wrapper').on('change', '#survey_select', function () {
         $('#questions_wrapper').removeClass('hidden');
         $template = $('#question_template_holder');
 
-        $list = ($(this).val() in $questions)? $questions[$(this).val()]: null ;
+
+        $list = ($(this).val() in $questions) ? $questions[$(this).val()].questions : null;
         $('#questions').html('');
-        if($list != null){
-            $question_list=	$list.map(function(v){
+        if ($list != null) {
+            $('#question_stats_toggle').attr('survey-id', $(this).val());
+            $('#question_stats_toggle').removeClass('hidden');
+            $('#survey_label').text($questions[$(this).val()].subject)
+            $question_list = $list.map(function (v) {
                 var $question = $($template).find('.question').clone(),
                     $link = $($question).find('.toggle-holder'),
                     $data_container = $($question).find('.data-holder').find('.toggle-target');
 
-                $link.html('<i class="fa fa-minus" aria-hidden="true"></i> &nbsp;'+v.body);
-                $link.attr('data-question-id',v.id);
-                $link.attr('href','#question_'+v.id);
-                $data_container.attr('id','question_'+v.id);
-                $data_container.data('toggle','question_'+v.id)
-                $data_container.find('ol.answers-list').html(v.answers.map(function(answer){
-                    return '<li>'+answer.answer+'</li>';
+                $link.html('<i class="fa fa-minus" aria-hidden="true"></i> &nbsp;' + v.body);
+                $link.attr('data-question-id', v.id);
+                $link.attr('href', '#question_' + v.id);
+                $data_container.attr('id', 'question_' + v.id);
+                $data_container.data('toggle', 'question_' + v.id)
+                $data_container.find('ol.answers-list').html(v.answers.map(function (answer) {
+                    return '<li>' + answer.answer + '</li>';
                 }));
-                $data_container.find('.chart.draw-canvas').attr('data-question-id',v.id);
+                $data_container.find('.chart.draw-canvas').attr('data-question-id', v.id);
 
                 return $question;
             });
@@ -189,7 +245,7 @@
             $charts = $('.chart.draw-canvas');
             $charts.each(function (i, v) {
                 var self = $(this);
-                $.get("{{route('endusers.org.projects.surveys.questions.chart','val')}}".replace('val',$(this).data('questionId')), function (data) {
+                $.get("{{route('endusers.org.projects.surveys.questions.chart','val')}}".replace('val', $(this).data('questionId')), function (data) {
                     self.html(data);
                     drawPieChart()
 
@@ -201,6 +257,59 @@
         }
 
     });
+
+    $('#question_stats_toggle').on('click', function () {
+        var $survey_id = $(this).attr('survey-id');
+        $.get("{{route('endusers.org.projects.surveys.questions.relationChart','val')}}".replace('val', $survey_id), function (data) {
+            $('#question_stats').html(data);
+            $('.selectpicker').selectpicker({
+                color: 'blue'
+            });
+            //
+            $('#first_ans').on('change', function (event) {
+                $('#second_ans optgroup').prop('disabled', function (i, v) {
+                    return v ? !v : v;
+                });
+                console.log($(this).val()[0], 'first answer val')
+                console.log($('#opt_question_' + $(this).val()[0].split('_')[0]).prop('disabled', true).prop('disabled'))
+
+                $('#second_ans option').prop('selected', function () {
+                    return this.defaultSelected;
+                });
+
+                $('#second_ans').selectpicker('destroy');
+                $('#second_ans').selectpicker({
+                    color: 'blue'
+                });
+                $('#second_question_wrapper').removeClass('hidden');
+                $('#question_stat').removeClass('hidden');
+
+            });
+            $('#second_ans').on('change', function (event) {
+                var dataSerialized_arr = $('#questions_stats_form').serializeArray();
+                dataSerialized_arr.map(function (v) {
+                    if (v.name == 'first_ans') {
+                        v.value = v.value.split('_')[1]
+                    }
+                })
+                $.get("{{route('endusers.org.projects.surveys.questions.visualizeRelation')}}", $.param(dataSerialized_arr), function (data) {
+                    $('#questions_stat_chart_canvas').html(data);
+                });
+            });
+            $('#question_stat').on('click',function(event){
+                var dataSerialized_arr = $('#questions_stats_form').serializeArray();
+                dataSerialized_arr.map(function (v) {
+                    if (v.name == 'first_ans') {
+                        v.value = v.value.split('_')[1]
+                    }
+                })
+                $.get("{{route('endusers.org.projects.surveys.questions.visualizeRelation')}}", $.param(dataSerialized_arr), function (data) {
+                    $('#questions_stat_chart_canvas').html(data);
+                });
+            });
+        })
+    });
+
 
 </script>
 @endpush

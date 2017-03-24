@@ -8,6 +8,15 @@ use Yajra\Datatables\Services\DataTable;
 
 class CitizensDatatable extends DataTable
 {
+    private $extra_column;
+
+    public function withColumn($name, $callback)
+    {
+        $this->extra_column['name'] = $name;
+        $this->extra_column['callback'] = $callback;
+        return $this;
+    }
+
     /**
      * Display ajax response.
      *
@@ -15,7 +24,7 @@ class CitizensDatatable extends DataTable
      */
     public function ajax()
     {
-        return $this->datatables
+        $dtabl = $this->datatables
             ->eloquent($this->query())
             ->editColumn('contactable', function ($citizen) {
                 return $citizen->contactable ? 'true' : '-';
@@ -32,8 +41,12 @@ class CitizensDatatable extends DataTable
                 $modelRoute = "Dashboard.ben.crud";
                 $id = $row->id;
                 return view('dashboard.layout.datatables_actions', compact('modelRoute', 'id'));
-            })
-            ->make(true);
+            });
+
+        if ($this->extra_column) {
+            $dtabl->addColumn($this->extra_column['name'], $this->extra_column['callback']);
+        }
+        return $dtabl->make(true);
     }
 
     /**
@@ -43,7 +56,7 @@ class CitizensDatatable extends DataTable
      */
     public function query()
     {
-        $query = Citizen::with(array('user', 'academicLevel', 'sectors', 'maritalStatus', 'age', 'areas', 'workingState', 'disability', 'refugeeState',))->selectRaw('distinct citizens.*');;;
+        $query = Citizen::with(array('user', 'academicLevel', 'sectors', 'maritalStatus', 'age', 'areas', 'workingState', 'disability', 'refugeeState',))->selectRaw('distinct citizens.*')->orderBy('id','desc');;;
 
         return $this->applyScopes($query);
     }
@@ -117,6 +130,7 @@ class CitizensDatatable extends DataTable
             ['data' => 'contactable', 'name' => 'contactable', 'title' => 'Contactable', 'searchable' => true],
             ['data' => 'created_at', 'name' => 'created_at', 'title' => 'Created At', 'searchable' => false],
             ['data' => 'updated_at', 'name' => 'updated_at', 'title' => 'Updated At', 'searchable' => false],
+
         ];
     }
 

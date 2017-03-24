@@ -43,7 +43,7 @@ class ProfileController extends Controller
         } else if ($user->isCitizen()) {
             return redirect()->route('endusers.ben.index');
         }else if ($user->isWorker()) {
-            return redirect()->route('endusers.ben.index');
+            return redirect()->route('endusers.worker.index');
         }
     }
 

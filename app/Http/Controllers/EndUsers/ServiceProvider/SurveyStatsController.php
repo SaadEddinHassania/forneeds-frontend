@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\EndUsers\ServiceProvider;
 
+use App\Models\Answer;
 use App\Models\Project;
 use App\Models\Question;
+use App\Models\Survey;
+use App\Models\Target;
+use App\Models\Users\Citizen;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Charts;
@@ -13,7 +17,10 @@ class SurveyStatsController extends Controller
     public function index()
     {
         $projects = Project::all()->pluck('name', 'id');
-        return view('endusers.organizations.surveyStats',compact('projects'));
+
+        return view('endusers.organizations.surveyStats', [
+            'projects' => $projects,
+        ]);
     }
 
     public function question_chart(Request $request, $id)
@@ -32,5 +39,42 @@ class SurveyStatsController extends Controller
         if ($request->isXmlHttpRequest()) {
             return $chart->render();
         }
+    }
+
+    public function relationChart($survey_id)
+    {
+        $survey = Survey::find($survey_id);
+        return view('endusers.organizations.forms.questions.stats', [
+            'libs' => config('charts.libs'),
+            'survey' => $survey
+        ]);
+    }
+
+    public function visualizeRelation(Request $request)
+    {
+        $theme = explode('_', $request->input('theme'));
+        $answers = [$request->input('first_ans'), $request->input('second_ans')];
+        $data = Answer::with('citizens')->whereIn('id', $answers)->get()->map(function ($v) {
+            return count($v->citizens);
+        })->toArray();
+        $labels = array_values(Answer::with('question')->whereIn('id', $answers)
+            ->get()->map(function ($v) {
+                return $v->question->body . ':'. $v->answer;
+            })->toArray());
+        $chart = Charts::create($theme[1], $theme[0])
+            ->title('Citizens that satisfy : ' . collect($labels)->map(function ($v) {
+                    return "({$v})";
+                })->implode(','))
+            ->elementLabel("Citizens")
+
+            ->responsive(false)
+            ->dimensions(0, 300)
+            ->labels($labels)
+            ->values(array_values($data))
+            ->responsive(false)->width(0)->height(300);
+
+
+        return $chart->render();
+
     }
 }

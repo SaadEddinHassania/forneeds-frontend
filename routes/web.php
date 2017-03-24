@@ -141,8 +141,8 @@ Route::group(['middleware' => 'auth'], function () {
 Route::group(['middleware' => ['auth'], 'prefix' => 'users', 'namespace' => 'EndUsers', 'as' => 'endusers.'], function () {
     Route::group(['middleware' => ['auth', 'checkUserType:serviceProvider'], 'prefix' => 'org', 'namespace' => 'ServiceProvider', 'as' => 'org.'], function () {
         Route::get('/dashboard', 'DashboardController@index')->name('index');
-        Route::group([ 'prefix' => 'projects', 'as' => 'projects.'], function () {
-           /*projects*/
+        Route::group(['prefix' => 'projects', 'as' => 'projects.'], function () {
+            /*projects*/
             Route::get('/index', 'ProjectsController@index')->name('list');
             Route::get('/create', 'ProjectsController@create')->name('create');
             Route::post('/', 'ProjectsController@store')->name('store');
@@ -169,6 +169,8 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'users', 'namespace' => 'End
             Route::patch('/surveys/questions/{id}', 'QuestionsController@update')->name('surveys.questions.update');
             Route::get('/surveys/questions/{id}/delete', 'QuestionsController@delete')->name('surveys.questions.delete');
             Route::get('/surveys/questions/{id}/chart', 'SurveyStatsController@question_chart')->name('surveys.questions.chart');
+            Route::get('/surveys/{survey_id}/questions/relations/chart', 'SurveyStatsController@relationChart')->name('surveys.questions.relationChart');
+            Route::get('/questions/relations/chart', 'SurveyStatsController@visualizeRelation')->name('surveys.questions.visualizeRelation');
             /*questions end*/
 
         });
@@ -177,6 +179,16 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'users', 'namespace' => 'End
     });
     Route::group(['middleware' => ['auth', 'checkUserType:citizen'], 'prefix' => 'ben', 'namespace' => 'Citizens', 'as' => 'ben.'], function () {
         Route::get('/dashboard', 'DashboardController@index')->name('index');
+        Route::get('/need/create', 'DashboardController@createNeed')->name('need.create');
+
+    });
+
+    Route::group(['middleware' => ['auth', 'checkUserType:worker'], 'prefix' => 'agents', 'namespace' => 'SocialWorkers', 'as' => 'worker.'], function () {
+        Route::get('/citizens', 'DashboardController@index')->name('index');
+        Route::get('citizens/create', 'DashboardController@createCitizen')->name('citizen.create');
+        Route::post('citizens/', 'DashboardController@storeCitizen')->name('citizen.store');
+        Route::get('{id}/imitate', 'DashboardController@loginas')->name('signinas');
+        Route::get('/unimitate', 'DashboardController@logoutas')->name('logoutas');
 
     });
 });
@@ -185,7 +197,7 @@ Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dash
 
     Route::get('/landing', 'DashboardController@index')->name('landing');
     Route::get('/notifications', function () {
-        foreach (Auth::user()->unreadNotifications  as $notification) {
+        foreach (Auth::user()->unreadNotifications as $notification) {
             $notification->markAsRead();
         }
     })->name('notifications');
