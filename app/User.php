@@ -104,7 +104,7 @@ class User extends Authenticatable
 
     Public function isWorker()
     {
-        return $this->hasOne(SocialWorker::class);
+        return $this->hasOne(SocialWorker::class)->exists();
     }
 
     public function getUserTypeAttribute()
