@@ -296,7 +296,7 @@
 
                                 </div>
                                 <div class="portlet-body">
-                                   <div>
+                                   <div class="row">
                                        <div class="col-md-6">
                                            <div class=" row form-group">
                                                {!! Form::label('sector_id', 'Theme:') !!}
