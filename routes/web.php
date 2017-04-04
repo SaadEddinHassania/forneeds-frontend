@@ -143,6 +143,7 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'users', 'namespace' => 'End
         Route::get('/dashboard', 'DashboardController@index')->name('index');
         Route::group(['prefix' => 'projects', 'as' => 'projects.'], function () {
             /*projects*/
+            Route::get('/report/{project_id?}', 'ReportController@index')->name('generate.report');
             Route::get('/index', 'ProjectsController@index')->name('list');
             Route::get('/create', 'ProjectsController@create')->name('create');
             Route::post('/', 'ProjectsController@store')->name('store');
@@ -169,17 +170,19 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'users', 'namespace' => 'End
             Route::patch('/surveys/questions/{id}', 'QuestionsController@update')->name('surveys.questions.update');
             Route::get('/surveys/questions/{id}/delete', 'QuestionsController@delete')->name('surveys.questions.delete');
             Route::get('/surveys/questions/{id}/chart', 'SurveyStatsController@question_chart')->name('surveys.questions.chart');
+            Route::post('/surveys/questions/{id}/chart', 'SurveyStatsController@question_chart_theme')->name('surveys.questions.chart.withtheme');
             Route::get('/surveys/{survey_id}/questions/relations/chart', 'SurveyStatsController@relationChart')->name('surveys.questions.relationChart');
             Route::get('/questions/relations/chart', 'SurveyStatsController@visualizeRelation')->name('surveys.questions.visualizeRelation');
             /*questions end*/
 
         });
         Route::get('/stats', 'SurveyStatsController@index')->name('stats');
-        Route::get('/report', 'CitizenStatsController@index')->name('report');
+        Route::get('/report', 'SurveyStatsController@index')->name('report');
     });
     Route::group(['middleware' => ['auth', 'checkUserType:citizen'], 'prefix' => 'ben', 'namespace' => 'Citizens', 'as' => 'ben.'], function () {
         Route::get('/dashboard', 'DashboardController@index')->name('index');
         Route::get('/need/create', 'DashboardController@createNeed')->name('need.create');
+        Route::get('/unimitate', 'DashboardController@logoutas')->name('logoutas');
 
     });
 
@@ -188,9 +191,9 @@ Route::group(['middleware' => ['auth'], 'prefix' => 'users', 'namespace' => 'End
         Route::get('citizens/create', 'DashboardController@createCitizen')->name('citizen.create');
         Route::post('citizens/', 'DashboardController@storeCitizen')->name('citizen.store');
         Route::get('{id}/imitate', 'DashboardController@loginas')->name('signinas');
-        Route::get('/unimitate', 'DashboardController@logoutas')->name('logoutas');
 
     });
+
 });
 
 Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dashboard', 'namespace' => 'Dashboard', 'as' => 'Dashboard.'], function () {
@@ -215,7 +218,6 @@ Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dash
             Route::get('{id}/delete', 'CrudController@destroy')->name('delete');
         });
         Route::post('/stats/', 'StatsController@render')->name('stats.post');
-        Route::get('/report', 'ReportingController@index')->name('report');
     });
     Route::group(['prefix' => 'Organizations', 'namespace' => 'Organizations', 'as' => 'org.'], function () {
         Route::group(['prefix' => 'crud', 'as' => 'crud.'], function () {
@@ -236,7 +238,6 @@ Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dash
         });
         Route::get('/search', 'SearchController@index')->name('search');
         Route::get('/rfp', 'PaymentController@index')->name('payment');
-        Route::get('/report', 'ReportingController@index')->name('report');
     });
     Route::group(['prefix' => 'Workers', 'namespace' => 'Workers', 'as' => 'work.'], function () {
         Route::group(['prefix' => 'crud', 'as' => 'crud.'], function () {
@@ -248,7 +249,6 @@ Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dash
             Route::get('{id}/delete', 'CrudController@destroy')->name('delete');
         });
         Route::get('/stats', 'StatsController@index')->name('stats');
-        Route::get('/report', 'ReportingController@index')->name('report');
         Route::get('/monitor', 'MandeController@index')->name('monitor');
         Route::get('/{id}/survey', 'MandeController@survery_workers')->name('survey');
         Route::get('/{id}/payment', 'MandeController@make_payment')->name('payment');

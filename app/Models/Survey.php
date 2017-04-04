@@ -4,6 +4,7 @@ namespace App\Models;
 
 use App\Models\Users\Citizen;
 use App\Models\Users\SocialWorker;
+use ConsoleTVs\Charts\Facades\Charts;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Builder;
@@ -92,13 +93,27 @@ class Survey extends Model
 
     ];
 
+    public function charts()
+    {
+        return $this->morphMany(Chart::class, 'chartable')
+            ->get()->map(function ($v) {
+                return Charts::create($v->theme_chart, $v->theme_lib)
+                    ->title($v->chart_title)
+                    ->elementLabel($v->element_label)
+                    ->responsive(false)
+                    ->dimensions(0, 300)
+                    ->labels($v->labels)
+                    ->values($v->values)
+                    ->responsive(false)->width(0)->height(300);
+            });
+    }
 
     public function getProgressAttribute()
     {
         $expire = $this->expires_at ? $this->expires_at->timestamp : Carbon::now()->addMonths(12)->timestamp;
         $starts = $this->starts_at ? $this->starts_at->timestamp : Carbon::now()->timestamp;
 
-        return ($expire - Carbon::now()->timestamp) / (($expire - $starts)+1) ;
+        return ($expire - Carbon::now()->timestamp) / (($expire - $starts) + 1);
     }
 
     public function Config()

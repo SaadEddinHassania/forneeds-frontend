@@ -145,7 +145,7 @@ License: You must have a valid license purchased only from themeforest(the above
                         <li class="divider"></li>
                         <li>
 
-                            <a href="@if($impersonator){{route('endusers.worker.logoutas')}} @else {{route('logout')}} @endif">
+                            <a href="@if($impersonator){{route('endusers.ben.logoutas')}} @else {{route('logout')}} @endif">
                                 <i class="icon-key"></i> Log Out </a>
                         </li>
                     </ul>

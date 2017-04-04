@@ -24,7 +24,7 @@
 
             <div class="page-toolbar">
                 <div class="pull-right">
-                    <a href="generate_report.html" class="btn red"><i class="fa fa-file-image-o" aria-hidden="true"></i>
+                    <a id="report-generate" href="{{route('endusers.org.projects.generate.report','val')}}" class="btn red hidden"><i class="fa fa-file-image-o" aria-hidden="true"></i>
                         Generate Report</a>
                     <a href="#" class="btn blue"><i class="fa fa-download" aria-hidden="true"></i> Download</a>
                 </div>
@@ -61,7 +61,7 @@
                                 <div class="form-group">
                                     <div class="form-group col-sm-12">
                                         {!! Form::label('project_select', 'Project:') !!}
-                                        {{ Form::select('project_select', $projects ,array(),['class'=>'selectpicker form-control','data-style'=>"btn-default",'id'=>'project_select']) }}
+                                        {{ Form::select('project_select',[null => 'please select project']+ $projects->toArray() ,array(),['class'=>'selectpicker form-control','data-style'=>"btn-default",'id'=>'project_select']) }}
                                     </div>
                                 </div>
                                 <div class="form-group  hidden" id="survey_wrapper">
@@ -163,7 +163,7 @@
                                 <div class="portlet-title">
                                     <div class="caption">
                                         <i class="i icon-layers font-red"></i>
-                                        <span class="caption-subject font-red sbold uppercase">Bar Chart </span>
+                                        <span class="caption-subject font-red sbold uppercase"> Chart </span>
                                     </div>
 
                                 </div>
@@ -189,8 +189,18 @@
 
 <script>
     $questions = [];
+
     $('#project_select').on('change', function (e) {
-        $.get(window.location.origin + "/listings/surveys/val".replace('val', $(this).val()),
+        var project_id = $(this).val(),
+            generate_href = $('#report-generate').attr('href');
+      //  console.log(generate_href,project_id,generate_href.replace('val',project_id))
+      //  console.log($('#report-generate').attr('href').replace('val', $(this).val()))
+
+        if(project_id){
+            $('#report-generate').attr('href',generate_href.replace('val', project_id));
+            $('#report-generate').removeClass('hidden')
+        }
+        $.get(window.location.origin + "/listings/surveys/val".replace('val', project_id),
             function (data) {
 
                 $options = data.map(function (v) {
@@ -213,6 +223,7 @@
             })
 
     });
+    $('#project_select').change();
     $('#survey_wrapper').on('change', '#survey_select', function () {
         $('#questions_wrapper').removeClass('hidden');
         $template = $('#question_template_holder');

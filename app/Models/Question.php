@@ -60,7 +60,10 @@ class Question extends Model
         'order',
         'deleted_at'
     ];
-
+    public function charts()
+    {
+        return $this->morphMany(Chart::class, 'chartable');
+    }
     /**
      * The attributes that should be casted to native types.
      *

@@ -28,4 +28,11 @@ class DashboardController extends Controller
             'areas' => Area::all()
         ]);
     }
+    public function logoutas()
+    {
+        Auth::loginUsingId(session('impersonator'));
+        session()->set('impersonator', null);
+
+        return redirect()->route('endusers.worker.index');
+    }
 }

@@ -21,7 +21,7 @@ class ComposerServiceProvider extends ServiceProvider
 //        );
 
         // Using Closure based composers...
-        View::composer(['dashboard.layout.dashboard','endusers.layout.dashboard','endusers.citizens.menu'], function ($view) {
+        View::composer(['dashboard.layout.dashboard','endusers.organizations.report','endusers.layout.dashboard_no_sidebar','endusers.layout.dashboard','endusers.citizens.menu'], function ($view) {
             $view->with('auth_user', Auth::user());
             $view->with('impersonator',session('impersonator'));
         });

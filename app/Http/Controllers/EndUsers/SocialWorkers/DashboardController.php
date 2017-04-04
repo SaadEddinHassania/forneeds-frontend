@@ -46,13 +46,7 @@ class DashboardController extends Controller
         return redirect()->route('endusers.ben.index');
     }
 
-    public function logoutas()
-    {
-        session()->set('impersonator', null);
 
-        Auth::loginUsingId(session('impersonator'));
-        return redirect()->route('endusers.worker.index');
-    }
 
 
     public function createCitizen()

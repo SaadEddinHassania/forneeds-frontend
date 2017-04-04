@@ -7,8 +7,36 @@ use Illuminate\Database\Eloquent\Model;
 
 class Chart extends Model
 {
-    public function service_provider()
+    protected $fillable = [
+        'theme_lib',
+        'theme_chart',
+        'element_label',
+        'chart_title',
+        'labels',
+        'values',
+        'datasets',
+    ];
+    protected $casts = [
+        'labels' => 'array',
+        'values' => 'array',
+        'datasets' => 'array',
+    ];
+
+
+    public function user()
     {
-        return $this->belongsTo(ServiceProvider::class);
+        return $this->belongsTo(User::class);
     }
+
+    public function chartable()
+    {
+        return $this->morphTo();
+    }
+
+    public function question()
+    {
+        return $this->morphTo(Question::class,'chartable');
+    }
+
+
 }
