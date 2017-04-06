@@ -768,7 +768,7 @@ License: You must have a valid license purchased only from themeforest(the above
                                 <input class="form-control input-inline input-sm input-small" value="3560"/></li>
                             <li> Notify On System Error
                                 <input type="checkbox" class="make-switch" checked data-size="small"
-                                       data-on-color="danger" data-on-text="ON" data-off-color="default"
+                                       data-on-color="danger" d ata-on-text="ON" data-off-color="default"
                                        data-off-text="OFF"></li>
                             <li> Notify On SMTP Error
                                 <input type="checkbox" class="make-switch" checked data-size="small"

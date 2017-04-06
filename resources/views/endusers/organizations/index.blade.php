@@ -151,7 +151,7 @@
                             </div>
 
 
-                            <div class="margin-bottom-10 visible-sm"></div>
+                            <div class="margin-bottom-20 visible-sm"></div>
                             <div class="col-md-2">
                                 <span class="capitalize">people in need</span>
 

@@ -67,7 +67,8 @@
                     </div>
                     <div class="details">
                         <div class="number">
-                            <span data-counter="counterup" data-value="549">0</span>
+                            <span data-counter="counterup"
+                                  data-value="{{$surveys->count()}}">{{$surveys->count()}}</span>
                         </div>
                         <div class="desc"> Survays to fillfull</div>
                     </div>
@@ -132,42 +133,118 @@
                             <div class="scroller" style="height: 312px;" data-always-visible="1" data-rail-visible1="1">
                                 <!-- START TASK LIST -->
                                 <ul class="task-list">
-                                    <li>
+                                  <div class="row">
+                                      <li class="col-md-4">
 
-                                        <div class="task-title">
-													    <span class="easy-pie-chart">
-															<div class="number transactions" data-percent="55"
-                                                                 style="display:inline-block">
-																<span>+55</span>% </div>
-														</span>
-                                            <span class="task-title-sp"> brief description of organization </span>
-                                        </div>
+                                          <div class="task-title">
+                                              <div class="row text-center">
+                                                  <span class="capitalize">people in need</span>
+                                                  <div class="easy-pie-chart">
+                                                      <div class="number visits" data-percent="51.5">
+                                                          <span>-51.5</span>%
+                                                          <canvas height="75" width="75"></canvas>
+                                                      </div>
+                                                      <span class="capitalize">protection</span>
+                                                  </div>
+                                              </div>
+                                          </div>
+                                      </li>
+                                      <li class="col-md-4">
 
-                                    </li>
-                                    <li>
+                                          <div class="task-title">
+                                              <div class="row text-center">
 
-                                        <div class="task-title">
-													    <span class="easy-pie-chart">
-															<div class="number bounce" data-percent="15"
-                                                                 style="display:inline-block">
-																<span>+15</span>% </div>
-														</span>
-                                            <span class="task-title-sp"> brief description of organization </span>
-                                        </div>
+                                                  <span class="capitalize">people in need</span>
 
-                                    </li>
-                                    <li>
+                                                  <div class="easy-pie-chart">
+                                                      <div class="number transactions" data-percent="52.5">
+                                                          <span>-52.5</span>%
+                                                          <canvas height="75" width="75"></canvas>
+                                                      </div>
+                                                  </div>
+                                                  <span class="capitalize">Food security</span>
 
-                                        <div class="task-title">
-													    <span class="easy-pie-chart">
-															<div class="number visits" data-percent="85"
-                                                                 style="display:inline-block">
-																<span>+85</span>% </div>
-														</span>
-                                            <span class="task-title-sp"> brief description of organization </span>
-                                        </div>
+                                              </div>
+                                          </div>
 
-                                    </li>
+                                      </li>
+                                      <li class="col-md-4">
+
+                                          <div class="task-title">
+                                              <div class="row text-center">
+
+                                                  <span class="capitalize">people in need</span>
+
+                                                  <div class="easy-pie-chart">
+                                                      <div class="number bounce" data-percent="47">
+                                                          <span>-47</span>%
+                                                          <canvas height="75" width="75"></canvas>
+                                                      </div>
+                                                  </div>
+                                                  <span class="capitalize">Shelter</span>
+
+                                              </div>
+                                          </div>
+
+                                      </li>
+                                  </div>
+                                    <div class="margin-bottom-10"></div>
+                                    <div class="row">
+                                       <li class="col-md-4">
+
+                                           <div class="task-title">
+                                               <div class="row text-center">
+                                                   <span class="capitalize">people in need</span>
+
+                                                   <div class="easy-pie-chart">
+                                                       <div class="number bounce" data-percent="65.5">
+                                                           <span>-65.4</span>%
+                                                           <canvas height="75" width="75"></canvas>
+                                                       </div>
+                                                       <span clas="capitalize">WASH </span>
+                                                   </div>
+
+                                               </div>
+                                           </div>
+
+                                       </li>
+                                       <li class="col-md-4">
+
+                                           <div class="task-title">
+                                               <div class="row text-center">
+
+                                                   <span class="capitalize">people in need</span>
+
+                                                   <div class="easy-pie-chart">
+                                                       <div class="number visits" data-percent="23.1">
+                                                           <span>-23.1</span>%
+                                                           <canvas height="75" width="75"></canvas>
+                                                       </div>
+                                                       <span clas="capitalize">Education</span>
+                                                   </div>
+
+                                               </div>
+                                           </div>
+
+                                       </li>
+                                       <li class="col-md-4">
+
+                                           <div class="task-title">
+                                               <div class="row text-center">
+                                                   <span class="capitalize">people in need</span>
+
+                                                   <div class="easy-pie-chart">
+                                                       <div class="number transactions" data-percent="57.9">
+                                                           <span>-57.9</span>%
+                                                           <canvas height="75" width="75"></canvas>
+                                                       </div>
+                                                       <span clas="capitalize">health and Nutrition</span>
+
+                                                   </div>
+                                               </div>
+                                           </div>
+                                       </li>
+                                   </div>
 
                                 </ul>
                                 <!-- END START TASK LIST -->
@@ -206,5 +283,8 @@
 <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCefOgb1ZWqYtj7raVSmN4PL2WkTrc-KyA&sensor=false"></script>
 <script src="{{asset('/dashboard/assets/global/plugins/gmaps/gmaps.min.js')}}" type="text/javascript"></script>
 <script src="{{asset('/dashboard/assets/js/maps.js')}}" type="text/javascript"></script>
-
+<script src="{{asset('dashboard/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}"
+        type="text/javascript"></script>
+<script src="http://forneeds-frontend.dev/dashboard/assets/pages/scripts/dashboard.min.js"
+        type="text/javascript"></script>
 @endpush
