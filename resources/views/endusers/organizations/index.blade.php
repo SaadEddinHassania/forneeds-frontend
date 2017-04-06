@@ -2,6 +2,11 @@
 @section('menu')
     @include('endusers.organizations.menu')
 @stop
+
+@push('page_style_plugins')
+<link href="{{asset('/assets/layouts/layout2/css/layout.css')}}" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/morris.js/0.5.1/morris.css">
+@endpush
 @section('content')
     <!-- BEGIN CONTENT BODY -->
     <div class="page-content">
@@ -120,61 +125,79 @@
                     <div class="portlet-body">
                         <div class="row">
                             <div class="col-md-2">
+                                <span class="capitalize">people in need</span>
                                 <div class="easy-pie-chart">
-                                    <div class="number transactions" data-percent="55">
-                                        <span>+55</span>% <canvas height="75" width="75"></canvas></div>
-                                    <a class="title" href="javascript:;"> Transactions
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
+                                    <div class="number visits" data-percent="51.5">
+                                        <span>-51.5</span>%
+                                        <canvas height="75" width="75"></canvas>
+                                    </div>
+                                    <span class="capitalize">protection</span>
+
+                                </div>
+
+                            </div>
+                            <div class="margin-bottom-10 visible-sm"></div>
+
+                            <div class="col-md-2">
+                                <span class="capitalize">people in need</span>
+
+                                <div class="easy-pie-chart">
+                                    <div class="number transactions" data-percent="52.5">
+                                        <span>-52.5</span>%
+                                        <canvas height="75" width="75"></canvas>
+                                    </div>
+                                    <span class="capitalize">Food security</span>
                                 </div>
                             </div>
-                            <div class="margin-bottom-10 visible-sm"> </div>
+
+
+                            <div class="margin-bottom-10 visible-sm"></div>
                             <div class="col-md-2">
+                                <span class="capitalize">people in need</span>
+
                                 <div class="easy-pie-chart">
-                                    <div class="number visits" data-percent="85">
-                                        <span>+85</span>% <canvas height="75" width="75"></canvas></div>
-                                    <a class="title" href="javascript:;"> New Visits
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
+                                    <div class="number bounce" data-percent="47">
+                                        <span>-47</span>%
+                                        <canvas height="75" width="75"></canvas>
+                                    </div>
+                                    <span class="capitalize">Shelter</span>
                                 </div>
                             </div>
-                            <div class="margin-bottom-10 visible-sm"> </div>
+                            <div class="margin-bottom-10 visible-sm"></div>
                             <div class="col-md-2">
+                                <span class="capitalize">people in need</span>
+
                                 <div class="easy-pie-chart">
-                                    <div class="number bounce" data-percent="46">
-                                        <span>-46</span>% <canvas height="75" width="75"></canvas></div>
-                                    <a class="title" href="javascript:;"> Bounce
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
+                                    <div class="number bounce" data-percent="65.5">
+                                        <span>-65.4</span>%
+                                        <canvas height="75" width="75"></canvas>
+                                    </div>
+                                    <span clas="capitalize">WASH </span>
                                 </div>
                             </div>
+                            <div class="margin-bottom-10 visible-sm"></div>
                             <div class="col-md-2">
+                                <span class="capitalize">people in need</span>
+
                                 <div class="easy-pie-chart">
-                                    <div class="number transactions" data-percent="55">
-                                        <span>+55</span>% <canvas height="75" width="75"></canvas></div>
-                                    <a class="title" href="javascript:;"> Transactions
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
+                                    <div class="number visits" data-percent="23.1">
+                                        <span>-23.1</span>%
+                                        <canvas height="75" width="75"></canvas>
+                                    </div>
+                                    <span clas="capitalize">Education</span>
                                 </div>
                             </div>
-                            <div class="margin-bottom-10 visible-sm"> </div>
+                            <div class="margin-bottom-10 visible-sm"></div>
                             <div class="col-md-2">
+                                <span class="capitalize">people in need</span>
+
                                 <div class="easy-pie-chart">
-                                    <div class="number visits" data-percent="85">
-                                        <span>+85</span>% <canvas height="75" width="75"></canvas></div>
-                                    <a class="title" href="javascript:;"> New Visits
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
-                                </div>
-                            </div>
-                            <div class="margin-bottom-10 visible-sm"> </div>
-                            <div class="col-md-2">
-                                <div class="easy-pie-chart">
-                                    <div class="number bounce" data-percent="46">
-                                        <span>-46</span>% <canvas height="75" width="75"></canvas></div>
-                                    <a class="title" href="javascript:;"> Bounce
-                                        <i class="icon-arrow-right"></i>
-                                    </a>
+                                    <div class="number transactions" data-percent="57.9">
+                                        <span>-57.9</span>%
+                                        <canvas height="75" width="75"></canvas>
+                                    </div>
+                                    <span clas="capitalize">health and Nutrition</span>
+
                                 </div>
                             </div>
                         </div>
@@ -188,3 +211,11 @@
 
     </div>
 @stop
+
+@push('page_script_plugins')
+<script src="{{asset('dashboard/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}"
+        type="text/javascript"></script>
+<script src="http://forneeds-frontend.dev/dashboard/assets/pages/scripts/dashboard.min.js" type="text/javascript"></script>
+
+
+@endpush
