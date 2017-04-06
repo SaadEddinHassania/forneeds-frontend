@@ -251,7 +251,7 @@ Route::group(['middleware' => ['auth', 'checkUserType:admin'], 'prefix' => 'dash
         Route::get('/stats', 'StatsController@index')->name('stats');
         Route::get('/monitor', 'MandeController@index')->name('monitor');
         Route::get('/{id}/survey', 'MandeController@survery_workers')->name('survey');
-        Route::get('/{id}/payment', 'MandeController@make_payment')->name('payment');
+        Route::get('/{id}/survey/{worker_id}/worker/payment', 'MandeController@make_payment')->name('payment');
         Route::get('/{id}/message', 'MandeController@message')->name('message');
         Route::get('/hire/', 'HiringController@index')->name('hire');
         Route::get('{id}/applicants', 'HiringController@applicants')->name('applicants');

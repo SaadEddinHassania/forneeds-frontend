@@ -3,9 +3,9 @@
 namespace App\DataTables;
 
 use App\Models\Users\Citizen;
-use Maatwebsite\Excel\Writers\LaravelExcelWriter;
 use Yajra\Datatables\Services\DataTable;
-
+use Maatwebsite\Excel\Classes\LaravelExcelWorksheet;
+use Maatwebsite\Excel\Writers\LaravelExcelWriter;
 class CitizensDatatable extends DataTable
 {
     private $extra_column;
@@ -75,6 +75,7 @@ class CitizensDatatable extends DataTable
             ->parameters([
                 'dom' => 'lBfrtip',
                 'scrollX' => false,
+                'paging'=>'full',
 //'initComplete' => "function () {
 //                console.log(this.api().columns().every(function(){console.log(this.data().unique())}));
 //
@@ -134,22 +135,6 @@ class CitizensDatatable extends DataTable
         ];
     }
 
-    /**
-     * Build excel file and prepare for export.
-     *
-     * @return \Maatwebsite\Excel\Writers\LaravelExcelWriter
-     */
-    protected function buildExcelFile()
-    {
-        /** @var \Maatwebsite\Excel\Excel $excel */
-        $excel = app('excel');
-
-        return $excel->create($this->filename(), function (LaravelExcelWriter $excel) {
-            $excel->sheet('exported-data', function (LaravelExcelWorksheet $sheet) {
-                $sheet->fromArray($this->getDataForExport());
-            });
-        });
-    }
 
     /**
      * Get filename for export.

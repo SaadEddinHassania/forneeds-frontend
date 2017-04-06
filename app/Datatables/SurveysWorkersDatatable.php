@@ -20,7 +20,9 @@ class SurveysWorkersDatatable extends DataTable
             ->addColumn('action', function ($row) {
                 $modelRoute = "Dashboard.work";
                 $id = $row->id;
-                return view('dashboard.workers.actions', compact('modelRoute', 'id'));
+                $survey_id = $this->request()->has('survey_id') ? $this->request()->input('survey_id') : 0;
+
+                return view('dashboard.workers.actions', compact('modelRoute', 'survey_id', 'id'));
             })
             ->make(true);
     }
@@ -33,7 +35,7 @@ class SurveysWorkersDatatable extends DataTable
     public function query()
     {
         $request = $this->request();
-        $query = SocialWorker::with(array('user','surveys'))->selectRaw('distinct social_workers.*');
+        $query = SocialWorker::with(array('user', 'surveys'))->selectRaw('distinct social_workers.*');
 
 
         if ($request->has('survey_id')) {

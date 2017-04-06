@@ -18,6 +18,7 @@ class CreateSocialWorkerSurveyPivotTable extends Migration
             $table->integer('survey_id')->unsigned()->index();
             $table->foreign('survey_id')->references('id')->on('surveys')->onDelete('cascade');
             $table->primary(['social_worker_id', 'survey_id']);
+            $table->integer('count')->default(1);
         });
     }
 

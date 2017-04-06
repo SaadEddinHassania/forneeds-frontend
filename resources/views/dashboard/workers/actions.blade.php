@@ -6,11 +6,11 @@
     </button>
     <ul class="dropdown-menu pull-right" role="menu">
         <li>
-            <a href="{{route($modelRoute.'.message',$id)}}">
+            <a onclick="alert('not implemented yet');return false;" href="{{route($modelRoute.'.message',$id)}}">
                 <i class="fa fa-commenting-o" aria-hidden="true"></i> Send Message</a>
         </li>
         <li>
-            <a href="{{route($modelRoute.'.payment',$id)}}">
+            <a href="{{route($modelRoute.'.payment',[$survey_id,$id])}}">
                 <i class="fa fa-money" aria-hidden="true"></i> Payment</a>
         </li>
     </ul>

@@ -10,7 +10,7 @@ return [
 
     'default' => [
         'type' => 'line',
-        'library' => 'google',
+        'library' => 'chartjs',
         'element_label' => 'Element',
         'title' => 'My chart',
         'height' => 400,

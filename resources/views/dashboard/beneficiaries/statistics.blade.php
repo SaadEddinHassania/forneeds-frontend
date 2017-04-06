@@ -144,6 +144,11 @@
                             <span class="caption-subject font-red sbold uppercase">Pio Chart based on <span
                                         class="attribute_name">(<span id="chart-label"></span>)</span></span>
                         </div>
+                        <div class="actions">
+
+                            <button href="#" class="btn  blue ">
+                                <i class="fa fa-print"></i> Print </button>
+                        </div>
 
                     </div>
                     <div class="portlet-body">

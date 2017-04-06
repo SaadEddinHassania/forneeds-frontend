@@ -6,8 +6,10 @@ use App\DataTables\SurveysWorkersDatatable;
 use App\Models\Project;
 use App\Models\Survey;
 use App\Models\Users\ServiceProvider;
+use App\Models\Users\SocialWorker;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Mail;
 
 class MandeController extends Controller
 {
@@ -33,9 +35,22 @@ class MandeController extends Controller
         ]);
     }
 
-    public function make_payment()
+    public function message(Request $request)
     {
-        return view('dashboard.workers.forms.payment');
+        $title = $request->input('title');
+        $message = $request->input('message');
+        Mail::send('emails.send', ['title' => $title, 'message' => $message], function ($message) {
+            $message->from('no-reply@scotch.io', 'Scotch.IO');
+            $message->to('batman@batcave.io');
+        });
+    }
+
+    public function make_payment($id, $worker_id)
+    {
+        return view('dashboard.workers.forms.payment', [
+            'survey' => Survey::find($id),
+            'worker' => SocialWorker::find($id)
+        ]);
     }
 
     public function store_payment()

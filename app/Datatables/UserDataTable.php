@@ -26,10 +26,10 @@ class UserDataTable extends DataTable
             ->addColumn('action', function ($row) {
                 $modelRoute = "Dashboard.admin.crud";
                 $id = $row->id;
-                return view('dashboard.layout.datatables_actions', compact('modelRoute','id'));
+                return view('dashboard.layout.datatables_actions', compact('modelRoute', 'id'));
             })
             ->editColumn('avatar', function ($row) {
-                return '<img src="'.route('admin.users.image',['id'=>$row->id]).'"  width=70 alt=""></div>';
+                return '<img src="' . route('admin.users.image', ['id' => $row->id]) . '"  width=70 alt=""></div>';
             })
 //            ->editColumn('user_type', function ($row) {
 //                if($row->isServiceProvider()){
@@ -52,7 +52,7 @@ class UserDataTable extends DataTable
      */
     public function query()
     {
-        $users = User::query();
+        $users = User::with('citizen')->selectRaw('distinct users.*');
         return $this->applyScopes($users);
     }
 
@@ -96,10 +96,10 @@ class UserDataTable extends DataTable
     private function getColumns()
     {
         return [
-            'avatar' => ['name' => 'avatar', 'data' => 'avatar','searchable'=>false,'orderable'=>false,'width'=>'20px'],
+            'avatar' => ['name' => 'avatar', 'data' => 'avatar', 'searchable' => false, 'orderable' => false, 'width' => '20px'],
             'name' => ['name' => 'name', 'data' => 'name'],
             'email' => ['name' => 'email', 'data' => 'email'],
-            'user_type' =>['name' => 'user_type', 'data' => 'user_type','searchable'=>false,'orderable'=>true],
+            'user_type' => ['name' => 'user_type', 'data' => 'user_type', 'searchable' => false, 'orderable' => true],
 
         ];
     }

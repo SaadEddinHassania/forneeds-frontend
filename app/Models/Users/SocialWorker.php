@@ -46,6 +46,14 @@ class SocialWorker extends Model
         }
     }
 
+
+    public function calculatePayment($survey)
+    {
+
+        $surveys = $this->surveys()->withPivot('count')->where('id', $survey)->select('social_worker_survey.count')->first();
+        return [$surveys->count, .5, $surveys->count * .5];
+    }
+
     public function getAgeAttribute()
     {
         return Age::where('id', $this->age_id)->first() ? Age::where('id', $this->age_id)->first()->name : '';

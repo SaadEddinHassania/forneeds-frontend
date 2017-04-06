@@ -127,7 +127,7 @@
         <!-- BEGIN TEXT & VIDEO -->
 
         <?php $sp = $auth_user->serviceProvider()->first(); ?>
-        <div class="row margin-bottom-40">
+        <div id="print-target" class="row margin-bottom-40">
             <div class="col-lg-12">
                 <div class="portlet light about-text" style="height: auto;padding-bottom: 15px !important;">
                     <h3 class="page-title"> About For Needs
@@ -300,7 +300,7 @@
                                        <div class="col-md-6">
                                            <div class=" row form-group">
                                                {!! Form::label('sector_id', 'Theme:') !!}
-                                               {{Form::select('theme',$libs,'google_pie',['class'=>'theme-input select2me show-tick show-menu-arrow form-control','data-style'=>"btn-default",'data-survey'=>$survey->id]) }}
+                                               {{Form::select('theme',$libs,'chartjs_pie',['class'=>'theme-input select2me show-tick show-menu-arrow form-control','data-style'=>"btn-default",'data-survey'=>$survey->id]) }}
                                                <input type="hidden" name="multi" value="true">
                                            </div>
                                            <div class="row">
@@ -390,14 +390,14 @@
             <ul class="fab-menu-inner">
                 <li>
                     <a data-trigger="hover" data-toggle="popover" data-placement="left" data-content="print"
-                       class="btn-floating btn-large blue rounded modal-toggle-action" data-toggle="modal"
+                       class="btn-floating print-btn btn-large blue rounded modal-toggle-action" data-toggle="modal"
                        data-target="#myModal">
                         <i class="fa fa-print"></i>
                     </a>
                 </li>
                 <li>
                     <a data-trigger="hover" data-toggle="popover" data-placement="left" data-content="save"
-                       class="btn-floating btn-large orange rounded modal-toggle-action" data-toggle="modal"
+                       class="btn-floating save-btn btn-large orange rounded modal-toggle-action" data-toggle="modal"
                        data-target="#myModal">
                         <i class="fa fa-save"></i>
                     </a>
@@ -473,6 +473,10 @@
             </div><!-- modal-dialog -->
         </div><!-- modal -->
     </div>
+    <div id="print-assets" class="hidden">
+        <canvas id="canvas"></canvas>
+        <div id="can_f"></div>
+    </div>
     <!-- END CONTENT BODY -->
 @endsection
 
@@ -485,7 +489,8 @@
 <script src="{{asset('dashboard/assets/global/plugins/jquery-easypiechart/jquery.easypiechart.min.js')}}"
         type="text/javascript"></script>
 <script src="{{asset('dashboard/assets/pages/scripts/dashboard.min.js')}}" type="text/javascript"></script>
-
+<script src="{{asset('/assets/html2canvas.js')}}"></script>
+<script src="{{asset('/assets/print.elem.js')}}"></script>
 {!! Charts::assets() !!}
 
 <script>
@@ -518,6 +523,24 @@
                     self.html(data);
                 });
         });
+
+        $('.print-btn').on('click',function(){
+            $('.theme-input').addClass('hidden');
+            PrintElem('print-target')
+            setTimeout(function(){
+                $('.theme-input').removeClass('hidden');
+            },0)
+
+        })
+
+        $('.save-btn').on('click',function(){
+            $('.theme-input').addClass('hidden');
+            print_voucher('print-target')
+            setTimeout(function(){
+                $('.theme-input').removeClass('hidden');
+            },0)
+
+        })
         $('.theme-input').on('change', function () {
             var survey_id = $(this).data('survey'),
                 val = $(this).val();
@@ -535,6 +558,5 @@
 
     })
 </script>
-<script src="{{asset('/assets/pages/scripts/ui-nestable.min.js')}}" type="text/javascript"></script>
 
 @endpush
